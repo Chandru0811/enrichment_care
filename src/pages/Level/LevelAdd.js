@@ -138,7 +138,7 @@ function LevelAdd({ onSuccess }) {
               </div>
             </div>
             <Modal.Footer>
-              <Button type="button" variant="secondary" onClick={handleClose}>
+              <Button type="button" variant="secondary" onClick={handleClose} className="btn-sm">
                 Cancel
               </Button>
               <Button
@@ -152,7 +152,7 @@ function LevelAdd({ onSuccess }) {
                     aria-hidden="true"
                   ></span>
                 )}
-                Submit
+                Save
               </Button>
               {/* <Button variant="danger" type="submit">
                 Submit

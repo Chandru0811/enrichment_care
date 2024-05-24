@@ -119,7 +119,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
               <div class="input-group-text inputGroup">
                 <input
                   type="color"
-                  className="form-control-color circle"
+                  className="circle"
                   {...formik.getFieldProps("colorCode")}
                 />
               </div>

@@ -488,15 +488,15 @@ table.dataTable thead > tr {
 
 /* MultiStepFrom  */
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
-  color: #f3c8a2 !important;
+  color: #5594d4 !important;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-  color: #ff7903 !important;
+  color: #1976d2 !important;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-  color: #e99e5e !important;
+  color: #1976d2 !important;
 }
 
 /* thead tr th {
@@ -716,3 +716,16 @@ a:hover {
 .nav-links .submenu li{
   list-style: none;
 }
+
+@media screen and (max-width: 991px) {
+  .header-logo{
+   position: relative;
+   right: 16rem;
+  }
+ }
+ @media screen and (max-width: 701px) {
+  .header-logo{
+   position: relative;
+   right: 0;
+  }
+ }

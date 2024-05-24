@@ -8,6 +8,8 @@ import { FaEye } from "react-icons/fa";
 import LevelEdit from "./LevelEdit";
 // import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
+import LevelAdd from "./LevelAdd";
+
 
 const Level = () => {
   const tableRef = useRef(null);
@@ -77,12 +79,12 @@ const Level = () => {
           <div className="my-3 d-flex justify-content-between mb-5 px-4">
             <h2>Level</h2>
 
-            <Link to="/level/add">
+            {/* <Link to="/level/add">
               <button type="button" className="btn btn-button btn-sm">
                 Add <i class="bx bx-plus"></i>
               </button>
-            </Link>
-
+            </Link> */}
+<LevelAdd />
           </div>
           <hr />
           {loading ? (

@@ -72,6 +72,7 @@ function Edit({ id, onSuccess }) {
       <button className="btn btn-sm" onClick={handleShow}>
         <FaEdit />
       </button>
+   
       <Modal
         show={show}
         onHide={handleClose}
@@ -165,7 +166,7 @@ function Edit({ id, onSuccess }) {
               </div>
             </div>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
+              <Button variant="secondary" onClick={handleClose} className="btn-sm">
                 Cancel
               </Button>
               <button

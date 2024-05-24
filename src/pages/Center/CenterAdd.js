@@ -138,7 +138,7 @@ function CenterAdd() {
               <input
                 type="text"
                 name="centerName"
-                className={`form-control  ${
+                className={`form-control form-control-sm ${
                   formik.touched.centerName && formik.errors.centerName
                     ? "is-invalid"
                     : ""

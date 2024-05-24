@@ -160,7 +160,7 @@ function SubjectAdd({ onSuccess }) {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" onClick={handleClose}  className="btn-sm">
               Cancel
             </Button>
             <Button
@@ -174,7 +174,7 @@ function SubjectAdd({ onSuccess }) {
                     aria-hidden="true"
                   ></span>
                 )}
-                Submit
+                Save
               </Button>
           </Modal.Footer>
         </form>

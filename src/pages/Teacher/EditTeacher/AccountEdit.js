@@ -236,14 +236,14 @@ const AccountEdit = forwardRef(({ formData,setLoadIndicators, setFormData, handl
           </div>
           <div class="col-md-6 col-12 mb-2 mt-3">
             <label>
-              Color Code<span class="text-danger">*</span>
+              Color Code
             </label>
             <div class="input-group mb-3 courseAdd">
               <div class="input-group-text inputGroup">
                 <input
                   type="color"
                   {...formik.getFieldProps("colorCode")}
-                  className="form-control-color  circle"
+                  className="circle"
                 />
               </div>
               <input

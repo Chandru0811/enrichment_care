@@ -80,11 +80,12 @@ const Subject = () => {
    
       <div className="my-3 d-flex justify-content-between mb-5">
       <h2>Subject</h2>
-          <Link to="/subject/add">
+          {/* <Link to="/subject/add">
             <button type="button" className="btn btn-button btn-sm">
               Add <i class="bx bx-plus"></i>
             </button>
-          </Link>
+          </Link> */}
+          <SubjectAdd />
     
       </div>
 <hr/>

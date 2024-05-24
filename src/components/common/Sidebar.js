@@ -330,7 +330,7 @@ function Sidebar({ onLogout }) {
         </button>
         <NavLink
           style={{ background: "#1A516B" }}
-          className={`navbar-brand logo_ats py-lg-2 px-lg-6 m-0 d-flex align-items-center justify-content-center ${leadMenuOpen || activeSubmenu ? "active" : ""
+          className={`navbar-brand logo_ats py-lg-2 px-lg-6 m-0 d-flex align-items-center justify-content-center header-logo ${leadMenuOpen || activeSubmenu ? "active" : ""
             }`}
           to="/"
         >

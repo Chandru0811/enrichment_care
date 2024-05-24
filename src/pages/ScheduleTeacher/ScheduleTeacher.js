@@ -121,12 +121,8 @@ const ScheduleTeacher = () => {
     
               <h2>Schedule</h2>
           
-          <Link to="/course/add">
-            <button type="button" className="btn btn-button btn-sm">
-              Add <i class="bx bx-plus"></i>
-            </button>
-          </Link>
-    
+                
+         <ScheduleTeacherAdd/>
       </div>
       <hr />
       {loading ? (

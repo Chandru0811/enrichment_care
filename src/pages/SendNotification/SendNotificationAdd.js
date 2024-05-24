@@ -138,7 +138,7 @@ function SendNotificationAdd({ onSuccess }) {
                     aria-hidden="true"
                   ></span>
                 )}
-                Submit
+                Save
               </Button>
             </Modal.Footer>
           </Modal.Body>

@@ -163,7 +163,7 @@ function SubjectEdit({ id, onSuccess }) {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" onClick={handleClose} className="btn-sm">
               Cancel
             </Button>
             <button
