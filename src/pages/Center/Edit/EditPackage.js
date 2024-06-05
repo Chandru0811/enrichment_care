@@ -27,7 +27,7 @@ function EditPackage({ id, onSuccess }) {
     onSubmit: async (values) => {
       setLoadIndicator(true);
       try {
-        const response = await api.put(`/updateCenterPackages/${id}`, values, {
+        const response = await api.put(`/updateEnrichmentCarePackages/${id}`, values, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -49,7 +49,7 @@ function EditPackage({ id, onSuccess }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllCenterPackagesById/${id}`);
+        const response = await api.get(`/getAllEnrichmentCarePackagesById/${id}`);
         formik.setValues(response.data);
       } catch (error) {
         toast.error("Error Fetching Data");

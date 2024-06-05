@@ -27,7 +27,7 @@ function AddPackage({ id, onSuccess }) {
       setLoadIndicator(true);
       console.log("Form values:", values);
       try {
-        const response = await api.post(`/createCenterPackages/${id}`, values, {
+        const response = await api.post(`/createEnrichmentCarePackages/${id}`, values, {
           headers: {
             "Content-Type": "application/json",
           },

@@ -4,7 +4,7 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
 import { toast } from "react-toastify";
 // import { SCREENS } from "../../config/ScreenFilter";
@@ -13,22 +13,22 @@ const Class = () => {
   const tableRef = useRef(null);
 
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
   // console.log("Screens : ", SCREENS);
 
-  // useEffect(() => {
-  //   const getCenterData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllCourseClassListings");
-  //       setDatas(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       toast.error("Error Fetching Data");
-  //     }
-  //   };
-  //   getCenterData();
-  // }, []);
+  useEffect(() => {
+    const getCenterData = async () => {
+      try {
+        const response = await api.get("/getAllCourseClassListings");
+        setDatas(response.data);
+        setLoading(false);
+      } catch (error) {
+        toast.error("Error Fetching Data");
+      }
+    };
+    getCenterData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -117,26 +117,26 @@ const Class = () => {
                       <td>{data.classType}</td>
                       <td>{data.remark}</td>
                       <td>
-                        {storedScreens?.classRead && (
+                        {/* {storedScreens?.classRead && ( */}
                           <Link to={`/class/view/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEye />
                             </button>
                           </Link>
-                        )}
-                        {storedScreens?.classUpdate && (
+                        {/* )} */}
+                        {/* {storedScreens?.classUpdate && ( */}
                           <Link to={`/class/edit/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEdit />
                             </button>
                           </Link>
-                        )}
-                        {/* {storedScreens?.classDelete && (
+                        {/* )} */}
+                        {/* {storedScreens?.classDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourseClassListing/${data.id}`}
                     />
-                  )} */}
+                  {/* )} */}
                       </td>
                     </tr>
                   ))}

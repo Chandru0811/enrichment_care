@@ -31,25 +31,25 @@ const PersonalAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handl
       gender: formData.gender,
     },
     validationSchema: validationSchema,
-    // onSubmit: async (values) => {
-    //   try {
-    //     const response = await api.post(`/createUser`, values, {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     });
-    //     if (response.status === 201) {
-    //       const user_id = response.data.user_id;
-    //       toast.success(response.data.message);
-    //       setFormData((prv) => ({ ...prv, ...values, user_id }));
-    //       handleNext();
-    //     } else {
-    //       toast.error(response.data.message);
-    //     }
-    //   } catch (error) {
-    //     toast.error(error);
-    //   }
-    // },
+    onSubmit: async (values) => {
+      try {
+        const response = await api.post(`/createUser`, values, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.status === 201) {
+          const user_id = response.data.user_id;
+          toast.success(response.data.message);
+          setFormData((prv) => ({ ...prv, ...values, user_id }));
+          handleNext();
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error);
+      }
+    },
 
     onSubmit: async (values) => {
       setLoadIndicators(true);

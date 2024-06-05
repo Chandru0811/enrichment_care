@@ -56,7 +56,7 @@ function Edit({ id, onSuccess }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllCourseLevels/${id}`);
+        const response = await api.get(`/getCourseLevelById/${id}`);
         formik.setValues(response.data);
       } catch (error) {
         console.error("Error fetching data ", error);

@@ -10,11 +10,11 @@ import api from "../../config/URL";
 import { toast } from "react-toastify";
 
 const validationSchema = Yup.object().shape({
-  centerName: Yup.string().required("*Centre Name is required"),
+  enrichmentCareName: Yup.string().required("*Centre Name is required"),
   code: Yup.number()
     .typeError("*Enter a valid number")
     .required("*Code is required"),
-  centerManager: Yup.string().required("*Select the Center Manager"),
+    enrichmentCareManager: Yup.string().required("*Select the Center Manager"),
   zipCode: Yup.number()
     .typeError("*Zip Code must be number")
     .required("*Zip Code is required")
@@ -56,9 +56,9 @@ function CenterEdit() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      centerName: "",
+      enrichmentCareName: "",
       code: "",
-      centerManager: "",
+      enrichmentCareManager: "",
       address: "",
       zipCode: "",
       mobile: "",
@@ -76,45 +76,45 @@ function CenterEdit() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoadIndicator(true);
-      // try {
-      //   const response = await api.put(`/updateCenter/${id}`, values, {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   if (response.status === 200) {
-      //     toast.success(response.data.message);
-      //     navigate("/center");
-      //   } else {
-      //     toast.error(response.data.message);
-      //   }
-      // } catch (error) {
-      //   toast.error(error);
-      // }finally {
-      //   setLoadIndicator(false);
-      // }  
+      try {
+        const response = await api.put(`/updateEnrichmentCare/${id}`, values, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          navigate("/center");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error);
+      }finally {
+        setLoadIndicator(false);
+      }  
     },
   });
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const response = await api.get(`/getAllCenterById/${id}`);
-  //     const formattedData = {
-  //       ...response.data,
-  //       openingDate: response.data.openingDate
-  //         ? new Date(response.data.openingDate).toISOString().substring(0, 10)
-  //         : null,
-  //     };
-  //     formik.setValues(formattedData);
-  //     setData(response.data);
-  //   };
+  useEffect(() => {
+    const getData = async () => {
+      const response = await api.get(`/getAllEnrichmentCareById/${id}`);
+      const formattedData = {
+        ...response.data,
+        openingDate: response.data.openingDate
+          ? new Date(response.data.openingDate).toISOString().substring(0, 10)
+          : null,
+      };
+      formik.setValues(formattedData);
+      setData(response.data);
+    };
 
-  //   getData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [id]);
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const refreshData = async () => {
     try {
-      const response = await api.get(`/getAllCenterById/${id}`);
+      const response = await api.get(`/getAllEnrichmentCareById/${id}`);
       setData(response.data);
     } catch (error) {
       toast.error("Error Fetching Data");
@@ -166,18 +166,18 @@ function CenterEdit() {
                 </label>
                 <input
                   type="text"
-                  name="centerName"
-                  className={`form-control  ${formik.touched.centerName && formik.errors.centerName
+                  name="enrichmentCareName"
+                  className={`form-control  ${formik.touched.enrichmentCareName && formik.errors.enrichmentCareName
                       ? "is-invalid"
                       : ""
                     }`}
                   aria-label="Username"
                   aria-describedby="basic-addon1"
-                  {...formik.getFieldProps("centerName")}
+                  {...formik.getFieldProps("enrichmentCareName")}
                 />
-                {formik.touched.centerName && formik.errors.centerName && (
+                {formik.touched.enrichmentCareName && formik.errors.enrichmentCareName && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerName}
+                    {formik.errors.enrichmentCareName}
                   </div>
                 )}
               </div>
@@ -207,8 +207,8 @@ function CenterEdit() {
                   Centre Manager<span className="text-danger">*</span>
                 </label>
                 <select
-                  {...formik.getFieldProps("centerManager")}
-                  className={`form-select    ${formik.touched.centerManager && formik.errors.centerManager
+                  {...formik.getFieldProps("enrichmentCareManager")}
+                  className={`form-select    ${formik.touched.enrichmentCareManager && formik.errors.enrichmentCareManager
                       ? "is-invalid"
                       : ""
                     }`}
@@ -219,10 +219,10 @@ function CenterEdit() {
                   <option value="Jeanette Aw">Jeanette Aw</option>
                   <option value="Baey Yam Keng">Baey Yam Keng</option>
                 </select>
-                {formik.touched.centerManager &&
-                  formik.errors.centerManager && (
+                {formik.touched.enrichmentCareManager &&
+                  formik.errors.enrichmentCareManager && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerManager}
+                      {formik.errors.enrichmentCareManager}
                     </div>
                   )}
               </div>
@@ -533,8 +533,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerRegistrations &&
-                  data.centerRegistrations.map((registration, index) => (
+                {data.enrichmentCareRegistrationModels &&
+                  data.enrichmentCareRegistrationModels.map((registration, index) => (
                     <tr key={index}>
                       <td>{registration.id}</td>
                       <td>{registration.registrationDate.substring(0, 10)}</td>
@@ -576,8 +576,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerBreaks &&
-                  data.centerBreaks.map((centerBreak, index) => (
+                {data.enrichmentCareBreakModels &&
+                  data.enrichmentCareBreakModels.map((centerBreak, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{centerBreak.breakName}</td>
@@ -644,8 +644,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerClassRooms &&
-                  data.centerClassRooms.map((centerClassRoom, index) => (
+                {data.enrichmentCareClassRoomModels &&
+                  data.enrichmentCareClassRoomModels.map((centerClassRoom, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{centerClassRoom.classRoomName}</td>
@@ -685,8 +685,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerPackages &&
-                  data.centerPackages.map((centerPackage, index) => (
+                {data.enrichmentCarePackageModels &&
+                  data.enrichmentCarePackageModels.map((centerPackage, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{centerPackage.packageName || "--"}</td>

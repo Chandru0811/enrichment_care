@@ -9,7 +9,7 @@ import AddRegister from "./Add/AddRegister";
 import AddBreak from "./Add/AddBreak";
 import AddClass from "./Add/AddClass";
 import AddPackage from "./Add/AddPackage";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
 import { toast } from "react-toastify";
 
@@ -19,12 +19,12 @@ const Center = () => {
   // console.log("Screens : ", SCREENS);
 
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getCenterData = async () => {
       try {
-        const response = await api.get("/getAllCenter");
+        const response = await api.get("/getAllEnrichmentCare");
         setDatas(response.data);
         setLoading(false);
       } catch (error) {
@@ -64,9 +64,9 @@ const Center = () => {
     destroyDataTable();
     setLoading(true);
     try {
-      const response = await api.get("/getAllCenter");
+      const response = await api.get("/getAllEnrichmentCare");
       setDatas(response.data);
-      initializeDataTable(); // Reinitialize DataTable after successful data update
+      initializeDataTable();
     } catch (error) {
       console.error("Error refreshing data:", error);
     }
@@ -127,14 +127,14 @@ const Center = () => {
             {datas.map((data, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>{data.centerName}</td>
-                <td>{data.centerManager}</td>
+                <td>{data.enrichmentCareName}</td>
+                <td>{data.enrichmentCareManager}</td>
                 <td>{data.code}</td>
                 <td>{data.uenNumber}</td>
                 <td>{data.mobile}</td>
                 <td>
                   <div className="d-flex justify-content-center align-items-center ">
-                    {storedScreens?.centerListingCreate && (
+                    {/* {storedScreens?.centerListingCreate && ( */}
                       <div class="dropdown" style={{ display: "inline-block" }}>
                         <button
                           class="btn dropdown-toggle"
@@ -159,8 +159,8 @@ const Center = () => {
                           </li>
                         </ul>
                       </div>
-                    )}
-                    {storedScreens?.centerListingRead && (
+                    {/* )} */}
+                    {/* {storedScreens?.centerListingRead && ( */}
                       <Link
                         to={`/center/view/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -169,8 +169,8 @@ const Center = () => {
                           <FaEye />
                         </button>
                       </Link>
-                    )}
-                    {storedScreens?.centerListingUpdate && (
+                    {/* )} */}
+                    {/* {storedScreens?.centerListingUpdate && ( */}
                       <Link
                         to={`/center/edit/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -179,14 +179,14 @@ const Center = () => {
                           <FaEdit />
                         </button>
                       </Link>
-                    )}
-                    {/* {storedScreens?.centerListingDelete && (
+                    {/* )} */}
+                    {/* {storedScreens?.centerListingDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteCenter/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
-                    )} */}
+                    {/* )} */}
                   </div>
                 </td>
               </tr>

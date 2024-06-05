@@ -461,7 +461,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                 {centerData &&
                   centerData.map((centerId) => (
                     <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                      {centerId.enrichmentCareNames}
                     </option>
                   ))}
               </select>

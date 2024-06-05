@@ -13,17 +13,17 @@ function StaffView() {
   console.log("Api Staff data:",data);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUsersById/${id}`);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       toast.error("Error Fetching Data ", error);
-  //     }
-  //   };
-  //   getData();
-  // }, [id]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllUsersById/${id}`);
+        setData(response.data);
+      } catch (error) {
+        toast.error("Error Fetching Data ", error);
+      }
+    };
+    getData();
+  }, [id]);
 
   return (
     <div className="container-fluid my-4 center">

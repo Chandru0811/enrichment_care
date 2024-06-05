@@ -8,17 +8,17 @@ function CenterView() {
   const [data, setData] = useState([]);
   console.log(data);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllCenterById/${id}`);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       toast.error("Error Fetching Data", error);
-  //     }
-  //   };
-  //   getData();
-  // }, [id]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllEnrichmentCareById/${id}`);
+        setData(response.data);
+      } catch (error) {
+        toast.error("Error Fetching Data", error);
+      }
+    };
+    getData();
+  }, [id]);
   return (
     <div className="container-fluid center">
       <div className="card shadow border-0 mb-2 top-header">
@@ -55,7 +55,7 @@ function CenterView() {
                 </div>
                 <div className="col-6">
                   <p className="text-muted text-sm">
-                    : {data.centerName || "--"}
+                    : {data.enrichmentCareName || "--"}
                   </p>
                 </div>
               </div>
@@ -77,7 +77,7 @@ function CenterView() {
                 </div>
                 <div className="col-6">
                   <p className="text-muted text-sm">
-                    : {data.centerManager || "--"}
+                    : {data.enrichmentCareManager || "--"}
                   </p>
                 </div>
               </div>
@@ -254,16 +254,16 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerRegistrations &&
-                    data.centerRegistrations.map((registration, index) => (
+                  {data.enrichmentCareRegistrationModels &&
+                    data.enrichmentCareRegistrationModels.map((enrichmentCareRegistrationModels, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>
-                          {registration.registrationDate.substring(0, 10)}
+                          {enrichmentCareRegistrationModels.registrationDate.substring(0, 10)}
                         </td>
-                        <td>{registration.effectiveDate.substring(0, 10)}</td>
-                        <td>{registration.amount}</td>
-                        <td>{registration.taxType}</td>
+                        <td>{enrichmentCareRegistrationModels.effectiveDate.substring(0, 10)}</td>
+                        <td>{enrichmentCareRegistrationModels.amount}</td>
+                        <td>{enrichmentCareRegistrationModels.taxType}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -290,13 +290,13 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerBreaks &&
-                    data.centerBreaks.map((centerBreak, index) => (
+                  {data.enrichmentCareBreakModels &&
+                    data.enrichmentCareBreakModels.map((enrichmentCareBreakModels, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
-                        <td>{centerBreak.breakName}</td>
-                        <td>{centerBreak.fromDate.substring(0, 10)}</td>
-                        <td>{centerBreak.toDate.substring(0, 10)}</td>
+                        <td>{enrichmentCareBreakModels.breakName}</td>
+                        <td>{enrichmentCareBreakModels.fromDate.substring(0, 10)}</td>
+                        <td>{enrichmentCareBreakModels.toDate.substring(0, 10)}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -349,15 +349,15 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerClassRooms &&
-                    data.centerClassRooms.map((centerClassRoom, index) => (
+                  {data.enrichmentCareClassRoomModels &&
+                    data.enrichmentCareClassRoomModels.map((enrichmentCareClassRoomModels, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
-                        <td>{centerClassRoom.classRoomName}</td>
-                        <td>{centerClassRoom.classRoomCode}</td>
-                        <td>{centerClassRoom.classRoomType}</td>
-                        <td>{centerClassRoom.capacity}</td>
-                        <td>{centerClassRoom.description}</td>
+                        <td>{enrichmentCareClassRoomModels.classRoomName}</td>
+                        <td>{enrichmentCareClassRoomModels.classRoomCode}</td>
+                        <td>{enrichmentCareClassRoomModels.classRoomType}</td>
+                        <td>{enrichmentCareClassRoomModels.capacity}</td>
+                        <td>{enrichmentCareClassRoomModels.description}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -381,12 +381,12 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerPackages &&
-                    data.centerPackages.map((centerPackage, index) => (
+                  {data.enrichmentCarePackageModels &&
+                    data.enrichmentCarePackageModels.map((enrichmentCarePackageModels, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
-                        <td>{centerPackage.packageName || "--"}</td>
-                        <td>{centerPackage.noOfLesson || "--"}</td>
+                        <td>{enrichmentCarePackageModels.packageName || "--"}</td>
+                        <td>{enrichmentCarePackageModels.noOfLesson || "--"}</td>
                       </tr>
                     ))}
                 </tbody>

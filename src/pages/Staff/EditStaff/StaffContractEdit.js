@@ -43,28 +43,28 @@ const StaffContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData 
       contractDate: "",
       terminationNotice: "",
     },
-    // onSubmit: async (data) => {
-    //   try {
-    //     const response = await api.put(
-    //       `/updateUserContractCreation/${data.contractId}`,
-    //       data,
-    //       {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       }
-    //     );
-    //     if (response.status === 200) {
-    //       toast.success(response.data.message);
-    //       setFormData((prv) => ({ ...prv, ...data }));
-    //       navigate("/staff");
-    //     } else {
-    //       toast.error(response.data.message);
-    //     }
-    //   } catch (error) {
-    //     toast.error(error);
-    //   }
-    // },
+    onSubmit: async (data) => {
+      try {
+        const response = await api.put(
+          `/updateUserContractCreation/${data.contractId}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          setFormData((prv) => ({ ...prv, ...data }));
+          navigate("/staff");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error);
+      }
+    },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoadIndicators(true);

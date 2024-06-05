@@ -33,7 +33,7 @@ function AddRegister({ id, onSuccess }) {
 
       try {
         const response = await api.post(
-          `/createCenterRegistrations/${id}`,
+          `/createEnrichmentCareRegistrations/${id}`,
           values,
           {
             headers: {

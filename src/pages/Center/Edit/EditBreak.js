@@ -9,7 +9,7 @@ import api from "../../../config/URL";
 
 function EditBreak({ id, onSuccess }) {
   const [show, setShow] = useState(false);
-  const [loadIndicator, setLoadIndicator] = useState(false);
+  const [loadIndicator, setLoadIndicator] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -29,7 +29,7 @@ function EditBreak({ id, onSuccess }) {
     onSubmit: async (values) => {
       setLoadIndicator(true);
       try {
-        const response = await api.put(`/updateCenterBreaks/${id}`, values, {
+        const response = await api.put(`/updateEnrichmentCareBreaks/${id}`, values, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -51,7 +51,7 @@ function EditBreak({ id, onSuccess }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllCenterBreaksById/${id}`);
+        const response = await api.get(`/getAllEnrichmentCareBreaksById/${id}`);
         const formattedData = {
           ...response.data,
           fromDate: response.data.fromDate

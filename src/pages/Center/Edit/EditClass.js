@@ -33,7 +33,7 @@ function EditClass({ id, onSuccess }) {
       setLoadIndicator(true);
       try {
         const response = await api.put(
-          `/updateCenterClassRooms/${id}`,
+          `/updateEnrichmentCareClassRooms/${id}`,
           values,
           {
             headers: {
@@ -58,7 +58,7 @@ function EditClass({ id, onSuccess }) {
   useEffect(() => {
     const getData = async () => {
       try{
-      const response = await api.get(`/getCenterClassRoomsById/${id}`);
+      const response = await api.get(`/getEnrichmentCareClassRoomsById/${id}`);
       formik.setValues(response.data);
       }catch (error) {
         toast.error("Error Fetching Data");

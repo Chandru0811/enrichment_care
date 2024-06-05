@@ -30,7 +30,7 @@ function AddBreak({ id, onSuccess }) {
       console.log("Form values:", values);
       try {
         const response = await api.post(
-          `/createCenterBreaks/${id}`,
+          `/createEnrichmentCareBreaks/${id}`,
           values,
           {
             headers: {

@@ -32,7 +32,7 @@ function EditRegisteration({ id, onSuccess }) {
       setLoadIndicator(true);
       try {
         const response = await api.put(
-          `/updateCenterRegistrations/${id}`,
+          `/updateEnrichmentCareBreaks/${id}`,
           values,
           {
             headers: {
@@ -57,7 +57,7 @@ function EditRegisteration({ id, onSuccess }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllCenterRegistrationsById/${id}`);
+        const response = await api.get(`/getAllEnrichmentCareBreaksById/${id}`);
         const formattedData = {
           ...response.data,
           registrationDate: response.data.registrationDate

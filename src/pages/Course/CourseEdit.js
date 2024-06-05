@@ -5,9 +5,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import api from "../../config/URL";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllLevelsWithIds from "../List/LevelList";
-// import fetchAllSubjectsWithIds from "../List/SubjectList";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllLevelsWithIds from "../List/LevelList";
+import fetchAllSubjectsWithIds from "../List/SubjectList";
 
 function CourseEdit() {
   const { id } = useParams();
@@ -19,9 +19,9 @@ function CourseEdit() {
 const [loadIndicator, setLoadIndicator] = useState(false);
   const fetchData = async () => {
     try {
-      // const centerData = await fetchAllCentersWithIds();
-      // const levelData = await fetchAllLevelsWithIds();
-      // const subjectData = await fetchAllSubjectsWithIds();
+      const centerData = await fetchAllCentersWithIds();
+      const levelData = await fetchAllLevelsWithIds();
+      const subjectData = await fetchAllSubjectsWithIds();
       setCenterData(centerData);
       setLevelData(levelData);
       setSubjectData(subjectData);
@@ -35,7 +35,7 @@ const [loadIndicator, setLoadIndicator] = useState(false);
   }, []);
 
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Select the Centre Name"),
+    enrichmentCareId: Yup.string().required("*Select the Centre Name"),
     courseName: Yup.string().required("*Course Name is required"),
     courseCode: Yup.string().required("*Course Code is required"),
     subjectId: Yup.string().required("*Select the Subject"),
@@ -52,7 +52,7 @@ const [loadIndicator, setLoadIndicator] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       courseName: "",
       courseCode: "",
       subjectId: "",
@@ -73,43 +73,43 @@ const [loadIndicator, setLoadIndicator] = useState(false);
       setLoadIndicator(true);
       console.log(values);
       values.classReplacementAllowed = values.classReplacementAllowed === true;
-      // try {
-      //   const response = await api.put(`/updateCourses/${id}`, values, {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   if (response.status === 200) {
-      //     toast.success(response.data.message);
-      //     navigate("/course");
-      //   } else {
-      //     toast.error(response.data.message);
-      //   }
-      // } catch (error) {
-      //   toast.error(error);
-      // }finally {
-      //   setLoadIndicator(false);
-      // }
+      try {
+        const response = await api.put(`/updateCourses/${id}`, values, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          navigate("/course");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error);
+      }finally {
+        setLoadIndicator(false);
+      }
     },
   });
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllCoursesById/${id}`);
-  //       formik.setValues({
-  //         ...response.data,
-  //         classReplacementAllowed:
-  //           response.data.classReplacementAllowed || false,
-  //       });
-  //     } catch (error) {
-  //       toast.error("Error fetching data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllCoursesById/${id}`);
+        formik.setValues({
+          ...response.data,
+          classReplacementAllowed:
+            response.data.classReplacementAllowed || false,
+        });
+      } catch (error) {
+        toast.error("Error fetching data:", error);
+      }
+    };
 
-  //   getData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className="courseAdd">
@@ -156,9 +156,9 @@ const [loadIndicator, setLoadIndicator] = useState(false);
                 </lable>
                 <div class="input-group mb-3">
                   <select
-                    {...formik.getFieldProps("centerId")}
+                    {...formik.getFieldProps("enrichmentCareId")}
                     class={`form-select  ${
-                      formik.touched.centerId && formik.errors.centerId
+                      formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                         ? "is-invalid"
                         : ""
                     }`}
@@ -166,15 +166,15 @@ const [loadIndicator, setLoadIndicator] = useState(false);
                   >
                     <option selected></option>
                     {centerData &&
-                      centerData.map((centerId) => (
-                        <option key={centerId.id} value={centerId.id}>
-                          {centerId.centerNames}
+                      centerData.map((enrichmentCareId) => (
+                        <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                          {enrichmentCareId.enrichmentCareNames}
                         </option>
-                      ))}
+                      ))}s
                   </select>
-                  {formik.touched.centerId && formik.errors.centerId && (
+                  {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerId}
+                      {formik.errors.enrichmentCareId}
                     </div>
                   )}
                 </div>

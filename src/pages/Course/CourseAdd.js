@@ -5,35 +5,35 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import api from "../../config/URL";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllLevelsWithIds from "../List/LevelList";
-// import fetchAllSubjectsWithIds from "../List/SubjectList";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllLevelsWithIds from "../List/LevelList";
+import fetchAllSubjectsWithIds from "../List/SubjectList";
 
 function CourseAdd({ onSuccess }) {
   const navigate = useNavigate();
   const [centerData, setCenterData] = useState(null);
   console.log("Center Data", centerData);
-  // const [levelData, setLevelData] = useState(null);
-  // const [subjectData, setSubjectData] = useState(null);
+  const [levelData, setLevelData] = useState(null);
+  const [subjectData, setSubjectData] = useState(null);
    const [loadIndicator, setLoadIndicator] = useState(false);
 
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   const levelData = await fetchAllLevelsWithIds();
-    //   const subjectData = await fetchAllSubjectsWithIds();
-    //   setCenterData(centerData);
-    //   setLevelData(levelData);
-    //   setSubjectData(subjectData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      const levelData = await fetchAllLevelsWithIds();
+      const subjectData = await fetchAllSubjectsWithIds();
+      setCenterData(centerData);
+      setLevelData(levelData);
+      setSubjectData(subjectData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const validationSchema = Yup.object({
     centerId: Yup.string().required("*Select the Centre Name"),
@@ -108,7 +108,7 @@ function CourseAdd({ onSuccess }) {
           <div className="row align-items-center">
             <div className="col">
               <div className="d-flex align-items-center gap-4">
-                <h2 className="h2 ls-tight headingColor">Add Centre Listing</h2>
+                <h2 className="h2 ls-tight headingColor">Add Course</h2>
               </div>
             </div>
         
@@ -155,7 +155,7 @@ function CourseAdd({ onSuccess }) {
                     {centerData &&
                       centerData.map((centerId) => (
                         <option key={centerId.id} value={centerId.id}>
-                          {centerId.centerNames}
+                          {centerId.enrichmentCareNames}
                         </option>
                       ))}
                   </select>
@@ -222,12 +222,12 @@ function CourseAdd({ onSuccess }) {
                   aria-label="Default select example"
                 >
                   <option selected></option>
-                  {/* {subjectData &&
+                  {subjectData &&
                     subjectData.map((subjectId) => (
                       <option key={subjectId.id} value={subjectId.id}>
                         {subjectId.subjects}
                       </option>
-                    ))} */}
+                    ))}
                 </select>
                 {formik.touched.subjectId && formik.errors.subjectId && (
                   <div className="invalid-feedback">
@@ -252,12 +252,12 @@ function CourseAdd({ onSuccess }) {
                     aria-label="Default select example"
                   >
                     <option selected></option>
-                    {/* {levelData &&
+                    {levelData &&
                       levelData.map((levelId) => (
                         <option key={levelId.id} value={levelId.id}>
                           {levelId.levels}
                         </option>
-                      ))} */}
+                      ))}
                   </select>
                   {formik.touched.levelId && formik.errors.levelId && (
                     <div className="invalid-feedback">

@@ -19,28 +19,28 @@ const StaffSalaryEdit = forwardRef(
         salaryType: "",
       },
 
-      // onSubmit: async (data) => {
-      //   try {
-      //     const response = await api.put(
-      //       `/updateUserSalaryCreation/${data.salaryId}`,
-      //       data,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-      //     if (response.status === 200) {
-      //       toast.success(response.data.message);
-      //       setFormData((prv) => ({ ...prv, ...data }));
-      //       handleNext();
-      //     } else {
-      //       toast.error(response.data.message);
-      //     }
-      //   } catch (error) {
-      //     toast.error(error);
-      //   }
-      // },
+      onSubmit: async (data) => {
+        try {
+          const response = await api.put(
+            `/updateUserSalaryCreation/${data.salaryId}`,
+            data,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (response.status === 200) {
+            toast.success(response.data.message);
+            setFormData((prv) => ({ ...prv, ...data }));
+            handleNext();
+          } else {
+            toast.error(response.data.message);
+          }
+        } catch (error) {
+          toast.error(error);
+        }
+      },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
         setLoadIndicators(true);

@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import api from "../../../config/URL";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
   startDate: Yup.string().required("*Start Date is required"),
@@ -34,12 +34,12 @@ const StaffAccountAdd = forwardRef(
     const [centerData, setCenterData] = useState(null);
 
     const fetchData = async () => {
-      // try {
-      //   const centerData = await fetchAllCentersWithIds();
-      //   setCenterData(centerData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const centerData = await fetchAllCentersWithIds();
+        setCenterData(centerData);
+      } catch (error) {
+        toast.error(error);
+      }
     };
 
     useEffect(() => {
@@ -481,7 +481,7 @@ const StaffAccountAdd = forwardRef(
                   {centerData &&
                     centerData.map((centerId) => (
                       <option key={centerId.id} value={centerId.id}>
-                        {centerId.centerNames}
+                        {centerId.enrichmentCareNames}
                       </option>
                     ))}
                 </select>

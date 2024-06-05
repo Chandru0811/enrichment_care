@@ -4,7 +4,7 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-//import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
 import { FaFileInvoice } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -15,21 +15,21 @@ const Course = () => {
   // const { id } = useParams();
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllCourses");
-  //       setDatas(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching data ", error);
-  //     }
-  //   };
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get("/getAllCourses");
+        setDatas(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data ", error);
+      }
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -129,26 +129,26 @@ const Course = () => {
                   )}
                 </td>
                 <td>
-                  {storedScreens?.courseRead && (
+                  {/* {storedScreens?.courseRead && ( */}
                     <Link to={`/course/view/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEye />
                       </button>
                     </Link>
-                  )}
-                  {storedScreens?.courseUpdate && (
+                  {/* )} */}
+                  {/* {storedScreens?.courseUpdate && ( */}
                     <Link to={`/course/edit/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEdit />
                       </button>
                     </Link>
-                  )}
-                  {/* {storedScreens?.courseDelete && (
+                  {/* )} */}
+                  {/* {storedScreens?.courseDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourse/${data.id}`}
                     />
-                  )} */}
+                  {/* )} */}
 
                   {storedScreens?.curriculumIndex && (
                     <OverlayTrigger

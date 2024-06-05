@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../config/URL";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCoursesWithIds from "../List/CourseList";
 
 function ClassEdit() {
   const { id } = useParams();
@@ -15,18 +15,18 @@ function ClassEdit() {
 const [loadIndicator, setLoadIndicator] = useState(false);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   const courseData = await fetchAllCoursesWithIds();
-    //   setCenterData(centerData);
-    //   setCourseData(courseData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      const courseData = await fetchAllCoursesWithIds();
+      setCenterData(centerData);
+      setCourseData(courseData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Centre Name is required"),
+    enrichmentCareId: Yup.string().required("*Centre Name is required"),
     courseId: Yup.string().required("*Course Name is required"),
     className: Yup.string().required("*Class Name is required"),
     classType: Yup.string().required("*Class Type is required"),
@@ -35,7 +35,7 @@ const [loadIndicator, setLoadIndicator] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       courseId: "",
       className: "",
       classType: "",
@@ -128,9 +128,9 @@ const [loadIndicator, setLoadIndicator] = useState(false);
                 Centre<span class="text-danger">*</span>
               </lable>
               <select
-                {...formik.getFieldProps("centerId")}
-                name="centerId"
-                className={`form-select   ${formik.touched.centerId && formik.errors.centerId
+                {...formik.getFieldProps("enrichmentCareId")}
+                name="enrichmentCareId"
+                className={`form-select   ${formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                     ? "is-invalid"
                     : ""
                   }`}
@@ -139,14 +139,14 @@ const [loadIndicator, setLoadIndicator] = useState(false);
               >
                 <option selected></option>
                 {centerData &&
-                  centerData.map((centerId) => (
-                    <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                  centerData.map((enrichmentCareId) => (
+                    <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                      {enrichmentCareId.enrichmentCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
-                <div className="invalid-feedback">{formik.errors.centerId}</div>
+              {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
+                <div className="invalid-feedback">{formik.errors.enrichmentCareId}</div>
               )}
             </div>
             <div class="col-md-6 col-12 mb-4">

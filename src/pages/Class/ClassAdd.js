@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../config/URL";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCoursesWithIds from "../List/CourseList";
 
 function ClassAdd() {
   const navigate = useNavigate();
@@ -14,14 +14,14 @@ function ClassAdd() {
   const [loadIndicator, setLoadIndicator] = useState(false);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   const courseData = await fetchAllCoursesWithIds();
-    //   setCenterData(centerData);
-    //   setCourseData(courseData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      const courseData = await fetchAllCoursesWithIds();
+      setCenterData(centerData);
+      setCourseData(courseData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -135,7 +135,7 @@ function ClassAdd() {
                 {centerData &&
                   centerData.map((centerId) => (
                     <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                      {centerId.enrichmentCareNames}
                     </option>
                   ))}
               </select>
