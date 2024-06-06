@@ -96,9 +96,9 @@ const Invoice = () => {
 
   return (
     <div className="minHeight center">
-    <div className="container-fluid my-4 center px-0">
+    <div className="container-fluid my-4 center ">
       <div className="card shadow border-0 mb-2 top-header">
-    <div className="container-fluid ">
+    <div className="container px-0">
       <div className="my-3 d-flex justify-content-between mb-5 px-4">
         <h2>Invoice</h2>
         {/* {storedScreens?.invoiceCreate && ( */}

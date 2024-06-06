@@ -22,7 +22,7 @@ export default function InvoiceAdd() {
   const [loadIndicator, setLoadIndicator] = useState(false);
 
   const validationSchema = Yup.object({
-    center: Yup.string().required("*Select a Centre"),
+    enrichmentCareId: Yup.string().required("*Select a Centre"),
     parent: Yup.string().required("*Parent is required"),
     student: Yup.string().required("*Select a Student"),
     course: Yup.string().required("*Select a course"),
@@ -41,7 +41,7 @@ export default function InvoiceAdd() {
 
   const formik = useFormik({
     initialValues: {
-      center: "",
+      enrichmentCareId: "",
       parent: "",
       student: "",
       course: "",
@@ -74,7 +74,7 @@ export default function InvoiceAdd() {
         // Prepare the payload to send to the API
         const payload = {
           generateInvoice: {
-            enrichmentCareId: values.center,
+            enrichmentCareId: values.enrichmentCareId,
             parent: values.parent,
             studentId: 2,
             courseId: values.course,
@@ -128,34 +128,34 @@ export default function InvoiceAdd() {
       const centerData = await fetchAllCentersWithIds();
       setCenterData(centerData);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message || "uyfyduu6rufuyygugyug");
     }
   };
 
-  const fetchCourses = async (centerId) => {
+  const fetchCourses = async (enrichmentCareId) => {
     try {
-      const courseData = await fetchAllCoursesWithIdsC(centerId);
+      const courseData = await fetchAllCoursesWithIdsC(enrichmentCareId);
       setCourseData(courseData);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message || "uyfyduu6rufuyygugyug");
     }
   };
 
-  const fetchPackage = async (centerId) => {
+  const fetchPackage = async (enrichmentCareId) => {
     try {
-      const packageData = await fetchAllPackageListByCenter(centerId);
+      const packageData = await fetchAllPackageListByCenter(enrichmentCareId);
       setPackageData(packageData);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message);
     }
   };
 
-  const fetchStudent = async (centerId) => {
+  const fetchStudent = async (enrichmentCareId) => {
     try {
-      const student = await fetchAllStudentListByCenter(centerId);
+      const student = await fetchAllStudentListByCenter(enrichmentCareId);
       setStudentData(student);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message);
     }
   };
 
@@ -164,7 +164,7 @@ export default function InvoiceAdd() {
     setPackageData(null);
     setStudentData(null);
     const center = event.target.value;
-    formik.setFieldValue("center", center);
+    formik.setFieldValue("enrichmentCareId", center);
     fetchCourses(center); // Fetch courses for the selected center
     fetchPackage(center); // Fetch courses for the selected center
     fetchStudent(center);
@@ -232,9 +232,9 @@ export default function InvoiceAdd() {
                     </label>
                     <br />
                     <select
-                      {...formik.getFieldProps("center")}
-                      name="center"
-                      className={`form-select ${formik.touched.center && formik.errors.center
+                      {...formik.getFieldProps("enrichmentCareId")}
+                      name="enrichmentCareId"
+                      className={`form-select ${formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                           ? "is-invalid"
                           : ""
                         }`}
@@ -248,8 +248,8 @@ export default function InvoiceAdd() {
                           </option>
                         ))}
                     </select>
-                    {formik.touched.center && formik.errors.center && (
-                      <div className="invalid-feedback">{formik.errors.center}</div>
+                    {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
+                      <div className="invalid-feedback">{formik.errors.enrichmentCareId}</div>
                     )}
                   </div>
                   <div className="text-start mt-3">
@@ -283,12 +283,12 @@ export default function InvoiceAdd() {
                     >
                       <option selected></option>
                       <option>test</option>
-                      {/* {studentData &&
+                      {studentData &&
                     studentData.map((student) => (
                       <option key={student.id} value={student.id}>
                         {student.studentNames}
                       </option>
-                    ))} */}
+                    ))}
                     </select>
                     {formik.touched.student && formik.errors.student && (
                       <div className="invalid-feedback">

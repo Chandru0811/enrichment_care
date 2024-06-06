@@ -6,11 +6,11 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import api from "../../config/URL";
 import toast from "react-hot-toast";
-// import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCentersWithIds from "../List/CenterList";
 // import fetchAllStudentsWithIds from "../List/StudentList";
-// import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
-// import fetchAllPackageListByCenter from "../List/PackageListByCenter";
-// import fetchAllStudentListByCenter from "../List/StudentListByCenter";
+import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
+import fetchAllPackageListByCenter from "../List/PackageListByCenter";
+import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
 export default function InvoiceEdit() {
   //  const Rows=[];
@@ -23,12 +23,13 @@ export default function InvoiceEdit() {
   const [studentData, setStudentData] = useState(null);
   const [packageData, setPackageData] = useState(null);
   const [loadIndicator, setLoadIndicator] = useState(false);
+  
 
 
   const [rows, setRows] = useState([{}]);
 
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Select a Centre"),
+    enrichmentCareId: Yup.string().required("*Select a Centre"),
     parent: Yup.string().required("*Select a parent"),
     studentId: Yup.string().required("*Select a Student"),
     courseId: Yup.string().required("*Select a Course"),
@@ -47,7 +48,7 @@ export default function InvoiceEdit() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       parent: "",
       studentId: "",
       courseId: "",
@@ -81,7 +82,7 @@ export default function InvoiceEdit() {
       setLoadIndicator(true);
       const payload = {
         generateInvoice: {
-          centerId: values.centerId,
+          enrichmentCareId: values.enrichmentCareId,
           parent: values.parent,
           studentId: values.studentId,
           courseId: values.courseId,
@@ -125,7 +126,7 @@ export default function InvoiceEdit() {
           toast.error(response.data.message);
         }
       } catch (error) {
-        toast.error(error);
+        toast.error( error.message || "An error occurred while submitting the form" );
       }finally {
         setLoadIndicator(false);
       }
@@ -139,63 +140,63 @@ export default function InvoiceEdit() {
   };
 
   const fetchData = async (id) => {
-    // try {
-    //   const centerId = id; // Set the default center ID
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
+    try {
+      const enrichmentCareId = id; // Set the default center ID
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
 
-    //   const studentData = await fetchAllStudentListByCenter(centerId);
-    //   setStudentData(studentData);
+      const studentData = await fetchAllStudentListByCenter(enrichmentCareId);
+      setStudentData(studentData);
 
-    //   if (formik.centerId) {
-    //     try {
-    //       const packages = await fetchAllPackageListByCenter(formik.centerId);
-    //       setPackageData(packages);
-    //     } catch (error) {
-    //       toast.error(error);
-    //     }
-    //   }
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+      if (formik.enrichmentCareId) {
+        try {
+          const packages = await fetchAllPackageListByCenter(formik.enrichmentCareId);
+          setPackageData(packages);
+        } catch (error) {
+          toast.error( error.message || "An error occurred while submitting the form");
+        }
+      }
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  const fetchCourses = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllCoursesWithIdsC(centerId);
-    //   setCourseData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchCourses = async (enrichmentCareId) => {
+    try {
+      const courses = await fetchAllCoursesWithIdsC(enrichmentCareId);
+      setCourseData(courses);
+    } catch (error) {
+      toast.error( error.message || "An error occurred while submitting the form");
+    }
   };
 
-  const fetchPackage = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllPackageListByCenter(centerId);
-    //   setPackageData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchPackage = async (enrichmentCareId) => {
+    try {
+      const courses = await fetchAllPackageListByCenter(enrichmentCareId);
+      setPackageData(courses);
+    } catch (error) {
+      toast.error( error.message || "An error occurred while submitting the form");
+    }
   };
 
-  const fetchStudent = async (centerId) => {
-    // try {
-    //   const studentId = await fetchAllStudentListByCenter(centerId);
-    //   setStudentData(studentId);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchStudent = async (enrichmentCareId) => {
+    try {
+      const studentId = await fetchAllStudentListByCenter(enrichmentCareId);
+      setStudentData(studentId);
+    } catch (error) {
+      toast.error( error.message || "An error occurred while submitting the form");
+    }
   };
 
   const handleCenterChange = (event) => {
     setCourseData(null);
     setPackageData(null);
     setStudentData(null);
-    const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
-    fetchCourses(centerId);
-    fetchPackage(centerId);
-    fetchStudent(centerId);
+    const enrichmentCareId = event.target.value;
+    formik.setFieldValue("enrichmentCareId", enrichmentCareId);
+    fetchCourses(enrichmentCareId);
+    fetchPackage(enrichmentCareId);
+    fetchStudent(enrichmentCareId);
   };
 
   useEffect(() => {
@@ -210,12 +211,15 @@ export default function InvoiceEdit() {
           invoicePeriodTo: response.data.invoicePeriodTo.substring(0, 10),
         };
         formik.setValues(formattedResponseData);
-        setRows(response.data.invoiceItems);
-        formik.setFieldValue("centerId", response.data.centerId);
+        setRows(response.data.invoiceItem);
+        console.log("row",rows)
+        formik.setFieldValue("enrichmentCareId", response.data.enrichmentCareId);
+        formik.setFieldValue("invoiceItems", response.data.invoiceItem
+        );
 
-        fetchCourses(response.data.centerId);
-        fetchPackage(response.data.centerId);
-        fetchData(response.data.centerId);
+        fetchCourses(response.data.enrichmentCareId);
+        fetchPackage(response.data.enrichmentCareId);
+        fetchData(response.data.enrichmentCareId);
         // console.log("Response:", response);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -230,27 +234,30 @@ export default function InvoiceEdit() {
   // Inside your component function
   useEffect(() => {
     // Calculate total Item Amounts
-    const totalItemAmount = formik.values.invoiceItems.reduce(
+    if(formik.values.invoiceItem){
+    
+    const totalItemAmount = formik.values.invoiceItem.reduce(
       (total, item) => total + parseFloat(item.itemAmount || 0),
       0
     );
     formik.setFieldValue("creditAdviceOffset", totalItemAmount.toFixed(2));
 
     // Calculate total Gst
-    const totalGst = formik.values.invoiceItems.reduce(
+    const totalGst = formik.values.invoiceItem.reduce(
       (total, item) => total + parseFloat(item.gstAmount || 0),
       0
     );
     formik.setFieldValue("gst", totalGst.toFixed(2));
 
     // Calculate total Amount
-    const totalAmount = formik.values.invoiceItems.reduce(
+    const totalAmount = formik.values.invoiceItem.reduce(
       (total, item) => total + parseFloat(item.totalAmount || 0),
       0
     );
-    formik.setFieldValue("totalAmount", totalAmount.toFixed(2));
+    formik.setFieldValue("totalAmount", totalAmount.toFixed(2));  
+  }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formik.values.invoiceItems]);
+  }, [formik.values.invoiceItem]);
 
   return (
     <div className="container-fluid my-4 center">
@@ -266,10 +273,10 @@ export default function InvoiceEdit() {
                 </label>
                 <br />
                 <select
-                  {...formik.getFieldProps("centerId")}
-                  name="centerId"
+                  {...formik.getFieldProps("enrichmentCareId")}
+                  name="enrichmentCareId"
                   className={`form-select ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -277,15 +284,15 @@ export default function InvoiceEdit() {
                 >
                   <option selected></option>
                   {centerData &&
-                    centerData.map((centerId) => (
-                      <option key={centerId.id} value={centerId.id}>
-                        {centerId.centerNames}
+                    centerData.map((enrichmentCareId) => (
+                      <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                        {enrichmentCareId.enrichmentCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.enrichmentCareId}
                   </div>
                 )}
               </div>
@@ -587,8 +594,8 @@ export default function InvoiceEdit() {
           </div>
 
           <div className="row mt-5 pt-5 flex-nowrap">
-            <div className="col-1 text-end d-flex justify-content-centerId align-items-end ">
-              {rows.length > 1 && (
+            <div className="col-1 text-end d-flex justify-content-enrichmentCareId align-items-end ">
+              {rows?.length > 1 && (
                 <button
                   type="button"
                   className="btn mt-3"

@@ -145,12 +145,12 @@ export default function ScheduleTime() {
                                       <>
                                         <span>{student.name}</span>
                                         <br />
-                                        {storedScreens?.timeScheduleDelete && (
+                                        {/* {storedScreens?.timeScheduleDelete && ( */}
                                           <RemoveStudentTimeSlot
                                             id={student.id}
                                             onSuccess={refreshData}
                                           />
-                                        )}
+                                        {/* )} */}
                                       </>
                                     );
                                     if (student.blocked) {

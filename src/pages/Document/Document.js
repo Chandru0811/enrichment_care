@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import api from "../../config/URL";
 import toast from "react-hot-toast";
-// import fetchAllStudentsWithIds from "../List/StudentList";
+import fetchAllStudentsWithIds from "../List/StudentList";
 import DocumentEdit from "./DocumentEdit";
 // import { SCREENS } from "../../config/ScreenFilter";
 
@@ -21,23 +21,23 @@ const Document = () => {
   const [studentData, setStudentData] = useState(null);
 
   const fetchData = async () => {
-    // try {
-    //   const studentData = await fetchAllStudentsWithIds();
-    //   setStudentData(studentData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const studentData = await fetchAllStudentsWithIds();
+      setStudentData(studentData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const response = await api.get("/getAllDocumentFolder");
-  //     setDatas(response.data);
-  //     setLoading(false);
-  //   };
-  //   getData();
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await api.get("/getAllDocumentFolder");
+      setDatas(response.data);
+      setLoading(false);
+    };
+    getData();
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {

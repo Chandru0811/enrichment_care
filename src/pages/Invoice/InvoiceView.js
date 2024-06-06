@@ -3,8 +3,8 @@ import QR from "../../assets/images/view.png";
 import Logo from "../../assets/images/Logo.png";
 import { Link, useParams } from "react-router-dom";
 import api from "../../config/URL";
-// import fetchAllCoursesWithIds from "../List/CourseList";
-// import fetchAllStudentsWithIds from "../List/StudentList";
+import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllStudentsWithIds from "../List/StudentList";
 import { BsFillSendFill } from "react-icons/bs";
 import toast from "react-hot-toast";
 // import jsPDF from "jspdf";
@@ -24,26 +24,26 @@ function InvoiceView() {
 
   const fetchData = async () => {
     setLoadIndicator(true);
-    // try {
-    //   const courseData = await fetchAllCoursesWithIds();
-    //   const studentData = await fetchAllStudentsWithIds();
-    //   setCourseData(courseData);
-    //   setStudentData(studentData);
-    // } catch (error) {
-    //   toast.error(error.message || "Error fetching data");
-    // } finally {
-    //   setLoadIndicator(false);
-    // }
+    try {
+      const courseData = await fetchAllCoursesWithIds();
+      const studentData = await fetchAllStudentsWithIds();
+      setCourseData(courseData);
+      setStudentData(studentData);
+    } catch (error) {
+      toast.error(error.message || "Error fetching data");
+    } finally {
+      setLoadIndicator(false);
+    }
   };
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getGenerateInvoiceById/${id}`);
+        const response = await api.get(`/getAllGenerateInvoicesById/${id}`);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        toast.error("Error fetching data");
+        toast.error(error.message || "Error fetching data");
       } finally {
         setLoading(false);
       }

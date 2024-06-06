@@ -8,7 +8,7 @@ const fetchAllCoursesWithIdsC = async (id)=> {
     return response.data;
   } catch (error) {
     toast.error("Error fetching Course data:", error);
-    throw error;
+    throw error.message;
   }
 };
 
