@@ -11,11 +11,11 @@ import toast from "react-hot-toast";
 import fetchAllCoursesWithIds from "../../List/CourseList";
 
 const validationSchema = Yup.object().shape({
-  signatureDate: Yup.string().required("*Signature Date is required")
+  signatureDate: Yup.string().required("*Signature Date is required"),
 });
 
 const AddcourseDetail = forwardRef(
-  ({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
+  ({ formData, setLoadIndicators, setFormData, handleNext }, ref) => {
     const [courseData, setCourseData] = useState(null);
 
     const formik = useFormik({
@@ -27,7 +27,7 @@ const AddcourseDetail = forwardRef(
         courseDay: formData.courseDay || "",
         endDate: formData.endDate || "",
         endTime: formData.endTime || "",
-        signatureDate:formData.signatureDate || ""
+        signatureDate: formData.signatureDate || "",
       },
       validationSchema: validationSchema,
       onSubmit: async (data) => {
@@ -45,7 +45,7 @@ const AddcourseDetail = forwardRef(
           formDatas.append("endDate", data.endDate);
           formDatas.append("endTime", data.endTime);
           formDatas.append("signatureDate", data.signatureDate);
-          formDatas.append("studentDetailId ", formData.student_id); // Assuming formDatas.student_id is defined
+          formDatas.append("studentDetailId", formData.student_id); // Assuming formData.student_id is defined
 
           // You don't need to set parentSignature to null in formDatas, it's already null if not set
 
@@ -56,14 +56,15 @@ const AddcourseDetail = forwardRef(
 
           if (response.status === 201) {
             toast.success(response.data.message);
-            setFormData((prv) => ({ ...prv, ...data }));
+            setFormData((prev) => ({ ...prev, ...data }));
             handleNext();
           } else {
             toast.error(response.data.message);
           }
         } catch (error) {
-          toast.error(error);
-        }finally {
+          const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+          toast.error(errorMessage);
+        } finally {
           setLoadIndicators(false);
         }
       },
@@ -74,7 +75,8 @@ const AddcourseDetail = forwardRef(
         const courseData = await fetchAllCoursesWithIds();
         setCourseData(courseData);
       } catch (error) {
-        toast.error(error);
+        const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+        toast.error(errorMessage);
       }
     };
 
@@ -92,7 +94,7 @@ const AddcourseDetail = forwardRef(
           <div className="border-0 mb-5">
             <div className="mb-5">
               <div className="border-0 my-2 px-2">
-                <p class="headColor">Course Detail</p>
+                <p className="headColor">Course Detail</p>
                 <div className="container py-3">
                   <div className="row">
                     <div className="col-lg-6 col-md-6 col-12">
@@ -209,7 +211,9 @@ const AddcourseDetail = forwardRef(
                       </div>
                       <div className="text-start mt-2">
                         <label htmlFor="" className="mb-1 fw-medium">
-                          <small>Signature Date<span className="text-danger">*</span></small>
+                          <small>
+                            Signature Date<span className="text-danger">*</span>
+                          </small>
                         </label>
                         <br />
                         <input
@@ -220,11 +224,12 @@ const AddcourseDetail = forwardRef(
                           onBlur={formik.handleBlur}
                           value={formik.values.signatureDate}
                         />
-                        {formik.touched.signatureDate && formik.errors.signatureDate && (
-                      <div className="text-danger">
-                        <small>{formik.errors.signatureDate}</small>
-                      </div>
-                    )}
+                        {formik.touched.signatureDate &&
+                          formik.errors.signatureDate && (
+                            <div className="text-danger">
+                              <small>{formik.errors.signatureDate}</small>
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>

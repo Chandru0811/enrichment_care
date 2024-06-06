@@ -78,6 +78,7 @@ export default function StudentAdd() {
 
   return (
     <div class="container-fluid minHeight">
+      <div class="container-fluid py-2 card shadow border-0 mb-2">
       <Stepper className="my-5" activeStep={activeStep} alternativeLabel>
         {steps.map((step, index) => (
           <Step key={index}>
@@ -92,6 +93,8 @@ export default function StudentAdd() {
           </Step>
         ))}
       </Stepper>
+      </div>
+      
       <div class="container-fluid py-3 mb-5 card shadow border-0 mb-7">
         <React.Fragment>
           {activeStep === 0 && (
