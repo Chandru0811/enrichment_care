@@ -7,17 +7,18 @@ import React, {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import fetchAllCentersWithIds from "../../List/CenterList";
 // import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Centre is required!"),
+  enrichmentCareId: Yup.string().required("*Centre is required!"),
   studentName: Yup.string().required("*Student Name is required!"),
   dateOfBirth: Yup.date()
     .required("*Date of Birth is required!")
     .max(new Date(), "*Date of Birth cannot be in the future!"),
   age: Yup.string()
-    .matches(/^\d+$/, "*Age is required!")
+   
     .required("*Age is required!"),
   gender: Yup.string().required("*Gender is required!"),
   schoolType: Yup.string().required("*School Type is required!"),
@@ -47,21 +48,35 @@ const AddStudentDetails = forwardRef(
   ({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
     const [centerData, setCenterData] = useState(null);
     const fetchData = async () => {
-      // try {
-      //   const centerData = await fetchAllCentersWithIds();
-      //   setCenterData(centerData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const centerData = await fetchAllCentersWithIds();
+        setCenterData(centerData);
+      } catch (error) {
+        toast.error(error);
+      }
     };
 
     useEffect(() => {
       fetchData();
     }, []);
 
+    const calculateAge = (dob) => {
+      const birthDate = new Date(dob);
+      const today = new Date();
+    
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+    
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+    
+      return `${years} years, ${months} months`;
+    };                                                                                                                                                                                                  
     const formik = useFormik({
       initialValues: {
-        centerId: formData.centerId || "",
+        enrichmentCareId: formData.enrichmentCareId || "",
         studentName: formData.studentName || "",
         studentChineseName: formData.studentChineseName || "",
         file: null || "",
@@ -105,8 +120,8 @@ const AddStudentDetails = forwardRef(
           formData.append("remark", values.remark);
           formData.append("allowMagazine", values.allowMagazine);
           formData.append("allowSocialMedia", values.allowSocialMedia);
-          formData.append("centerId", values.centerId);
-          formData.append("center", values.centerId);
+          formData.append("enrichmentCareId", values.enrichmentCareId);
+          formData.append("enrichmentcare", values.enrichmentCareId);
           formData.append(
             "primaryLanguageSpokenEnglish",
             values.primaryLanguageSpokenEnglish
@@ -116,7 +131,7 @@ const AddStudentDetails = forwardRef(
           formData.append("file", values.file);
 
           const response = await api.post(
-            "/createStudentDetailsWithProfileImageLatest",
+            "/createStudentDetailsWithProfileImage",
             formData,
             {
               headers: {
@@ -135,11 +150,16 @@ const AddStudentDetails = forwardRef(
           }
         } catch (error) {
           toast.error(error);
-        }finally {
+        } finally {
           setLoadIndicators(false);
         }
       },
     });
+    useEffect(() => {
+      if (formik.values.dateOfBirth) {
+        formik.setFieldValue("age", calculateAge(formik.values.dateOfBirth));
+      }
+    }, [formik.values.dateOfBirth]);
 
     useImperativeHandle(ref, () => ({
       StudentDetails: formik.handleSubmit,
@@ -161,23 +181,23 @@ const AddStudentDetails = forwardRef(
                       </label>
                       <br />
                       <select
-                        name="centerId"
+                        name="enrichmentCareId"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.centerId}
+                        value={formik.values.enrichmentCareId}
                         className="form-select"
                       >
                         <option selected></option>
                         {centerData &&
-                          centerData.map((centerId) => (
-                            <option key={centerId.id} value={centerId.id}>
-                              {centerId.centerNames}
+                          centerData.map((enrichmentCareId) => (
+                            <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                              {enrichmentCareId.enrichmentCareNames}
                             </option>
                           ))}
                       </select>
-                      {formik.touched.centerId && formik.errors.centerId && (
+                      {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                         <div className="text-danger">
-                          <small>{formik.errors.centerId}</small>
+                          <small>{formik.errors.enrichmentCareId}</small>
                         </div>
                       )}
                     </div>
@@ -432,6 +452,7 @@ const AddStudentDetails = forwardRef(
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.age}
+                        readOnly
                       />
                       {formik.touched.age && formik.errors.age && (
                         <div className="text-danger">

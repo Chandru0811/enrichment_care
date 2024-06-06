@@ -6,13 +6,12 @@ import React, {
 } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../../List/CenterList";
+import toast from "react-hot-toast";
 import api from "../../../../config/URL";
-import { logDOM } from "@testing-library/react";
+import fetchAllCentersWithIds from "../../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Centre is required"),
+  enrichmentCareId: Yup.string().required("*Centre is required"),
   // preferredDay: Yup.array().of(Yup.string().required("*Select Days")),
   preferredDay: Yup.array()
     .min(1, "*Select at least one preferred day")
@@ -25,13 +24,13 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
 
   const formik = useFormik({
     initialValues: {
-      centerId: formData.centerId || "",
+      enrichmentCareId: formData.enrichmentCareId || "",
       preferredDay: formData.preferredDay || "",
       enquiryDate: formData.enquiryDate || "",
       marketingSource: formData.marketingSource || "",
       referBy: formData.referBy || "",
       nameOfReferral: formData.nameOfReferral || "",
-      referedStudentCenterNameId: formData.referedStudentCenterNameId || "",
+      referedStudentEnrichmentCareNameId: formData.referedStudentEnrichmentCareNameId || "",
       remark: formData.remark || "",
       preferredTimeSlot: formData.preferredTimeSlot || "",
     },
@@ -65,12 +64,12 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -80,6 +79,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
   useImperativeHandle(ref, () => ({
     form5: formik.handleSubmit,
   }));
+
 
   return (
     <section>
@@ -96,22 +96,22 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
               </lable>
               <select
                 className="form-select"
-                name="centerId"
+                name="enrichmentCareId"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.centerId}
+                value={formik.values.enrichmentCareId}
               >
                 <option selected></option>
                 {centerData &&
-                  centerData.map((centerId) => (
-                    <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                  centerData.map((enrichmentCareId) => (
+                    <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                      {enrichmentCareId.enrichmentCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
+              {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                 <div className="error text-danger">
-                  <small>{formik.errors.centerId}</small>
+                  <small>{formik.errors.enrichmentCareId}</small>
                 </div>
               )}
             </div>
@@ -294,7 +294,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox1" className="custom-checkbox">
+                  <label for="myCheckbox1" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox1" className="mx-1">
@@ -315,7 +315,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox2" className="custom-checkbox">
+                  <label for="myCheckbox2" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox2" className="mx-1">
@@ -339,7 +339,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox3" className="custom-checkbox">
+                  <label for="myCheckbox3" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox3" className="mx-1">
@@ -360,7 +360,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox4" className="custom-checkbox">
+                  <label for="myCheckbox4" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox4" className="mx-1">
@@ -381,7 +381,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox5" className="custom-checkbox">
+                  <label for="myCheckbox5" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox5" className="mx-1">
@@ -483,27 +483,27 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
               <div className="input-group ">
                 <select
                   className="form-select"
-                  name="referedStudentCenterNameId"
+                  name="referedStudentEnrichmentCareNameId"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.referedStudentCenterNameId}
+                  value={formik.values.referedStudentEnrichmentCareNameId}
                 >
                   <option selected></option>
                   {centerData &&
-                    centerData.map((referedStudentCenterNameId) => (
+                    centerData.map((referedStudentEnrichmentCareNameId) => (
                       <option
-                        key={referedStudentCenterNameId.id}
-                        value={referedStudentCenterNameId.id}
+                        key={referedStudentEnrichmentCareNameId.id}
+                        value={referedStudentEnrichmentCareNameId.id}
                       >
-                        {referedStudentCenterNameId.centerNames}
+                        {referedStudentEnrichmentCareNameId.enrichmentCareNames}
                       </option>
                     ))}
                 </select>
               </div>
-              {formik.touched.referedStudentCenterNameId &&
-                formik.errors.referedStudentCenterNameId && (
+              {formik.touched.referedStudentEnrichmentCareNameId &&
+                formik.errors.referedStudentEnrichmentCareNameId && (
                   <div className="error text-danger">
-                    <small>{formik.errors.referedStudentCenterNameId}</small>
+                    <small>{formik.errors.referedStudentEnrichmentCareNameId}</small>
                   </div>
                 )}
             </div>

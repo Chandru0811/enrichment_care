@@ -5,17 +5,17 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
 import api from "../../config/URL";
-// import Delete from "../../components/common/Delete";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllSubjectsWithIds from "../List/SubjectList";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import DeleteModel from "../../components/common/DeleteModel";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllSubjectsWithIds from "../List/SubjectList";
 // import { SCREENS } from "../../config/ScreenFilter";
 
 const Lead = () => {
   const tableRef = useRef(null);
 
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
   // console.log("Screens : ", SCREENS);
@@ -24,29 +24,29 @@ const Lead = () => {
   const [subjectData, setSubjectData] = useState(null);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   const subjectData = await fetchAllSubjectsWithIds();
-    //   setCenterData(centerData);
-    //   setSubjectData(subjectData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      const subjectData = await fetchAllSubjectsWithIds();
+      setCenterData(centerData);
+      setSubjectData(subjectData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   const getCenterData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllLeadInfo");
-  //       setDatas(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       toast.error("Error Fetch Data ", error);
-  //     }
-  //   };
-  //   getCenterData();
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const getCenterData = async () => {
+      try {
+        const response = await api.get("/getAllLeadInfo");
+        setDatas(response.data);
+        setLoading(false);
+      } catch (error) {
+        toast.error("Error Fetch Data ", error);
+      }
+    };
+    getCenterData();
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -86,6 +86,7 @@ const Lead = () => {
     }
     setLoading(false);
   };
+
   return (
     <div className="minHeight center">
     <div>
@@ -120,34 +121,27 @@ const Lead = () => {
                 <th scope="col" style={{ whiteSpace: "nowrap" }}>
                   S No
                 </th>
-                <th scope="col">Centre</th>
+                <th scope="col" className="text-start">Centre</th>
                 <th scope="col">Student Name</th>
-
-                {/* <th scope="col">Parent Name</th> */}
                 <th scope="col">Payment Status</th>
                 <th scope="col">Status</th>
-                <th scope="col">Action</th>
-                {/* <th scope="col" className="text-center">
-                  Pending
-                </th> */}
+                <th scope="col" className="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {datas.map((data, index) => (
                 <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>
+                  <th scope="row" className="text-center">{index + 1}</th>
+                  <td className="text-start">
                     {" "}
                     {centerData &&
                       centerData.map((center) =>
-                        parseInt(data.centerId) === center.id
-                          ? center.centerNames || "--"
+                        parseInt(data.enrichmentCareId) === center.id
+                          ? center.enrichmentCareNames || "--"
                           : ""
                       )}
                   </td>
                   <td>{data.studentName}</td>
-
-                  {/* <td>{data.fathersFullName}</td> */}
                   <td>
                     {data.paymentStatus === "REJECTED" ? (
                       <span className="badge bg-danger">Rejected</span>
@@ -158,62 +152,59 @@ const Lead = () => {
                     )}
                   </td>
                   <td>
-                    {data.status === "arranged" ? (
-                      <span className="badge badges-Brown">
-                        Assessment Arranged
+                    {data.leadStatus === "Arranging assessment" ? (
+                      <span className="badge bg-warning">
+                        Arranging assessment
                       </span>
-                    ) : data.status === "confirm" ? (
-                      <span className="badge badges-Green">Confirmed</span>
-                    ) : data.status === "wait" ? (
-                      <span className="badge badges-Ash">Waitlist</span>
-                    ) : data.status === "called" ? (
-                      <span className="badge badges-Blue">Called</span>
-                    ) : data.status === "pending" ? (
-                      <span className="badge badges-Yellow">
-                        Pending for Payment
-                      </span>
-                    ) : data.status === "drop" ? (
-                      <span className="badge badges-Red">Drop</span>
+                    ) : data.leadStatus === "Assessment confirmed" ? (
+                      <span className="badge bg-primary">Assessment confirmed</span>
+                    ) : data.leadStatus === "Waiting for payment" ? (
+                      <span className="badge bg-primary">Waiting for payment</span>
+                    ) : data.leadStatus === "Rejected" ? (
+                      <span className="badge bg-info">Rejected</span>
                     ) : (
-                      <span className="badge badges-Red">Completed</span>
+                      <span className="badge bg-danger">Pending</span>
                     )}
                   </td>
 
                   <td>
-                    <div className="d-flex">
-                      {storedScreens?.leadListingRead && (
+                    <div className="d-flex justify-content-between">
+                      {/* {storedScreens?.leadListingRead && (
                         <Link to={`/lead/lead/view/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEye />
                           </button>
                         </Link>
-                      )}
-                      {storedScreens?.leadListingUpdate && (
+                      )} */}
+                      <Link to={`/lead/lead/view/${data.id}`}>
+                          <button className="btn btn-sm">
+                            <FaEye />
+                          </button>
+                        </Link>
+                      {/* {storedScreens?.leadListingUpdate && (
                         <Link to={`/lead/lead/edit/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEdit />
                           </button>
                         </Link>
-                      )}
+                      )} */}
+                      <Link to={`/lead/lead/edit/${data.id}`}>
+                          <button className="btn btn-sm">
+                            <FaEdit />
+                          </button>
+                        </Link>
                       {/* {storedScreens?.leadListingDelete && (
-                        <Delete
+                        <DeleteModel
                           onSuccess={refreshData}
                           path={`/deleteLeadInfo/${data.id}`}
                         />
                       )} */}
+                       <DeleteModel
+                          onSuccess={refreshData}
+                          path={`/deleteLeadInfo/${data.id}`}
+                        />
                     </div>
                   </td>
-                  {/* <td className="text-center">
-                    {data.leadUniqueID !== null ? (
-                      <button className="btn">
-                        <div className="circle green"></div>
-                      </button>
-                    ) : (
-                      <button className="btn">
-                        <div className="circle red"></div>
-                      </button>
-                    )}
-                  </td> */}
                 </tr>
               ))}
             </tbody>

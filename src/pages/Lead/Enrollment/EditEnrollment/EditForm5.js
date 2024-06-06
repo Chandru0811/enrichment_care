@@ -6,12 +6,13 @@ import React, {
 } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 // import fetchAllCentersWithIds from "../../../List/CenterList";
 import api from "../../../../config/URL";
+import fetchAllCentersWithIds from "../../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Center is required!"),
+  enrichmentCareId: Yup.string().required("*Center is required!"),
   // preferredDay: Yup.array().of(Yup.string().required("*Select Days")),
   preferredDay: Yup.array()
     .min(1, "*Select at least one preferred day!")
@@ -24,7 +25,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
 
   const formik = useFormik({
     initialValues: {
-      centerId: formData.centerId,
+      enrichmentCareId: formData.enrichmentCareId,
       preferredDay: formData.preferredDay || "",
       enquiryDate: formData.enquiryDate || "",
       marketingSource: formData.marketingSource || "",
@@ -58,15 +59,6 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
     },
   });
 
-  const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
-  };
-
   const getData = async () => {
     const response = await api.get(`/getAllLeadInfoById/${formData.id}`);
     const enquiryDate =
@@ -78,10 +70,18 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
     });
   };
 
+  const fetchData = async () => {
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
   useEffect(() => {
-    getData();
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getData();
   }, []);
 
   useImperativeHandle(ref, () => ({
@@ -99,26 +99,26 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
 
             <div className="col-md-6 col-12 ">
               <lable className="">
-                Center<span className="text-danger">*</span>
+                Centre<span className="text-danger">*</span>
               </lable>
               <select
                 className="form-select"
-                name="centerId"
+                name="enrichmentCareId"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.centerId}
+                value={formik.values.enrichmentCareId}
               >
                 <option selected></option>
                 {centerData &&
-                  centerData.map((centerId) => (
-                    <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                  centerData.map((enrichmentCareId) => (
+                    <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                      {enrichmentCareId.enrichmentCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
+              {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                 <div className="error text-danger">
-                  <small>{formik.errors.centerId}</small>
+                  <small>{formik.errors.enrichmentCareId}</small>
                 </div>
               )}
             </div>
@@ -289,7 +289,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
               <div className="mt-2 d-flex">
                 <div className="checkbox-container ">
                   <input
-                    className="form-check-input"
+                    className="form-check-input m-0"
                     type="checkbox"
                     id="myCheckbox1"
                     name="preferredTimeSlot"
@@ -301,7 +301,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox1" className="custom-checkbox">
+                  <label for="myCheckbox1" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox1" className="mx-1">
@@ -310,7 +310,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                 </div>
                 <div className="checkbox-container mx-4">
                   <input
-                    className="form-check-input"
+                    className="form-check-input m-0"
                     type="checkbox"
                     id="myCheckbox2"
                     name="preferredTimeSlot"
@@ -322,7 +322,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox2" className="custom-checkbox">
+                  <label for="myCheckbox2" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox2" className="mx-1">
@@ -334,7 +334,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
               <div className="d-flex">
                 <div className="checkbox-container ">
                   <input
-                    className="form-check-input"
+                    className="form-check-input m-0"
                     type="checkbox"
                     id="myCheckbox3"
                     name="preferredTimeSlot"
@@ -346,7 +346,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox3" className="custom-checkbox">
+                  <label for="myCheckbox3" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox3" className="mx-1">
@@ -355,7 +355,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                 </div>
                 <div className="checkbox-container mx-4">
                   <input
-                    className="form-check-input"
+                    className="form-check-input m-0"
                     type="checkbox"
                     id="myCheckbox4"
                     name="preferredTimeSlot"
@@ -367,7 +367,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox4" className="custom-checkbox">
+                  <label for="myCheckbox4" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox4" className="mx-1">
@@ -376,7 +376,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                 </div>
                 <div className="checkbox-container mx-4">
                   <input
-                    className="form-check-input"
+                    className="form-check-input m-0"
                     type="checkbox"
                     id="myCheckbox5"
                     name="preferredTimeSlot"
@@ -388,7 +388,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox5" className="custom-checkbox">
+                  <label for="myCheckbox5" >
                     <div className="inner-square"></div>
                   </label>
                   <label for="myCheckbox5" className="mx-1">
@@ -426,6 +426,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                   </div>
                 )}
             </div>
+
             <div className="col-md-6 col-12 mb-3">
               <label>Referred By</label>
               <div className="input-group ">
@@ -483,32 +484,32 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
               )}
             </div>
 
-            <div className="col-md-6 col-12 mb-3">
+             <div className="col-md-6 col-12 mb-3">
               <label>Refer Student Center</label>
-              <div className="input-group ">
+              <div className="input-group">
                 <select
                   className="form-select"
-                  name="referedStudentCenterNameId"
+                  name="referedStudentEnrichmentCareNameId"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.referedStudentCenterNameId}
+                  value={formik.values.referedStudentEnrichmentCareNameId}
                 >
                   <option selected></option>
                   {centerData &&
-                    centerData.map((referedStudentCenterNameId) => (
+                    centerData.map((referedStudentEnrichmentCareNameId) => (
                       <option
-                        key={referedStudentCenterNameId.id}
-                        value={referedStudentCenterNameId.id}
+                        key={referedStudentEnrichmentCareNameId.id}
+                        value={referedStudentEnrichmentCareNameId.id}
                       >
-                        {referedStudentCenterNameId.centerNames}
+                        {referedStudentEnrichmentCareNameId.enrichmentCareNames}
                       </option>
                     ))}
                 </select>
               </div>
-              {formik.touched.referedStudentCenterNameId &&
-                formik.errors.referedStudentCenterNameId && (
+              {formik.touched.referedStudentEnrichmentCareNameId &&
+                formik.errors.referedStudentEnrichmentCareNameId && (
                   <div className="error text-danger">
-                    <small>{formik.errors.referedStudentCenterNameId}</small>
+                    <small>{formik.errors.referedStudentEnrichmentCareNameId}</small>
                   </div>
                 )}
             </div>

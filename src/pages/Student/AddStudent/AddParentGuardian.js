@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
   parentInformation: Yup.array().of(
@@ -33,7 +33,7 @@ const AddParentGuardian = forwardRef(
       formData.parentInformation ? formData.parentInformation.length : 1
     ); // Initially one row for one parent
     const [selectedPrimaryContactIndex, setSelectedPrimaryContactIndex] =
-      useState(null);
+      useState(0);
 
     const formik = useFormik({
       initialValues: {
@@ -70,7 +70,10 @@ const AddParentGuardian = forwardRef(
             formDatas.append(`postalCodes`, parent.postalCodes);
             formDatas.append(`addresses`, parent.addresses);
             // formDatas.append(`primaryContact`, parent.primaryContact);
-            formDatas.append(`primaryContacts`, parent.primaryContacts ? true : false );
+            formDatas.append(
+              `primaryContacts`,
+              parent.primaryContacts ? true : false
+            );
           });
 
           const response = await api.post(
@@ -87,15 +90,15 @@ const AddParentGuardian = forwardRef(
             setFormData((prev) => ({ ...prev, ...values }));
             handleNext();
           } else {
-            toast.error(response.data.message);
+            toast.Emoji("Please Fill All the fields to continue");
           }
         } catch (error) {
           if (error?.response?.status === 500) {
-            toast.warning("Please Fill All the fields to continue");
+            toast.Emoji("Please Fill All the fields to continue");
           } else {
-            toast.error(error?.response?.data?.message);
+            toast.error("Please Fill All the fields to continue");
           }
-        }finally {
+        } finally {
           setLoadIndicators(false);
         }
       },
@@ -105,9 +108,10 @@ const AddParentGuardian = forwardRef(
       ParentGuardian: formik.handleSubmit,
     }));
 
+
     return (
       <div className="container-fluid">
-        {[...Array(rows)].map((_, index) => (
+       {[...Array(rows)].map((_, index) => (
           <div className="border-0 mb-5" key={index}>
             <div>
               <div className=" border-0 my-2">
@@ -117,9 +121,7 @@ const AddParentGuardian = forwardRef(
                     <div className="row mt-2">
                       <div className="col-lg-6 col-md-6 col-12">
                         <div className="text-end mt-4">
-                          <label>
-                            {/* Primary Contact */}
-                          </label>
+                          <label>{/* Primary Contact */}</label>
                         </div>
                         <div className="text-start">
                           <label htmlFor="" className="mb-1 fw-medium">
@@ -254,7 +256,10 @@ const AddParentGuardian = forwardRef(
                       </div>
                       <div className="col-lg-6 col-md-6 col-12">
                         <div className="text-end mb-3">
-                          <label htmlFor="" className="my-1 fw-bold text-primary">
+                          <label
+                            htmlFor=""
+                            className="my-1 fw-bold text-primary"
+                          >
                             Primary Contact
                           </label>
                           <input

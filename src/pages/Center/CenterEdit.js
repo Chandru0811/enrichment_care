@@ -7,7 +7,7 @@ import EditBreak from "./Edit/EditBreak";
 import EditClass from "./Edit/EditClass";
 import EditPackage from "./Edit/EditPackage";
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
   enrichmentCareName: Yup.string().required("*Centre Name is required"),

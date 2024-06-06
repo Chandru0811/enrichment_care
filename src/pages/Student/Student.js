@@ -4,9 +4,9 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
 import { SCREENS } from "../../config/ScreenFilter";
+import DeleteModel from "../../components/common/DeleteModel";
 
 const Student = () => {
   const tableRef = useRef(null);
@@ -106,48 +106,58 @@ const Student = () => {
                   S No
                 </th>
                 <th scope="col">Student ID</th>
-                <th scope="col">Student Name</th>
+                <th scope="col" className="text-center">Student Name</th>
                 <th scope="col">Age</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Nationality</th>
-                {/* <th scope="col">Join Class Date</th>
-                <th scope="col">Status</th> */}
-                <th scope="col">Action</th>
+                <th scope="col" className="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {datas.map((data, index) => (
                 <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>{data.studentUniqueId}</td>
-                  <td>{data.studentName}</td>
-                  <td>{data.age}</td>
+                  <th scope="row" className="text-center">{index + 1}</th>
+                  <td className="text-center">{data.studentUniqueId}</td>
+                  <td className="text-center">{data.studentName}</td>
+                  <td className="text-center">{data.age}</td>
                   <td>{data.gender}</td>
                   <td>{data.nationality}</td>
-                  {/* <td>{data.joinClassDate}</td>
-                  <td>{data.status}</td> */}
                   <td>
-                    <div className="d-flex">
-                      {storedScreens?.studentListingRead && (
+                    <div className="d-flex justify-content-between">
+                      {/* {storedScreens?.studentListingRead && (
                         <Link to={`/student/view/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEye />
                           </button>
                         </Link>
-                      )}
-                      {storedScreens?.studentListingUpdate && (
+                      )} */}
+                      <Link to={`/student/view/${data.id}`}>
+                          <button className="btn btn-sm">
+                            <FaEye />
+                          </button>
+                        </Link>
+                      {/* {storedScreens?.studentListingUpdate && (
                         <Link to={`/student/edit/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEdit />
                           </button>
                         </Link>
-                      )}
+                      )} */}
+                      <Link to={`/student/edit/${data.id}`}>
+                          <button className="btn btn-sm">
+                            <FaEdit />
+                          </button>
+                        </Link>
                       {/* {storedScreens?.studentListingDelete && (
                         <Delete
                           onSuccess={refreshData}
                           path={`/deleteStudentDetail/${data.id}`}
                         />
                       )} */}
+                      <DeleteModel
+                          onSuccess={refreshData}
+                          path={`/deleteStudentDetail/${data.id}`}
+                        />
                     </div>
                   </td>
                 </tr>

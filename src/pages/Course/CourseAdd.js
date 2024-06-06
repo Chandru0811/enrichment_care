@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/custom.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../config/URL";
 import fetchAllCentersWithIds from "../List/CenterList";
 import fetchAllLevelsWithIds from "../List/LevelList";
@@ -36,7 +36,7 @@ function CourseAdd({ onSuccess }) {
   }, []);
 
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Select the Centre Name"),
+    enrichmentCareId: Yup.string().required("*Select the Centre Name"),
     courseName: Yup.string().required("*Course Name is required"),
     courseCode: Yup.string().required("*Course Code is required"),
     subjectId: Yup.string().required("*Select the Subject"),
@@ -49,9 +49,59 @@ function CourseAdd({ onSuccess }) {
     replacementLessonStudentBuffer: Yup.number().typeError("*Must be a Number"),
   });
 
+  // const formik = useFormik({
+  //   initialValues: {
+  //     enrichmentCareId: "",
+  //     courseName: "",
+  //     courseCode: "",
+  //     subjectId: "",
+  //     levelId: "",
+  //     minClassSize: "",
+  //     maxClassSize: "",
+  //     replacementLessonStudentBuffer: "",
+  //     colorCode: "",
+  //     courseType: "",
+  //     durationInHrs: "",
+  //     durationInMins: "",
+  //     status: "",
+  //     classReplacementAllowed: "",
+  //     description: "",
+  //   },
+  //   validationSchema: validationSchema,
+  //   onSubmit: async (values) => {
+  //     setLoadIndicator(true);
+  //     console.log(values);
+  //     try {
+  //       const classReplacementAllowed =
+  //         values.classReplacementAllowed === "Yes" ? true : false;
+  //       const updatedData = {
+  //         ...values,
+  //         classReplacementAllowed: classReplacementAllowed,
+  //       };
+  //       const response = await api.post("/createCourses", updatedData, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       console.log(values);
+  //       if (response.status === 201) {
+  //         toast.success(response.data.message);
+  //         navigate("/course");
+  //         onSuccess();
+  //       } else {
+  //         toast.error(response.data.message);
+  //       }
+  //     } catch (error) {
+  //       toast.error(error);
+  //     }finally {
+  //       setLoadIndicator(false);
+  //     }
+  //   },
+  // });
+
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       courseName: "",
       courseCode: "",
       subjectId: "",
@@ -92,13 +142,14 @@ function CourseAdd({ onSuccess }) {
           toast.error(response.data.message);
         }
       } catch (error) {
-        toast.error(error);
-      }finally {
+        toast.error(error.message);
+      } finally {
         setLoadIndicator(false);
       }
     },
   });
 
+  
   return (
     <section className="courseAdd">
       <div className="container-fluid center">
@@ -143,9 +194,9 @@ function CourseAdd({ onSuccess }) {
                 </lable>
                 <div className="input-group mb-3">
                   <select
-                    {...formik.getFieldProps("centerId")}
+                    {...formik.getFieldProps("enrichmentCareId")}
                     className={`form-select  ${
-                      formik.touched.centerId && formik.errors.centerId
+                      formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                         ? "is-invalid"
                         : ""
                     }`}
@@ -153,15 +204,15 @@ function CourseAdd({ onSuccess }) {
                   >
                     <option selected></option>
                     {centerData &&
-                      centerData.map((centerId) => (
-                        <option key={centerId.id} value={centerId.id}>
-                          {centerId.enrichmentCareNames}
+                      centerData.map((enrichmentCareId) => (
+                        <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                          {enrichmentCareId.enrichmentCareNames}
                         </option>
                       ))}
                   </select>
-                  {formik.touched.centerId && formik.errors.centerId && (
+                  {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerId}
+                      {formik.errors.enrichmentCareId}
                     </div>
                   )}
                 </div>

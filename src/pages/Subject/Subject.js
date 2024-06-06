@@ -9,7 +9,7 @@ import SubjectAdd from "./SubjectAdd";
 import SubjectEdit from "./SubjectEdit";
 import api from "../../config/URL";
 import { SCREENS } from "../../config/ScreenFilter";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 
 const Subject = () => {

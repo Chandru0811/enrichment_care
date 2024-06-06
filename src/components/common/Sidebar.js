@@ -90,11 +90,11 @@ function Sidebar({ onLogout }) {
             path: "lead/lead",
             access: storedScreens.leadListingIndex,
           },
-          {
-            title: "Enrollment",
-            path: "/lead/enrollment",
-            access: storedScreens.enrollmentIndex,
-          },
+          // {
+          //   title: "Enrollment",
+          //   path: "/lead/enrollment",
+          //   access: storedScreens.enrollmentIndex,
+          // },
         ],
       },
       {

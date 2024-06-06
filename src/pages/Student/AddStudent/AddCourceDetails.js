@@ -7,8 +7,8 @@ import React, {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
-// import fetchAllCoursesWithIds from "../../List/CourseList";
+import toast from "react-hot-toast";
+import fetchAllCoursesWithIds from "../../List/CourseList";
 
 const validationSchema = Yup.object().shape({
   signatureDate: Yup.string().required("*Signature Date is required")
@@ -70,12 +70,12 @@ const AddcourseDetail = forwardRef(
     });
 
     const fetchData = async () => {
-      // try {
-      //   const courseData = await fetchAllCoursesWithIds();
-      //   setCourseData(courseData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const courseData = await fetchAllCoursesWithIds();
+        setCourseData(courseData);
+      } catch (error) {
+        toast.error(error);
+      }
     };
 
     useEffect(() => {
