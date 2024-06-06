@@ -6,9 +6,10 @@ import React, {
 } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../../config/URL";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
   startDate: Yup.string().required("*Start Date is required!"),
@@ -29,12 +30,12 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
   const [centerData, setCenterData] = useState(null);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -303,7 +304,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <label for="myCheckbox1" className="custom-checkbox">
+                <label for="myCheckbox1" >
                   <div className="inner-square"></div>
                 </label>
                 <label for="myCheckbox1" className="mx-1">
@@ -324,7 +325,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <label for="myCheckbox2" className="custom-checkbox">
+                <label for="myCheckbox2" >
                   <div className="inner-square"></div>
                 </label>
                 <label for="myCheckbox2" className="mx-1">
@@ -345,7 +346,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <label for="myCheckbox3" className="custom-checkbox">
+                <label for="myCheckbox3" >
                   <div className="inner-square"></div>
                 </label>
                 <label for="myCheckbox3" className="mx-1">
@@ -366,7 +367,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <label for="myCheckbox4" className="custom-checkbox">
+                <label for="myCheckbox4" >
                   <div className="inner-square"></div>
                 </label>
                 <label for="myCheckbox4" className="mx-1">
@@ -387,7 +388,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <label for="myCheckbox5" className="custom-checkbox">
+                <label for="myCheckbox5" >
                   <div className="inner-square"></div>
                 </label>
                 <label for="myCheckbox5" className="mx-1">
@@ -408,7 +409,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <label for="myCheckbox6" className="custom-checkbox">
+                <label for="myCheckbox6" >
                   <div className="inner-square"></div>
                 </label>
                 <label for="myCheckbox6" className="mx-1">
@@ -429,7 +430,7 @@ const AccountAdd = forwardRef(({ formData,setLoadIndicators, setFormData, handle
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <label for="myCheckbox7" className="custom-checkbox">
+                <label for="myCheckbox7" >
                   <div className="inner-square"></div>
                 </label>
                 <label for="myCheckbox7" className="mx-1">

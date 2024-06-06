@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 
 function HolidayAdd() {
@@ -61,12 +62,12 @@ function HolidayAdd() {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -128,7 +129,7 @@ function HolidayAdd() {
                   {centerData &&
                     centerData.map((center) => (
                       <option key={center.id} value={center.id}>
-                        {center.centerNames}
+                        {center.enrichmentCareNames}
                       </option>
                     ))}
                 </select>

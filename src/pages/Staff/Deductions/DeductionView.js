@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 function DeductionView() {
   const [data, setData] = useState({});
@@ -10,27 +11,27 @@ function DeductionView() {
   const [centerData, setCenterData] = useState(null);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUserDeductionById/${id}`);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       toast.error("Error fetching data");
-  //     }
-  //   };
-  //   getData();
-  //   fetchData(); // Call fetchData here to fetch center data
-  // }, [id]); // Add id as a dependency
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllUserDeductionById/${id}`);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        toast.error("Error fetching data");
+      }
+    };
+    getData();
+    fetchData(); // Call fetchData here to fetch center data
+  }, [id]); // Add id as a dependency
 
   return (
     <section>
@@ -68,7 +69,7 @@ function DeductionView() {
                     : {centerData &&
                       centerData.map((centerId) =>
                         parseInt(data.centerId) === centerId.id
-                          ? centerId.centerNames || "--"
+                          ? centerId.enrichmentCareNames || "--"
                           : ""
                       )}
                   </p>

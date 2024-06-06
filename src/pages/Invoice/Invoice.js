@@ -4,18 +4,19 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
-// import fetchAllCoursesWithIds from "../List/CourseList";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllStudentsWithIds from "../List/StudentList";
-import { toast } from "react-toastify";
+import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllStudentsWithIds from "../List/StudentList";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 // import { SCREENS } from "../../config/ScreenFilter";
 
 const Invoice = () => {
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [centerData, setCenterData] = useState(null);
   const [courseData, setCourseData] = useState(null);
   const [studentData, setStudentData] = useState(null);
@@ -25,34 +26,34 @@ const Invoice = () => {
   // console.log("Screens : ", SCREENS);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   const courseData = await fetchAllCoursesWithIds();
-    //   const studentData = await fetchAllStudentsWithIds();
-    //   const packageData = await api.get("getAllCentersPackageWithIds");
-    //   setPackageData(packageData.data);
-    //   setCenterData(centerData);
-    //   setCourseData(courseData);
-    //   setStudentData(studentData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      const courseData = await fetchAllCoursesWithIds();
+      const studentData = await fetchAllStudentsWithIds();
+      const packageData = await api.get("getAllEnrichmentCarePackageWithIds");
+      setPackageData(packageData.data);
+      setCenterData(centerData);
+      setCourseData(courseData);
+      setStudentData(studentData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllGenerateInvoices");
-  //       setDatas(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   getData();
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get("/getAllGenerateInvoices");
+        setDatas(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -95,9 +96,9 @@ const Invoice = () => {
 
   return (
     <div className="minHeight center">
-    <div className="container-fluid my-4 center">
+    <div className="container-fluid my-4 center px-0">
       <div className="card shadow border-0 mb-2 top-header">
-    <div className="container-fluid px-0">
+    <div className="container-fluid ">
       <div className="my-3 d-flex justify-content-between mb-5 px-4">
         <h2>Invoice</h2>
         {/* {storedScreens?.invoiceCreate && ( */}
@@ -149,8 +150,8 @@ const Invoice = () => {
                 <td>
                   {centerData &&
                     centerData.map((center) =>
-                      parseInt(data.centerId) === center.id
-                        ? center.centerNames || "--"
+                      parseInt(data.enrichmentCareId) === center.id
+                        ? center.enrichmentCareNames || "--"
                         : ""
                     )}
                 </td>
@@ -172,26 +173,26 @@ const Invoice = () => {
                 </td>
                 <td>
                   <div className="d-flex">
-                    {storedScreens?.invoiceRead && (
+                    {/* {storedScreens?.invoiceRead && ( */}
                       <Link to={`/invoice/view/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEye />
                         </button>
                       </Link>
-                    )}
-                    {storedScreens?.invoiceUpdate && (
+                    {/* )} */}
+                    {/* {storedScreens?.invoiceUpdate && ( */}
                       <Link to={`/invoice/edit/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEdit />
                         </button>
                       </Link>
-                    )}
-                    {/* {storedScreens?.invoiceDelete && (
+                    {/* )} */}
+                    {/* {storedScreens?.invoiceDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteGenerateInvoice/${data.id}`}
                       />
-                    )} */}
+                    {/* )} */}
                   </div>
                 </td>
               </tr>

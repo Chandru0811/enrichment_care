@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../List/CenterList";
-// import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
 // import { format } from "date-fns";
 
 const validationSchema = Yup.object({
-  centerId: Yup.number().required("*Center Name is required"),
+  enrichmentCareId: Yup.number().required("*Center Name is required"),
   userId: Yup.number().required("*Employee Name is required"),
   deductionName: Yup.string().required("*Select the Deduction Name"),
   deductionMonth: Yup.string().required("*Select the Deduction Month"),
@@ -24,7 +25,7 @@ function DeductionAdd() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       userId: "",
       deductionName: "",
       deductionMonth: "",
@@ -39,7 +40,7 @@ function DeductionAdd() {
       let selectedEmployeeName = "";
 
       centerData.forEach((center) => {
-        if (parseInt(values.centerId) === center.id) {
+        if (parseInt(values.enrichmentCareId) === center.id) {
           selectedCenterName = center.centerNames || "--";
         }
       });
@@ -51,7 +52,7 @@ function DeductionAdd() {
       });
 
       let payload = {
-        centerId: values.centerId,
+        enrichmentCareId: values.enrichmentCareId,
         centerName: selectedCenterName,
         userId: values.userId,
         employeeName: selectedEmployeeName,
@@ -83,35 +84,35 @@ function DeductionAdd() {
 
   const handleCenterChange = async (event) => {
     setUserNameData(null);
-    const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
+    const enrichmentCareId = event.target.value;
+    formik.setFieldValue("enrichmentCareId", enrichmentCareId);
     try {
-      await fetchUserName(centerId);
+      await fetchUserName(enrichmentCareId);
     } catch (error) {
       toast.error(error);
     }
   };
 
   const fetchData = async () => {
-    // try {
-    //   const centers = await fetchAllCentersWithIds();
-    //   setCenterData(centers);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centers = await fetchAllCentersWithIds();
+      setCenterData(centers);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchUserName = async (centerId) => {
-    // try {
-    //   const userNames = await fetchAllEmployeeListByCenter(centerId);
-    //   setUserNameData(userNames);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchUserName = async (enrichmentCareId) => {
+    try {
+      const userNames = await fetchAllEmployeeListByCenter(enrichmentCareId);
+      setUserNameData(userNames);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   // useEffect(() => {
@@ -161,9 +162,9 @@ function DeductionAdd() {
                 <label className="form-label">Centre Name</label>
                 <span className="text-danger">*</span>
                 <select
-                  {...formik.getFieldProps("centerId")}
+                  {...formik.getFieldProps("enrichmentCareId")}
                   className={`form-select ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -174,13 +175,13 @@ function DeductionAdd() {
                   {centerData &&
                     centerData.map((center) => (
                       <option key={center.id} value={center.id}>
-                        {center.centerNames}
+                        {center.enrichmentCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.enrichmentCareId}
                   </div>
                 )}
               </div>

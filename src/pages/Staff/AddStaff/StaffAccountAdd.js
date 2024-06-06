@@ -6,7 +6,8 @@ import React, {
 } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../../config/URL";
 import fetchAllCentersWithIds from "../../List/CenterList";
 
@@ -323,7 +324,7 @@ const StaffAccountAdd = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox1" class="custom-checkbox">
+                  <label for="myCheckbox1" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox1" className="mx-1">
@@ -344,7 +345,7 @@ const StaffAccountAdd = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox2" class="custom-checkbox">
+                  <label for="myCheckbox2" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox2" className="mx-1">
@@ -365,7 +366,7 @@ const StaffAccountAdd = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox3" class="custom-checkbox">
+                  <label for="myCheckbox3" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox3" className="mx-1">
@@ -386,7 +387,7 @@ const StaffAccountAdd = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox4" class="custom-checkbox">
+                  <label for="myCheckbox4" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox4" className="mx-1">
@@ -407,7 +408,7 @@ const StaffAccountAdd = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox5" class="custom-checkbox">
+                  <label for="myCheckbox5" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox5" className="mx-1">
@@ -428,7 +429,7 @@ const StaffAccountAdd = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox6" class="custom-checkbox">
+                  <label for="myCheckbox6" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox6" className="mx-1">
@@ -449,7 +450,7 @@ const StaffAccountAdd = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox7" class="custom-checkbox">
+                  <label for="myCheckbox7" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox7" className="mx-1">

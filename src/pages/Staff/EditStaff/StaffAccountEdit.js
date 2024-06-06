@@ -6,9 +6,10 @@ import React, {
 } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../../config/URL";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
   startDate: Yup.string().required("*Start Date is required!"),
@@ -27,7 +28,7 @@ const validationSchema = Yup.object().shape({
   workingDays: Yup.array()
     .of(Yup.string().required("*Working Days is required!"))
     .min(1, "*Working Days is required!"),
-  centerId: Yup.string().required("*Centres is required!"),
+  enrichmentCareId: Yup.string().required("*Centres is required!"),
 });
 
 const StaffAccountEdit = forwardRef(
@@ -35,12 +36,12 @@ const StaffAccountEdit = forwardRef(
     const [centerData, setCenterData] = useState(null);
 
     const fetchData = async () => {
-      // try {
-      //   const centerData = await fetchAllCentersWithIds();
-      //   setCenterData(centerData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const centerData = await fetchAllCentersWithIds();
+        setCenterData(centerData);
+      } catch (error) {
+        toast.error(error);
+      }
     };
 
     const formik = useFormik({
@@ -55,7 +56,7 @@ const StaffAccountEdit = forwardRef(
         endDate: "",
         approvelContentRequired: "",
         workingDays: [],
-        centerId: "",
+        enrichmentCareId: "",
       },
       validationSchema: validationSchema,
       // onSubmit: async (values) => {
@@ -167,13 +168,13 @@ const StaffAccountEdit = forwardRef(
             `/getAllUsersById/${formData.staff_id}`
           );
           if (
-            response.data.userAccountInfo &&
-            response.data.userAccountInfo.length > 0
+            response.data.userAccountInfoModels &&
+            response.data.userAccountInfoModels.length > 0
           ) {
-            const data = response.data.userAccountInfo[0];
+            const data = response.data.userAccountInfoModels[0];
             formik.setValues({
-              ...response.data.userAccountInfo[0],
-              accountId: response.data.userAccountInfo[0].id,
+              ...response.data.userAccountInfoModels[0],
+              accountId: response.data.userAccountInfoModels[0].id,
               startDate: data.startDate.substring(0, 10),
               endDate: data.endDate.substring(0, 10),
               // accountId: data.id,
@@ -193,7 +194,7 @@ const StaffAccountEdit = forwardRef(
               endDate: "",
               approvelContentRequired: "",
               workingDays: [],
-              centerId: "",
+              enrichmentCareId: "",
             });
             // console.log("Account ID:", formik.values.accountId);
           }
@@ -435,7 +436,7 @@ const StaffAccountEdit = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox1" class="custom-checkbox">
+                  <label for="myCheckbox1" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox1" className="mx-1">
@@ -456,7 +457,7 @@ const StaffAccountEdit = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox2" class="custom-checkbox">
+                  <label for="myCheckbox2" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox2" className="mx-1">
@@ -477,7 +478,7 @@ const StaffAccountEdit = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox3" class="custom-checkbox">
+                  <label for="myCheckbox3" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox3" className="mx-1">
@@ -498,7 +499,7 @@ const StaffAccountEdit = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox4" class="custom-checkbox">
+                  <label for="myCheckbox4" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox4" className="mx-1">
@@ -519,7 +520,7 @@ const StaffAccountEdit = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox5" class="custom-checkbox">
+                  <label for="myCheckbox5" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox5" className="mx-1">
@@ -540,7 +541,7 @@ const StaffAccountEdit = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox6" class="custom-checkbox">
+                  <label for="myCheckbox6" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox6" className="mx-1">
@@ -561,7 +562,7 @@ const StaffAccountEdit = forwardRef(
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <label for="myCheckbox7" class="custom-checkbox">
+                  <label for="myCheckbox7" >
                     <div class="inner-square"></div>
                   </label>
                   <label for="myCheckbox7" className="mx-1">
@@ -581,9 +582,9 @@ const StaffAccountEdit = forwardRef(
               </lable>
               <div className="input-group mb-3">
                 <select
-                  {...formik.getFieldProps("centerId")}
+                  {...formik.getFieldProps("enrichmentCareId")}
                   className={`form-select  ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -591,15 +592,15 @@ const StaffAccountEdit = forwardRef(
                 >
                   <option selected></option>
                   {centerData &&
-                    centerData.map((centerId) => (
-                      <option key={centerId.id} value={centerId.id}>
-                        {centerId.centerNames}
+                    centerData.map((enrichmentCareId) => (
+                      <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                        {enrichmentCareId.enrichmentCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.enrichmentCareId}
                   </div>
                 )}
               </div>

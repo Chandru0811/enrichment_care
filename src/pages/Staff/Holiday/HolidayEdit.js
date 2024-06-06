@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function HolidayEdit() {
   const validationSchema = Yup.object({
@@ -63,32 +64,32 @@ function HolidayEdit() {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUserHolidayById/${id}`);
-  //       const formattedResponseData = {
-  //         ...response.data,
-  //         startDate: response.data.startDate.substring(0, 10),
-  //         endDate: response.data.endDate.substring(0, 10),
-  //       };
-  //       formik.setValues(formattedResponseData);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllUserHolidayById/${id}`);
+        const formattedResponseData = {
+          ...response.data,
+          startDate: response.data.startDate.substring(0, 10),
+          endDate: response.data.endDate.substring(0, 10),
+        };
+        formik.setValues(formattedResponseData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  //   getData();
-  //   fetchData();
-  // }, []);
+    getData();
+    fetchData();
+  }, []);
 
   return (
     <section className="HolidayAdd p-3">
@@ -147,7 +148,7 @@ function HolidayEdit() {
                     {centerData &&
                       centerData.map((center) => (
                         <option key={center.id} value={center.id}>
-                          {center.centerNames}
+                          {center.enrichmentCareNames}
                         </option>
                       ))}
                   </select>

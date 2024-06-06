@@ -117,9 +117,12 @@ import ScheduleTeacherView from "../pages/ScheduleTeacher/ScheduleTeacherView";
 import ScheduleTeacher from "../pages/ScheduleTeacher/ScheduleTeacher";
 import ScheduleTime from "../pages/ScheduleTeacher/ScheduleTime";
 
+import { Toaster } from "react-hot-toast";
+
 function Admin({ handleLogout }) {
   return (
     <BrowserRouter>
+    <Toaster></Toaster>
       <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <Sidebar onLogout={handleLogout} />
         <div className="h-screen flex-grow-1 overflow-y-lg-auto">
@@ -175,31 +178,31 @@ function Admin({ handleLogout }) {
               {/* {/ {/ Deduction /} /} */}
               <Route path="/deduction" element={<Deduction />} />
               <Route path="/deduction/add" element={<DeductionAdd />} />
-              <Route path="/deduction/edit" element={<DeductionEdit />} />
-              <Route path="/deduction/list" element={<DeductionView />} />
+              <Route path="/deduction/edit/:id" element={<DeductionEdit />} />
+              <Route path="/deduction/list/:id" element={<DeductionView />} />
 
               {/* {/ Leave Admin /} */}
               <Route path="/leaveadmin" element={<LeaveAdmin />} />
-              <Route path="/leaveadmin/edit" element={<LeaveAdminEdit />} />
-              <Route path="/leaveadmin/view" element={<LeaveAdminView />} />
+              <Route path="/leaveadmin/edit/:id" element={<LeaveAdminEdit />} />
+              <Route path="/leaveadmin/view/:id" element={<LeaveAdminView />} />
 
               {/* {/ Leave /} */}
               <Route path="/leave" element={<Leave />} />
               <Route path="/leave/add" element={<LeaveAdd />} />
-              <Route path="/leave/view" element={<LeaveView />} />
+              <Route path="/leave/view/:id" element={<LeaveView />} />
 
               <Route path="/staff" element={<Staff />} />
               <Route path="/staff/add" element={<StaffAdd />} />
               <Route path="/staff/edit/:staff_id" element={<StaffEdit />} />
-              <Route path="/staff/view/:staff_id" element={<StaffView />} />
+              <Route path="/staff/view/:id" element={<StaffView />} />
               <Route path="/staff/leave" element={<StaffLeave />} />
               <Route path="/staff/leave/view" element={<StaffLeaveView />} />
               <Route path="/staff/payslip" element={<StaffPayslip />} />
               
               <Route path="/teacher" element={<Teacher />} />
               <Route path="/teacher/add" element={<TeacherAdd />} />
-              <Route path="/teacher/edit" element={<TeacherEdit />} />
-              <Route path="/teacher/view" element={<TeacherView />} />
+              <Route path="/teacher/edit/:staff_id" element={<TeacherEdit />} />
+              <Route path="/teacher/view/:id" element={<TeacherView />} />
               <Route path="/teacher/leave" element={<TeacherLeave />} />
               <Route
                 path="/teacher/leave/view"

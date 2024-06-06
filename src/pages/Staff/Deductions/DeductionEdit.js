@@ -3,9 +3,10 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../List/CenterList";
-// import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
 
 const validationSchema = Yup.object({
   centerId: Yup.string().required("*Center Name is required"),
@@ -66,36 +67,36 @@ function DeductionEdit() {
   };
 
   const fetchData = async () => {
-    // try {
-    //   const centers = await fetchAllCentersWithIds();
-    //   setCenterData(centers);
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+    try {
+      const centers = await fetchAllCentersWithIds();
+      setCenterData(centers);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const fetchUserName = async (centerId) => {
-    // try {
-    //   const userNames = await fetchAllEmployeeListByCenter(centerId);
-    //   setUserNameData(userNames);
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+    try {
+      const userNames = await fetchAllEmployeeListByCenter(centerId);
+      setUserNameData(userNames);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUserDeductionById/${id}`);
-  //       formik.setValues(response.data);
-  //       fetchUserName(response.data.centerId);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   getData();
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllUserDeductionById/${id}`);
+        formik.setValues(response.data);
+        fetchUserName(response.data.centerId);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    getData();
+    fetchData();
+  }, []);
 
   return (
     <section className="HolidayAdd p-3">
@@ -153,7 +154,7 @@ function DeductionEdit() {
                   {centerData &&
                     centerData.map((center) => (
                       <option key={center.id} value={center.id}>
-                        {center.centerNames}
+                        {center.enrichmentCareNames}
                       </option>
                     ))}
                 </select>

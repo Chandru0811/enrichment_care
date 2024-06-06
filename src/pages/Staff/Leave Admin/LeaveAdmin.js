@@ -4,40 +4,41 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import fetchAllCentersWithIds from "../../List/CenterList";
-import { toast } from "react-toastify";
+import fetchAllCentersWithIds from "../../List/CenterList";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../../config/URL";
 
 const LeaveAdmin = () => {
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
   console.log("Leave Data:", datas);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [centerData, setCenterData] = useState(null);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllUserLeaveRequests");
-  //       setDatas(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       toast.error("Error Fetching Data : ", error);
-  //     }
-  //   };
-  //   getData();
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get("/getAllUserLeaveRequests");
+        setDatas(response.data);
+        setLoading(false);
+      } catch (error) {
+        toast.error("Error Fetching Data : ", error);
+      }
+    };
+    getData();
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -108,7 +109,7 @@ const LeaveAdmin = () => {
                   {centerData &&
                     centerData.map((centerId) =>
                       parseInt(data.centerId) === centerId.id
-                        ? centerId.centerNames || "--"
+                        ? centerId.enrichmentCareNames || "--"
                         : ""
                     )}
                 </td>
@@ -125,7 +126,7 @@ const LeaveAdmin = () => {
                 </td>
                 <td>
                   <div className="d-flex justify-content-center align-items-center ">
-                    {storedScreens?.leaveAdminRead && (
+                    {/* {storedScreens?.leaveAdminRead && ( */}
                       <Link
                         to={`/leaveadmin/view/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -134,7 +135,7 @@ const LeaveAdmin = () => {
                           <FaEye />
                         </button>
                       </Link>
-                    )}
+                    {/* )} */}
                     {/* {storedScreens?.leaveAdminUpdate && ( */}
                       <Link
                         to={`/leaveadmin/edit`}
