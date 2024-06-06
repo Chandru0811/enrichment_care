@@ -2,7 +2,8 @@ import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("*Invalid Email").required("*Email is required!"),
@@ -27,28 +28,28 @@ const StaffContactEdit = forwardRef(
         postalCode: "",
       },
       validationSchema: validationSchema,
-      onSubmit: async (data) => {
-        try {
-          const response = await api.put(
-            `/updateUserContactInfo/${data.contactId}`,
-            data,
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          if (response.status === 200) {
-            toast.success(response.data.message);
-            setFormData((prv) => ({ ...prv, ...data }));
-            handleNext();
-          } else {
-            toast.error(response.data.message);
-          }
-        } catch (error) {
-          toast.error(error);
-        }
-      },
+      // onSubmit: async (data) => {
+      //   try {
+      //     const response = await api.put(
+      //       `/updateUserContactInfo/${data.contactId}`,
+      //       data,
+      //       {
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //         },
+      //       }
+      //     );
+      //     if (response.status === 200) {
+      //       toast.success(response.data.message);
+      //       setFormData((prv) => ({ ...prv, ...data }));
+      //       handleNext();
+      //     } else {
+      //       toast.error(response.data.message);
+      //     }
+      //   } catch (error) {
+      //     toast.error(error);
+      //   }
+      // },
       onSubmit: async (values) => {
         setLoadIndicators(true);
         // console.log("Api Data:", values);
@@ -116,12 +117,12 @@ const StaffContactEdit = forwardRef(
             `/getAllUsersById/${formData.staff_id}`
           );
           if (
-            response.data.userContactInfo &&
-            response.data.userContactInfo.length > 0
+            response.data.userContactInfoModels &&
+            response.data.userContactInfoModels.length > 0
           ) {
             formik.setValues({
-              ...response.data.userContactInfo[0],
-              contactId: response.data.userContactInfo[0].id,
+              ...response.data.userContactInfoModels[0],
+              contactId: response.data.userContactInfoModels[0].id,
             });
           } else {
             formik.setValues({

@@ -5,7 +5,8 @@ import $ from "jquery";
 import Modal from "react-bootstrap/Modal";
 import { FaTrash } from "react-icons/fa";
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import ScheduleTeacherAdd from "../ScheduleTeacher/ScheduleTeacherAdd";
 // import ScheduleTeacherEdit from "../ScheduleTeacher/ScheduleTeacherEdit";
 import ScheduleTeacherView from "../ScheduleTeacher/ScheduleTeacherView";
@@ -31,16 +32,16 @@ const ScheduleTeacher = () => {
 
   const handelDelete = async (rowData) => {
     try {
-      const { centerId, userId, courseId, classId, days } = rowData;
+      const { enrichmentCareId, userId, courseId, classId, days } = rowData;
       const formData = new FormData();
-      formData.append("centerId", centerId);
+      formData.append("enrichmentCareId", enrichmentCareId);
       formData.append("userId", userId);
       formData.append("courseId", courseId);
       formData.append("classId", classId);
       formData.append("dayOfWeek", days);
 
       // const requestBody = {
-      //   centerId: 8,
+      //   enrichmentCareId: 8,
       //   userId,
       //   courseId: 11,
       //   classId: 20,
@@ -157,39 +158,39 @@ const ScheduleTeacher = () => {
                 {datas.map((data, index) => (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{data.centerName}</td>
+                    <td>{data.enrichmentCareNames}</td>
                     <td>{data.teacher}</td>
                     <td>{data.course}</td>
                     <td>{data.className}</td>
                     <td>{data.days}</td>
                     <td>
                       <div className="d-flex justify-content-center align-item-center">
-                        {storedScreens?.scheduleTeacherRead && (
+                        {/* {storedScreens?.scheduleTeacherRead && ( */}
                           <ScheduleTeacherView id={data.id} />
-                        )}
+                        {/* )} */}
                         {/* {storedScreens?.scheduleTeacherUpdate && (
                         <ScheduleTeacherEdit
                           id={data.id}
                           onSuccess={refreshData}
                         />
                       )} */}
-                        {storedScreens?.scheduleTeacherDelete && (
+                        {/* {storedScreens?.scheduleTeacherDelete && ( */}
                           <button
                             className="btn btn-sm"
                             onClick={() => handleShow(data)}
                           >
                             <FaTrash />
                           </button>
-                        )}
-                        {storedScreens?.timeScheduleIndex && (
+                        {/* )} */}
+                        {/* {storedScreens?.timeScheduleIndex && ( */}
                           <Link
-                            to={`/scheduleteacher/scheduletime/${data.userId}?centerId=${data.centerId}`}
+                            to={`/scheduleteacher/scheduletime/${data.userId}?enrichmentCareId=${data.enrichmentCareId}`}
                           >
                             <button className="btn">
                               <BsTable className="text-dark" />
                             </button>
                           </Link>
-                        )}
+                        {/* )} */}
                       </div>
                     </td>
                   </tr>

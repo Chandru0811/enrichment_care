@@ -6,7 +6,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaEdit } from "react-icons/fa";
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function SendNotificationEdit({ id, onSuccess }) {
   const [show, setShow] = useState(false);
@@ -33,7 +34,7 @@ function SendNotificationEdit({ id, onSuccess }) {
       setLoadIndicator(true);
       try {
         const response = await api.put(
-          `/updateSmsPushNotifications/${id}`,
+          `/updateEnrichmentCarePushNotifications/${id}`,
           values,
           {
             headers: {
@@ -57,7 +58,7 @@ function SendNotificationEdit({ id, onSuccess }) {
   });
   const getData = async () => {
     try {
-      const response = await api.get(`/getAllSmsPushNotificationsById/${id}`);
+      const response = await api.get(`/getAllEnrichmentCarePushNotificationsById/${id}`);
       formik.setValues(response.data);
     } catch (error) {
       console.error("Error fetching data ", error);

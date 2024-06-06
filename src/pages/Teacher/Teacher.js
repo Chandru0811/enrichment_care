@@ -4,7 +4,7 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
 import { SCREENS } from "../../config/ScreenFilter";
 
@@ -118,22 +118,22 @@ const Teacher = () => {
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
                   <td>
-                    {data.userAccountInfo?.length > 0 &&
-                      data.userAccountInfo[0].teacherId}
+                    {data.userAccountInfoModels?.length > 0 &&
+                      data.userAccountInfoModels[0].teacherId}
                   </td>
                   {/* <td>{data.teacherId}</td> */}
                   <td>{data.teacherName}</td>
                   <td>
-                    {data.userAccountInfo?.length > 0 &&
-                      data.userAccountInfo[0].teacherType}
+                    {data.userAccountInfoModels?.length > 0 &&
+                      data.userAccountInfoModels[0].teacherType}
                   </td>
                   <td>
-                    {data.userContactInfo?.length > 0 &&
-                      data.userContactInfo[0].contactNumber}
+                    {data.userContactInfoModels?.length > 0 &&
+                      data.userContactInfoModels[0].contactNumber}
                   </td>
                   <td>
-                    {data.userAccountInfo?.length > 0 &&
-                    data.userAccountInfo[0].status === "Active" ? (
+                    {data.userAccountInfoModels?.length > 0 &&
+                    data.userAccountInfoModels[0].status === "Active" ? (
                       <span className="badge badges-Green">Active</span>
                     ) : (
                       <span className="badge badges-Red ">Resigned</span>
@@ -141,26 +141,26 @@ const Teacher = () => {
                   </td>
                   <td>
                     <div className="d-flex">
-                    {storedScreens?.teacherRead && (
+                    {/* {storedScreens?.teacherRead && ( */}
                       <Link to={`/teacher/view/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEye />
                         </button>
                       </Link>
-                    )}
-                    {storedScreens?.teacherUpdate && (
+                    {/* )} */}
+                    {/* {storedScreens?.teacherUpdate && ( */}
                       <Link to={`/teacher/edit/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEdit />
                         </button>
                       </Link>
-                    )}
-                    {/* {storedScreens?.teacherDelete && (
+                    {/* )} */}
+                    {/* {storedScreens?.teacherDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteUser/${data.id}`}
                       />
-                    )} */}
+                    {/* // )} */}
 
                     </div>
                   </td>

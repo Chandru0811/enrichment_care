@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
 import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 // import { SCREENS } from "../../config/ScreenFilter";
 
 const Staff = () => {
@@ -118,21 +119,21 @@ const Staff = () => {
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
                   <td>
-                  {data.userAccountInfo?.length > 0 && data.userAccountInfo[0].teacherId}
+                  {data.userAccountInfoModels?.length > 0 && data.userAccountInfoModels[0].teacherId}
                   </td>
                   {/* <td>{data.teacherId}</td> */}
                   <td>{data.teacherName}</td>
                   <td>
-                    {data.userAccountInfo?.length > 0 &&
-                      data.userAccountInfo[0].teacherType}
+                    {data.userAccountInfoModels?.length > 0 &&
+                      data.userAccountInfoModels[0].teacherType}
                   </td>
                   <td>
-                    {data.userContactInfo?.length > 0 &&
-                      data.userContactInfo[0].contactNumber}
+                    {data.userContactInfoModels?.length > 0 &&
+                      data.userContactInfoModels[0].contactNumber}
                   </td>
                   <td>
-                    {data.userAccountInfo?.length > 0 &&
-                    data.userAccountInfo[0].status === "Active" ? (
+                    {data.userAccountInfoModels?.length > 0 &&
+                    data.userAccountInfoModels[0].status === "Active" ? (
                       <span className="badge badges-Green">Active</span>
                     ) : (
                       <span className="badge badges-Red ">Inactive</span>

@@ -4,28 +4,28 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../../components/common/Delete";
+import Delete from "../../../components/common/DeleteModel";
 import api from "../../../config/URL";
 
 const Deduction = () => {
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
   console.log(datas);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllUserDeduction");
-  //       setDatas(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching data ", error);
-  //     }
-  //   };
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get("/getAllUserDeduction");
+        setDatas(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data ", error);
+      }
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -55,13 +55,13 @@ const Deduction = () => {
   const refreshData = async () => {
     destroyDataTable();
     setLoading(true);
-    // try {
-    //   const response = await api.get("/getAllUserDeduction");
-    //   setDatas(response.data);
-    //   initializeDataTable();
-    // } catch (error) {
-    //   console.error("Error refreshing data:", error);
-    // }
+    try {
+      const response = await api.get("/getAllUserDeduction");
+      setDatas(response.data);
+      initializeDataTable();
+    } catch (error) {
+      console.error("Error refreshing data:", error);
+    }
     setLoading(false);
   };
 
@@ -120,20 +120,20 @@ const Deduction = () => {
                       </button>
                     </Link>
                   )}
-                  {storedScreens?.deductionUpdate && (
+                  {/* {storedScreens?.deductionUpdate && ( */}
                     <Link to={`/deduction/edit/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEdit />
                       </button>
                     </Link>
-                  )}
+                  {/* )} */}
 
-                  {/* {storedScreens?.deductionDelete && (
+                  {/* {storedScreens?.deductionDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteUserDeduction/${data.id}`}
                     />
-                  )} */}
+                  {/* )} */}
                 </td>
               </tr>
             ))}

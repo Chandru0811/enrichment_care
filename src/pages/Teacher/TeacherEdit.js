@@ -19,7 +19,7 @@ import { OverlayTrigger } from "react-bootstrap";
 const steps = [{ tooltip: "Personal Information" }, { tooltip: "Account Information" },{ tooltip: "Contact Information" },
 { tooltip: "Login Information" },{ tooltip: "Required Information" },{ tooltip: "Salary Information" },{ tooltip: "Leave Information" },{ tooltip: "Contract Informationn" } ];
 
-export default function TeacherEdit() {
+function TeacherEdit() {
   const { staff_id } = useParams();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -269,3 +269,4 @@ export default function TeacherEdit() {
     </>
   );
 }
+export default TeacherEdit;

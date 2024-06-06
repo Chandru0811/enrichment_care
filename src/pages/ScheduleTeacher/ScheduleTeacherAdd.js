@@ -4,12 +4,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-// import fetchAllCentersWithIds from "../List/CenterList";
-import { toast } from "react-toastify";
-// import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
-// import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
+import fetchAllCentersWithIds from "../List/CenterList";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
+import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
 import api from "../../config/URL";
-// import fetchAllTeacherListByCenter from "../List/TeacherListByCenter";
+import fetchAllTeacherListByCenter from "../List/TeacherListByCenter";
 
 function ScheduleTeacherAdd({ onSuccess }) {
   const [show, setShow] = useState(false);
@@ -36,39 +37,39 @@ function ScheduleTeacherAdd({ onSuccess }) {
   }, []);
 
   const fetchData = async () => {
-    // try {
-    //   const centers = await fetchAllCentersWithIds();
-    //   setCenterData(centers);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centers = await fetchAllCentersWithIds();
+      setCenterData(centers);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchCourses = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllCoursesWithIdsC(centerId);
-    //   setCourseData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const courses = await fetchAllCoursesWithIdsC(centerId);
+      setCourseData(courses);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchTeacher = async (centerId) => {
-    // try {
-    //   const teacher = await fetchAllTeacherListByCenter(centerId);
-    //   setTeacherData(teacher);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const teacher = await fetchAllTeacherListByCenter(centerId);
+      setTeacherData(teacher);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchClasses = async (courseId) => {
-    // try {
-    //   const classes = await fetchAllClassesWithIdsC(courseId);
-    //   setClassData(classes);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const classes = await fetchAllClassesWithIdsC(courseId);
+      setClassData(classes);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   // const fetchTeacher = async (teacherId) => {
