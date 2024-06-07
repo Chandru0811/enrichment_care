@@ -45,18 +45,18 @@ function ScheduleTeacherAdd({ onSuccess }) {
     }
   };
 
-  const fetchCourses = async (centerId) => {
+  const fetchCourses = async (enrichmentCareId) => {
     try {
-      const courses = await fetchAllCoursesWithIdsC(centerId);
+      const courses = await fetchAllCoursesWithIdsC(enrichmentCareId);
       setCourseData(courses);
     } catch (error) {
       toast.error(error);
     }
   };
 
-  const fetchTeacher = async (centerId) => {
+  const fetchTeacher = async (enrichmentCareId) => {
     try {
-      const teacher = await fetchAllTeacherListByCenter(centerId);
+      const teacher = await fetchAllTeacherListByCenter(enrichmentCareId);
       setTeacherData(teacher);
     } catch (error) {
       toast.error(error);
@@ -82,7 +82,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
   // };
 
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Centre is required"),
+    enrichmentCareId: Yup.string().required("*Centre is required"),
     courseId: Yup.string().required("*Course  is required"),
     classId: Yup.string().required("*Class is required"),
     days: Yup.string().required("*Days is required"),
@@ -92,7 +92,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       courseId: "",
       classId: "",
       days: "",
@@ -110,8 +110,8 @@ function ScheduleTeacherAdd({ onSuccess }) {
       let selectedTeacherName = "";
 
       centerData.forEach((center) => {
-        if (parseInt(values.centerId) === center.id) {
-          selectedCenterName = center.centerNames || "--";
+        if (parseInt(values.enrichmentCareId) === center.id) {
+          selectedCenterName = center.enrichmentCareNames || "--";
         }
       });
 
@@ -136,8 +136,8 @@ function ScheduleTeacherAdd({ onSuccess }) {
       });
 
       let requestBody = {
-        centerId: values.centerId,
-        centerName: selectedCenterName,
+        enrichmentCareId: values.enrichmentCareId,
+        enrichmentCareName: selectedCenterName,
         className: selectedClassName,
         classId: values.classId,
         course: selectedCourseName,
@@ -178,10 +178,10 @@ function ScheduleTeacherAdd({ onSuccess }) {
     setCourseData(null);
     setClassData(null);
     setTeacherData(null);
-    const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
-    fetchCourses(centerId);
-    fetchTeacher(centerId); // Fetch courses for the selected center
+    const enrichmentCareId = event.target.value;
+    formik.setFieldValue("enrichmentCareId", enrichmentCareId);
+    fetchCourses(enrichmentCareId);
+    fetchTeacher(enrichmentCareId); // Fetch courses for the selected center
   };
 
   const handleCourseChange = (event) => {
@@ -237,9 +237,9 @@ function ScheduleTeacherAdd({ onSuccess }) {
                     Centre<span className="text-danger">*</span>
                   </label>
                   <select
-                    {...formik.getFieldProps("centerId")}
+                    {...formik.getFieldProps("enrichmentCareId")}
                     className={`form-select ${
-                      formik.touched.centerId && formik.errors.centerId
+                      formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                         ? "is-invalid"
                         : ""
                     }`}
@@ -250,13 +250,13 @@ function ScheduleTeacherAdd({ onSuccess }) {
                     {centerData &&
                       centerData.map((center) => (
                         <option key={center.id} value={center.id}>
-                          {center.centerNames}
+                          {center.enrichmentCareNames}
                         </option>
                       ))}
                   </select>
-                  {formik.touched.centerId && formik.errors.centerId && (
+                  {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerId}
+                      {formik.errors.enrichmentCareId}
                     </div>
                   )}
                 </div>

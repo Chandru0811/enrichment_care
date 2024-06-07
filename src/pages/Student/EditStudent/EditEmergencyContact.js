@@ -164,23 +164,23 @@ const EditEmergencyContact = forwardRef(
       try {
         const response = await api.get(`/getAllStudentDetails/${formData.id}`);
         if (
-          response.data.studentEmergencyContacts &&
-          response.data.studentEmergencyContacts.length > 0
+          response.data.studentEmergencyContactModels &&
+          response.data.studentEmergencyContactModels.length > 0
         ) {
           formik.setValues({
-            ...response.data.studentEmergencyContacts[0],
-            emergencyContactId: response.data.studentEmergencyContacts[0].id,
+            ...response.data.studentEmergencyContactModels[0],
+            emergencyContactId: response.data.studentEmergencyContactModels[0].id,
           });
           setRows(
-            response.data.studentEmergencyContacts[0]
+            response.data.studentEmergencyContactModels[0]
               .emergencyAuthorizedContactModels
           );
           // setData(
-          //   response.data.studentEmergencyContacts[0].emergencyAuthorizedContactModels
+          //   response.data.studentEmergencyContactModels[0].emergencyAuthorizedContactModels
           // );
           console.log(
             "AuthorizedContactModels:",
-            response.data.studentEmergencyContacts[0]
+            response.data.studentEmergencyContactModels[0]
               .emergencyAuthorizedContactModels
           );
         } else {

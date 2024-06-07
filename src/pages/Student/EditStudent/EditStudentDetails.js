@@ -8,17 +8,15 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
 import toast from "react-hot-toast";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Centre is required!"),
+  enrichmentCareId: Yup.string().required("*Centre is required!"),
   studentName: Yup.string().required("*Student Name is required!"),
   dateOfBirth: Yup.date()
     .required("*Date of Birth is required!")
     .max(new Date(), "*Date of Birth cannot be in the future!"),
-  age: Yup.string()
-    .matches(/^\d+$/, "*Age is required!")
-    .required("*Age is required!"),
+  
   gender: Yup.string().required("*Gender is required!"),
   schoolType: Yup.string().required("*School Type is required!"),
   schoolName: Yup.string().required("*School Name is required!"),
@@ -47,17 +45,17 @@ const Edi = forwardRef(
   ({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
     const [centerData, setCenterData] = useState(null);
     const fetchData = async () => {
-      // try {
-      //   const centerData = await fetchAllCentersWithIds();
-      //   setCenterData(centerData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const centerData = await fetchAllCentersWithIds();
+        setCenterData(centerData);
+      } catch (error) {
+        toast.error(error);
+      }
     };
 
     const formik = useFormik({
       initialValues: {
-        centerId: formData.centerId || "",
+        enrichmentCareId: formData.enrichmentCareId || "",
         studentName: formData.studentName || "",
         studentChineseName: formData.studentChineseName || "",
         profileImage: null || "",
@@ -146,6 +144,26 @@ const Edi = forwardRef(
       Editstudentdetails: formik.handleSubmit,
     }));
 
+    const calculateAge = (dob) => {
+      const birthDate = new Date(dob);
+      const today = new Date();
+    
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+    
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      return `${years} years, ${months} months`;
+    }; 
+
+    useEffect(() => {
+      if (formik.values.dateOfBirth) {
+        formik.setFieldValue("age", calculateAge(formik.values.dateOfBirth));
+      }
+    }, [formik.values.dateOfBirth]);
+
     return (
       <div className="container-fluid">
         <form onSubmit={formik.handleSubmit}>
@@ -162,23 +180,23 @@ const Edi = forwardRef(
                       </label>
                       <br />
                       <select
-                        name="centerId"
+                        name="enrichmentCareId"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.centerId}
+                        value={formik.values.enrichmentCareId}
                         className="form-select"
                       >
                         <option selected></option>
                         {centerData &&
-                          centerData.map((centerId) => (
-                            <option key={centerId.id} value={centerId.id}>
-                              {centerId.centerNames}
+                          centerData.map((enrichmentCareId) => (
+                            <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                              {enrichmentCareId.enrichmentCareNames}
                             </option>
                           ))}
                       </select>
-                      {formik.touched.centerId && formik.errors.centerId && (
+                      {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                         <div className="text-danger">
-                          <small>{formik.errors.centerId}</small>
+                          <small>{formik.errors.enrichmentCareId}</small>
                         </div>
                       )}
                     </div>
@@ -399,45 +417,7 @@ const Edi = forwardRef(
                           </div>
                         )}
                     </div>
-                    {/* <div className="text-start mt-4">
-                      <label htmlFor="" className=" fw-medium">
-                        <small>Profile Image</small>
-                        <span className="text-danger">*</span>
-                      </label>
-                      <br />
-                      <input
-                        type="file"
-                        name="profileImage"
-                        className="form-control"
-                        onChange={(event) => {
-                          formik.setFieldValue(
-                            "profileImage",
-                            event.target.files[0]
-                          );
-                        }}
-                        onBlur={formik.handleBlur}
-                      />
-                    </div> */}
-                    <div className="text-start mt-4">
-                      <label htmlFor="" className=" fw-medium">
-                        <small>Age</small>
-                        <span className="text-danger">*</span>
-                      </label>
-                      <br />
-                      <input
-                        className="form-control "
-                        type="text"
-                        name="age"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.age}
-                      />
-                      {formik.touched.age && formik.errors.age && (
-                        <div className="text-danger">
-                          <small>{formik.errors.age}</small>
-                        </div>
-                      )}
-                    </div>
+                    
                     <div className="text-start mt-4">
                       <label htmlFor="" className=" fw-medium">
                         <small>Medical Condition</small>
@@ -459,6 +439,24 @@ const Edi = forwardRef(
                           </div>
                         )}
                     </div>
+
+                    <div className="text-start mt-4">
+                      <label htmlFor="" className=" fw-medium">
+                        <small>Age</small>
+                        <span className="text-danger">*</span>
+                      </label>
+                      <br />
+                      <input
+                        className="form-control "
+                        type="text"
+                        name="age"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.age}
+                        readOnly
+                      />
+                    </div>
+
                     <div className="text-start mt-4">
                       <label htmlFor="" className="mb-1 fw-medium">
                         <small>School Name</small>

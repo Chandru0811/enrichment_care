@@ -17,9 +17,6 @@ const validationSchema = Yup.object().shape({
   dateOfBirth: Yup.date()
     .required("*Date of Birth is required!")
     .max(new Date(), "*Date of Birth cannot be in the future!"),
-  age: Yup.string()
-   
-    .required("*Age is required!"),
   gender: Yup.string().required("*Gender is required!"),
   schoolType: Yup.string().required("*School Type is required!"),
   schoolName: Yup.string().required("*School Name is required!"),
@@ -454,11 +451,6 @@ const AddStudentDetails = forwardRef(
                         value={formik.values.age}
                         readOnly
                       />
-                      {formik.touched.age && formik.errors.age && (
-                        <div className="text-danger">
-                          <small>{formik.errors.age}</small>
-                        </div>
-                      )}
                     </div>
                     <div className="text-start mt-4">
                       <label htmlFor="" className=" fw-medium">
