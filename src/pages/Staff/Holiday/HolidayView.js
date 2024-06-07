@@ -40,7 +40,7 @@ function HolidayView() {
           <div className="row align-items-center">
             <div className="col">
               <div className="d-flex align-items-center gap-4">
-                <h2 className="h2 ls-tight headingColor">View Centre Listing</h2>
+                <h2 className="h2 ls-tight headingColor">View Holiday</h2>
               </div>
             </div>
             <div className="col-auto">

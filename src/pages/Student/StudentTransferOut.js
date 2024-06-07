@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import api from "../../config/URL";
-// import fetchAllCoursesWithIds from "../List/CourseList";
-// import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllCentersWithIds from "../List/CenterList";
 
 function StudentTransferOut() {
   const { id } = useParams();
@@ -23,14 +23,14 @@ function StudentTransferOut() {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const course = await fetchAllCoursesWithIds();
-    //   const center = await fetchAllCentersWithIds();
-    //   setCourseData(course);
-    //   setCenterData(center);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const course = await fetchAllCoursesWithIds();
+      const center = await fetchAllCentersWithIds();
+      setCourseData(course);
+      setCenterData(center);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -94,6 +94,9 @@ function StudentTransferOut() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
+    <div className="container-fluid my-4 center">
+    <div className="card shadow border-0 mb-2 top-header">
+    <div class="container-fluid minHeight mb-5">
     <div className="container">
       <form onSubmit={formik.handleSubmit}>
         <div className="my-3 d-flex justify-content-end align-items-end  mb-5">
@@ -308,6 +311,9 @@ function StudentTransferOut() {
           </div>
         </div>
       </form>
+    </div>
+    </div>
+    </div>
     </div>
   );
 }

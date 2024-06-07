@@ -55,6 +55,9 @@ export default function ScheduleTime() {
     "1:00 pm",
   ];
   return (
+    <div className="minHeight center">
+    <div className="container-fluid my-4 center">
+      <div className="card shadow border-0 mb-2 top-header">
     <div className="container">
       {loading ? (
         <div className="loader-container">
@@ -259,6 +262,9 @@ export default function ScheduleTime() {
           </div>
         </div>
       )}
+    </div>
+    </div>
+    </div>
     </div>
   );
 }

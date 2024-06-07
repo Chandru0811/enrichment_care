@@ -93,6 +93,7 @@ function StaffAdd() {
   };
   return (
     <div class="container-fluid minHeight my-5">
+       <div class="container-fluid py-2 card shadow border-0 mb-2">
        <Stepper className="my-5" activeStep={activeStep} alternativeLabel>
         {steps.map((step, index) => (
           <Step key={index}>
@@ -107,6 +108,7 @@ function StaffAdd() {
           </Step>
         ))}
       </Stepper>
+      </div>
       <div class="container-fluid py-3 card shadow border-0 mb-7 mt-5">
         <React.Fragment>
           {activeStep === 0 && (

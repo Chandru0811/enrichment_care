@@ -36,6 +36,7 @@ function ScheduleTeacherView({ id, onSuccess }) {
 
   return (
     <>
+    
        <button className="btn btn-sm" onClick={handleShow}>
           <FaEye />
         </button>
@@ -44,6 +45,7 @@ function ScheduleTeacherView({ id, onSuccess }) {
           <Modal.Title className="headColor">View Schedule Teacher</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          
           <div className="container py-4">
             <div className="row">
               <div className="col-md-6 col-12 mb-2">

@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import api from "../../config/URL";
-// import fetchAllCoursesWithIds from "../List/CourseList";
-// import fetchAllClassesWithIds from "../List/ClassList";
+import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllClassesWithIds from "../List/ClassList";
 
 const validationSchema = Yup.object().shape({
   currentCourse: Yup.string().required("*Select a Current Course"),
@@ -58,21 +58,21 @@ const StudentEndClass = () => {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const course = await fetchAllCoursesWithIds();
-    //   setCourseData(course);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const course = await fetchAllCoursesWithIds();
+      setCourseData(course);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchClasses = async (courseId) => {
-    // try {
-    //   const classes = await fetchAllClassesWithIds(courseId);
-    //   setClassData(classes);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const classes = await fetchAllClassesWithIds(courseId);
+      setClassData(classes);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const handleCourseChange = (event) => {
@@ -108,6 +108,9 @@ const StudentEndClass = () => {
   }, []);
 
   return (
+    <div className="container-fluid center">
+    <div className="card shadow border-0 mb-2 top-header">
+    <div class="container-fluid minHeight mb-5">
     <div className="container my-4">
       <form onSubmit={formik.handleSubmit}>
         <div className="mb-5 mt-3 d-flex justify-content-end">
@@ -314,6 +317,9 @@ const StudentEndClass = () => {
           </div>
         </div>
       </form>
+    </div>
+    </div>
+    </div>
     </div>
   );
 };
