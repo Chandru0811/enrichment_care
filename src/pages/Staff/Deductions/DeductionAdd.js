@@ -36,12 +36,12 @@ function DeductionAdd() {
     onSubmit: async (values) => {
       setLoadIndicator(true);
       console.log("Attendance Emp:", values);
-      let selectedCenterName = "";
+      let selectedenrichmentCareName = "";
       let selectedEmployeeName = "";
 
       centerData.forEach((center) => {
         if (parseInt(values.enrichmentCareId) === center.id) {
-          selectedCenterName = center.centerNames || "--";
+          selectedenrichmentCareName = center.enrichmentCareNames || "--";
         }
       });
 
@@ -53,7 +53,7 @@ function DeductionAdd() {
 
       let payload = {
         enrichmentCareId: values.enrichmentCareId,
-        centerName: selectedCenterName,
+        enrichmentCareName: selectedenrichmentCareName,
         userId: values.userId,
         employeeName: selectedEmployeeName,
         deductionName: values.deductionName,

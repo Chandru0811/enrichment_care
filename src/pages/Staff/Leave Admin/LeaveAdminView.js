@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import api from "../../../config/URL";
 import toast from "react-hot-toast";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 
 function LeaveAdminView() {
@@ -14,14 +14,14 @@ function LeaveAdminView() {
   
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   // const teacherData = await fetchAllTeachersWithIds();
-    //   setCenterData(centerData);
-    //   // setTeacherData(teacherData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      // const teacherData = await fetchAllTeachersWithIds();
+      setCenterData(centerData);
+      // setTeacherData(teacherData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -62,9 +62,9 @@ function LeaveAdminView() {
               <p className="text-muted text-sm">
                 :{" "}
                 {centerData &&
-                  centerData.map((centerId) =>
-                    parseInt(data.centerId) === centerId.id
-                      ? centerId.centerNames || "--"
+                  centerData.map((enrichmentCareId) =>
+                    parseInt(data.enrichmentCareId) === enrichmentCareId.id
+                      ? enrichmentCareId.enrichmentCareNames || "--"
                       : ""
                   )}
               </p>

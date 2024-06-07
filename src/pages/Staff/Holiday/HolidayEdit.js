@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 function HolidayEdit() {
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Center Name is required"),
+    enrichmentCareId: Yup.string().required("*Center Name is required"),
     holidayName: Yup.string().required("*Holiday Name is required"),
     startDate: Yup.string().required("*Select the start date"),
     endDate: Yup.string().required("*Select the end date"),
@@ -23,7 +23,7 @@ function HolidayEdit() {
   const { id } = useParams();
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       holidayName: "",
       startDate: "",
       endDate: "",
@@ -35,7 +35,7 @@ function HolidayEdit() {
       console.log(values);
       try {
         const payload = {
-          centerId: values.centerId,
+          enrichmentCareId: values.enrichmentCareId,
           holidayName:values.holidayName,
           startDate:values.startDate,
           endDate:values.endDate,
@@ -136,10 +136,10 @@ function HolidayEdit() {
                     Center Name<span className="text-danger">*</span>
                   </label>
                   <select
-                    {...formik.getFieldProps("centerId")}
-                    name="centerId"
+                    {...formik.getFieldProps("enrichmentCareId")}
+                    name="enrichmentCareId"
                     className={`form-select ${
-                      formik.touched.centerId && formik.errors.centerId
+                      formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                         ? "is-invalid"
                         : ""
                     }`}
@@ -152,9 +152,9 @@ function HolidayEdit() {
                         </option>
                       ))}
                   </select>
-                  {formik.touched.centerId && formik.errors.centerId && (
+                  {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerId}
+                      {formik.errors.enrichmentCareId}
                     </div>
                   )}
                 </div>

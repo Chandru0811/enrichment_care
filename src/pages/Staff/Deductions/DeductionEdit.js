@@ -9,7 +9,7 @@ import fetchAllCentersWithIds from "../../List/CenterList";
 import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
 
 const validationSchema = Yup.object({
-  centerId: Yup.string().required("*Center Name is required"),
+  enrichmentCareId: Yup.string().required("*Center Name is required"),
   userId: Yup.string().required("*Employee Name is required"),
   deductionName: Yup.string().required("*Select the Deduction Name"),
   deductionMonth: Yup.string().required("*Select the Deduction Month"),
@@ -26,7 +26,7 @@ function DeductionEdit() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       userId: "",
       deductionMonth: "",
       deductionAmount: "",
@@ -57,10 +57,10 @@ function DeductionEdit() {
 
   const handleCenterChange = async (event) => {
     setUserNameData(null);
-    const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
+    const enrichmentCareId = event.target.value;
+    formik.setFieldValue("enrichmentCareId", enrichmentCareId);
     try {
-      await fetchUserName(centerId);
+      await fetchUserName(enrichmentCareId);
     } catch (error) {
       toast.error(error.message);
     }
@@ -75,9 +75,9 @@ function DeductionEdit() {
     }
   };
 
-  const fetchUserName = async (centerId) => {
+  const fetchUserName = async (enrichmentCareId) => {
     try {
-      const userNames = await fetchAllEmployeeListByCenter(centerId);
+      const userNames = await fetchAllEmployeeListByCenter(enrichmentCareId);
       setUserNameData(userNames);
     } catch (error) {
       toast.error(error.message);
@@ -89,7 +89,7 @@ function DeductionEdit() {
       try {
         const response = await api.get(`/getAllUserDeductionById/${id}`);
         formik.setValues(response.data);
-        fetchUserName(response.data.centerId);
+        fetchUserName(response.data.enrichmentCareId);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -141,9 +141,9 @@ function DeductionEdit() {
                 <lable className="">Centre Name</lable>
                 <span className="text-danger">*</span>
                 <select
-                  {...formik.getFieldProps("centerId")}
+                  {...formik.getFieldProps("enrichmentCareId")}
                   className={`form-select ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -158,9 +158,9 @@ function DeductionEdit() {
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.enrichmentCareId}
                   </div>
                 )}
               </div>

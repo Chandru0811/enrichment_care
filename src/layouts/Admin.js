@@ -118,6 +118,7 @@ import ScheduleTeacher from "../pages/ScheduleTeacher/ScheduleTeacher";
 import ScheduleTime from "../pages/ScheduleTeacher/ScheduleTime";
 
 import { Toaster } from "react-hot-toast";
+import Curriculum from "../pages/Curriculum/Curriculum";
 
 function Admin({ handleLogout }) {
   return (
@@ -139,8 +140,8 @@ function Admin({ handleLogout }) {
               <Route path="/course/add" element={<CourseAdd />} />
               <Route path="/course/edit/:id" element={<CourseEdit />} />
               <Route path="/course/view/:id" element={<CourseView />} />
-              {/* <Route path="/course/curriculum/:id" element={<Curriculum />} />
-              <Route path="/curriculum" element={<Curriculum />} /> */}
+              <Route path="/course/curriculum/:id" element={<Curriculum />} />
+              <Route path="/curriculum" element={<Curriculum />} />
 
               <Route path="/level" element={<Level />} />
               <Route path="/level/add" element={<LevelAdd />} />
@@ -217,8 +218,8 @@ function Admin({ handleLogout }) {
 
               <Route path="/student" element={<Student />} />
               <Route path="/student/add" element={<StudentAdd />} />
-              <Route path="/student/edit" element={<StudentEdit />} />
-              <Route path="/student/view" element={<StudentView />} />
+              <Route path="/student/edit/:id" element={<StudentEdit />} />
+              <Route path="/student/view/:id" element={<StudentView />} />
               <Route
                 path="/student/view/transferOut/:id"
                 element={<StudentTransferOut />}

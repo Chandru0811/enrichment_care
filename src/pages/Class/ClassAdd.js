@@ -29,7 +29,7 @@ function ClassAdd() {
   }, []);
 
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Centre Name is required"),
+    enrichmentCareId: Yup.string().required("*Centre Name is required"),
     courseId: Yup.string().required("*Course Name is required"),
     className: Yup.string().required("*Class Name is required"),
     classType: Yup.string().required("*Class Type is required"),
@@ -37,7 +37,7 @@ function ClassAdd() {
   });
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       courseId: "",
       className: "",
       classType: "",
@@ -47,21 +47,21 @@ function ClassAdd() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoadIndicator(true);
-      const selectedValue = formik.values.centerId; // Assuming formik is in scope
+      const selectedValue = formik.values.enrichmentCareId; // Assuming formik is in scope
       let selectedOptionName = "";
 
       centerData.forEach((center) => {
         if (parseInt(selectedValue) === center.id) {
-          selectedOptionName = center.centerNames || "--";
+          selectedOptionName = center.enrichmentCareNames || "--";
         }
       });
 
-      values.centerName = selectedOptionName;
+      values.enrichmentCareName = selectedOptionName;
 
       console.log(values);
 
       try {
-        const response = await api.post("/createCourseClassListings", values, {
+        const response = await api.post("/createCourseClassListing", values, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -122,9 +122,9 @@ function ClassAdd() {
                 Centre<span class="text-danger">*</span>
               </lable>
               <select
-                {...formik.getFieldProps("centerId")}
-                name="centerId"
-                className={`form-select   ${formik.touched.centerId && formik.errors.centerId
+                {...formik.getFieldProps("enrichmentCareId")}
+                name="enrichmentCareId"
+                className={`form-select   ${formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                     ? "is-invalid"
                     : ""
                   }`}
@@ -133,14 +133,14 @@ function ClassAdd() {
               >
                 <option selected></option>
                 {centerData &&
-                  centerData.map((centerId) => (
-                    <option key={centerId.id} value={centerId.id}>
-                      {centerId.enrichmentCareNames}
+                  centerData.map((enrichmentCareId) => (
+                    <option key={enrichmentCareId.id} value={enrichmentCareId.id}>
+                      {enrichmentCareId.enrichmentCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
-                <div className="invalid-feedback">{formik.errors.centerId}</div>
+              {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
+                <div className="invalid-feedback">{formik.errors.enrichmentCareId}</div>
               )}
             </div>
             <div class="col-md-6 col-12 mb-4">

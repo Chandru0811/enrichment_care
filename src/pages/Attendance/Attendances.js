@@ -3,9 +3,9 @@ import "../../styles/sidebar.css";
 import api from "../../config/URL";
 // import AddMore from "./AddMore";
 import toast from "react-hot-toast";
-// import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCentersWithIds from "../List/CenterList";
 // import WebSocketService from "../../config/WebSocketService";
-// import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllCoursesWithIds from "../List/CourseList";
 
 function Attendances() {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -30,16 +30,16 @@ function Attendances() {
   const [selectedDate, setSelectedDate] = useState(getCurrentDate()); // Now getCurrentDate is defined before usage
 
   const fetchListData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   // const courseData = await fetchAllCoursesWithIds();
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      // const courseData = await fetchAllCoursesWithIds();
 
-    //   setCenterData(centerData);
-    //   // setCourseData(courseData);
-    //   setSelectedCenter(centerData[0].id);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+      setCenterData(centerData);
+      // setCourseData(courseData);
+      setSelectedCenter(centerData[0].id);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -164,7 +164,7 @@ function Attendances() {
               {centerData &&
                 centerData.map((center) => (
                   <option key={center.id} value={center.id}>
-                    {center.centerNames}
+                    {center.enrichmentCareNames}
                   </option>
                 ))}
             </select>

@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 function HolidayAdd() {
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Center Name is required"),
+    enrichmentCareId: Yup.string().required("*Center Name is required"),
     holidayName: Yup.string().required("*Holiday Name is required"),
     startDate: Yup.string().required("*Select the start date"),
     endDate: Yup.string().required("*Select the end date"),
@@ -21,7 +21,7 @@ function HolidayAdd() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       holidayName: "",
       startDate: "",
       endDate: "",
@@ -33,7 +33,7 @@ function HolidayAdd() {
       console.log(values);
       try {
         const payload = {
-          centerId: values.centerId,
+          enrichmentCareId: values.enrichmentCareId,
           holidayName:values.holidayName,
           startDate:values.startDate,
           endDate:values.endDate,
@@ -117,10 +117,10 @@ function HolidayAdd() {
                     Center Name<span className="text-danger">*</span>
                   </label>
                   <select
-                  {...formik.getFieldProps("centerId")}
-                  name="centerId"
+                  {...formik.getFieldProps("enrichmentCareId")}
+                  name="enrichmentCareId"
                   className={`form-select ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -133,8 +133,8 @@ function HolidayAdd() {
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
-                  <div className="invalid-feedback">{formik.errors.centerId}</div>
+                {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
+                  <div className="invalid-feedback">{formik.errors.enrichmentCareId}</div>
                 )}
                 </div>
               </div>

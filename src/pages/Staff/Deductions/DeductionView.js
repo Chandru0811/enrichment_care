@@ -67,9 +67,9 @@ function DeductionView() {
                 <div className="col-6">
                   <p className="text-muted text-sm">
                     : {centerData &&
-                      centerData.map((centerId) =>
-                        parseInt(data.centerId) === centerId.id
-                          ? centerId.enrichmentCareNames || "--"
+                      centerData.map((enrichmentCareId) =>
+                        parseInt(data.enrichmentCareId) === enrichmentCareId.id
+                          ? enrichmentCareId.enrichmentCareNames || "--"
                           : ""
                       )}
                   </p>

@@ -150,7 +150,7 @@ const Course = () => {
                     />
                   {/* )} */}
 
-                  {storedScreens?.curriculumIndex && (
+                  {/* {storedScreens?.curriculumIndex && ( */}
                     <OverlayTrigger
                       placement="top"
                       overlay={<Tooltip id="tooltip-top">Curriculum</Tooltip>}
@@ -161,7 +161,7 @@ const Course = () => {
                         </button>
                       </Link>
                     </OverlayTrigger>
-                  )}
+                  {/* )} */}
                 </td>
               </tr>
             ))}

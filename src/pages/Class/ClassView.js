@@ -23,7 +23,7 @@ function ClassView() {
       toast.error(error);
     }
   };
-
+console.log("bskbsk",data)
   useEffect(() => {
     const getData = async () => {
       try{

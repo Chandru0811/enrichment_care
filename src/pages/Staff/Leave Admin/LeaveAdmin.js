@@ -107,9 +107,9 @@ const LeaveAdmin = () => {
                 <th scope="row">{index + 1}</th>
                 <td>
                   {centerData &&
-                    centerData.map((centerId) =>
-                      parseInt(data.centerId) === centerId.id
-                        ? centerId.enrichmentCareNames || "--"
+                    centerData.map((enrichmentCareId) =>
+                      parseInt(data.enrichmentCareId) === enrichmentCareId.id
+                        ? enrichmentCareId.enrichmentCareNames || "--"
                         : ""
                     )}
                 </td>
@@ -138,7 +138,7 @@ const LeaveAdmin = () => {
                     {/* )} */}
                     {/* {storedScreens?.leaveAdminUpdate && ( */}
                       <Link
-                        to={`/leaveadmin/edit`}
+                        to={`/leaveadmin/edit/${data.id}`}
                         style={{ display: "inline-block" }}
                       >
                         <button className="btn btn-sm">

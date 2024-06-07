@@ -108,18 +108,18 @@ const Deduction = () => {
             {datas.map((data, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>{data.centerName}</td>
+                <td>{data.enrichmentCareName}</td>
                 <td>{data.employeeName}</td>
                 <td>{data.deductionName}</td>
                 <td>{data.deductionAmount}</td>
                 <td>
-                  {storedScreens?.deductionRead && (
+                  {/* {storedScreens?.deductionRead && ( */}
                     <Link to={`/deduction/list/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEye />
                       </button>
                     </Link>
-                  )}
+                  {/* )} */}
                   {/* {storedScreens?.deductionUpdate && ( */}
                     <Link to={`/deduction/edit/${data.id}`}>
                       <button className="btn btn-sm">

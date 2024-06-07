@@ -9,7 +9,7 @@ import api from "../../../config/URL";
 import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
 
 const validationSchema = Yup.object({
-  centerId: Yup.string().required("*Select a Centre Name"),
+  enrichmentCareId: Yup.string().required("*Select a Centre Name"),
   userId: Yup.string().required("*Employee Name is required"),
   leaveType: Yup.string().required("*Select a Leave Type"),
   fromDate: Yup.string().required("*From Date is required"),
@@ -29,7 +29,7 @@ function LeaveAdminEdit() {
   const { id } = useParams();
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       centerName: "",
       userId: "",
       leaveType: "",
@@ -54,7 +54,7 @@ function LeaveAdminEdit() {
       // console.log("user Data", values.userId)
 
       centerData.forEach((center) => {
-        if (parseInt(values.centerId) === center.id) {
+        if (parseInt(values.enrichmentCareId) === center.id) {
           selectedCenterName = center.centerNames || "--";
         }
       });
@@ -66,7 +66,7 @@ function LeaveAdminEdit() {
       });
 
       const payload = {
-        centerId: values.centerId,
+        enrichmentCareId: values.enrichmentCareId,
         centerName: selectedCenterName,
         userId: values.userId,
         employeeName: selectedTeacherName,
@@ -117,9 +117,9 @@ function LeaveAdminEdit() {
     }
   };
 
-  const fetchTeacher = async (centerId) => {
+  const fetchTeacher = async (enrichmentCareId) => {
     try {
-      const teacher = await fetchAllEmployeeListByCenter(centerId);
+      const teacher = await fetchAllEmployeeListByCenter(enrichmentCareId);
       setTeacherData(teacher);
     } catch (error) {
       toast.error(error);
@@ -157,9 +157,9 @@ function LeaveAdminEdit() {
 
   const handleCenterChange = (event) => {
     setTeacherData(null);
-    const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
-    fetchTeacher(centerId);
+    const enrichmentCareId = event.target.value;
+    formik.setFieldValue("enrichmentCareId", enrichmentCareId);
+    fetchTeacher(enrichmentCareId);
   };
 
   useEffect(() => {
@@ -169,7 +169,7 @@ function LeaveAdminEdit() {
         console.log(response.data);
         formik.setValues(response.data);
         fetchData();
-        fetchTeacher(response.data.centerId);
+        fetchTeacher(response.data.enrichmentCareId);
         const { daysDifference } = calculateDays(
           response.data.fromDate,
           response.data.toDate
@@ -214,9 +214,9 @@ function LeaveAdminEdit() {
                 Centre Name<span className="text-danger">*</span>
               </label>
               <select
-                {...formik.getFieldProps("centerId")}
+                {...formik.getFieldProps("enrichmentCareId")}
                 className={`form-select ${
-                  formik.touched.centerId && formik.errors.centerId
+                  formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                     ? "is-invalid"
                     : ""
                 }`}
@@ -231,8 +231,8 @@ function LeaveAdminEdit() {
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
-                <div className="invalid-feedback">{formik.errors.centerId}</div>
+              {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
+                <div className="invalid-feedback">{formik.errors.enrichmentCareId}</div>
               )}
             </div>
             <div className="col-md-6 col-12 mb-3">

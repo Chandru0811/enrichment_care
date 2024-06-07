@@ -12,7 +12,8 @@ import api from "../../../config/URL";
 const Leave = () => {
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
-  const userId = sessionStorage.getItem("userId");
+  // const userId = sessionStorage.getItem("userId");
+  const userId = 8;
   // console.log("Data:", datas.employeeData);
   const [loading, setLoading] = useState(true);
   const [centerData, setCenterData] = useState(null);
@@ -35,7 +36,7 @@ const Leave = () => {
           `/getUserLeaveRequestByUserId/${userId}`
         );
         setDatas(response.data);
-        // console.log("responsedata", response.data);
+        console.log("responsedata", response.data);
         setLoading(false);
       } catch (error) {
         toast.error("Error Fetching Data : ", error);
@@ -148,7 +149,7 @@ const Leave = () => {
                     {centerData &&
                       centerData.map((enrichmentCareId) =>
                         parseInt(data.enrichmentCareId) === enrichmentCareId.id
-                          ? enrichmentCareId.centerNames || "--"
+                          ? enrichmentCareId.enrichmentCareNames || "--"
                           : ""
                       )}
                   </td>

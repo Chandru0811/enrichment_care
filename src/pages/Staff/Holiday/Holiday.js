@@ -127,9 +127,9 @@ const Holiday = () => {
                 <th scope="row">{index + 1}</th>
                 <td>
                   {centerData &&
-                    centerData.map((centerId) =>
-                      parseInt(data.centerId) === centerId.id
-                        ? centerId.enrichmentCareNames || "--"
+                    centerData.map((enrichmentCareId) =>
+                      parseInt(data.enrichmentCareId) === enrichmentCareId.id
+                        ? enrichmentCareId.enrichmentCareNames || "--"
                         : ""
                     )}
                 </td>
