@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../config/URL";
 import toast from "react-hot-toast";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
-// import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
-// import fetchAllTeacherListByCenter from "../List/TeacherListByCenter";
-// import fetchAllStudentListByCenter from "../List/StudentListByCenter";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
+import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
+import fetchAllTeacherListByCenter from "../List/TeacherListByCenter";
+import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
 function DocumentAdd() {
   const navigate = useNavigate();
@@ -21,57 +21,57 @@ function DocumentAdd() {
   const [loadIndicator, setLoadIndicator] = useState(false);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
+    try {
+      const centerData = await fetchAllCentersWithIds();
 
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchCourses = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllCoursesWithIdsC(centerId);
-    //   setCourseData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchCourses = async (enrichmentCareId) => {
+    try {
+      const courses = await fetchAllCoursesWithIdsC(enrichmentCareId);
+      setCourseData(courses);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
-  const fetchTeacher = async (centerId) => {
-    // try {
-    //   const teacher = await fetchAllTeacherListByCenter(centerId);
-    //   setUserData(teacher);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchTeacher = async (enrichmentCareId) => {
+    try {
+      const teacher = await fetchAllTeacherListByCenter(enrichmentCareId);
+      setUserData(teacher);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
-  const fetchStudent = async (centerId) => {
-    // try {
-    //   const teacher = await fetchAllStudentListByCenter(centerId);
-    //   setStudentData(teacher);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchStudent = async (enrichmentCareId) => {
+    try {
+      const teacher = await fetchAllStudentListByCenter(enrichmentCareId);
+      setStudentData(teacher);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const fetchClasses = async (courseId) => {
-    // try {
-    //   const classes = await fetchAllClassesWithIdsC(courseId);
-    //   setClassData(classes);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const classes = await fetchAllClassesWithIdsC(courseId);
+      setClassData(classes);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const validationSchema = Yup.object({
-    center: Yup.string().required("*Centre is required"),
+    enrichmentCare: Yup.string().required("*Centre is required"),
     course: Yup.string().required("*Course is required"),
     userId: Yup.string().required("*Teacher is required"),
     days: Yup.string().required("*Days is required"),
@@ -84,7 +84,7 @@ function DocumentAdd() {
 
   const formik = useFormik({
     initialValues: {
-      center: "",
+      enrichmentCare: "",
       course: "",
       userId: "",
       classListing: "",
@@ -100,14 +100,14 @@ function DocumentAdd() {
     onSubmit: async (values) => {
       setLoadIndicator(true);
       try {
-        const selectedValue = formik.values.center;// Assuming formik is in scope
+        const selectedValue = formik.values.enrichmentCare;// Assuming formik is in scope
         let selectedOptionName = "";
         let selectedClassName = "";
         let selectedCourseName = "";
 
-        centerData.forEach((center) => {
-          if (parseInt(selectedValue) === center.id) {
-            selectedOptionName = center.centerNames || "--";
+        centerData.forEach((enrichmentCare) => {
+          if (parseInt(selectedValue) === enrichmentCare.id) {
+            selectedOptionName = enrichmentCare.centerNames || "--";
           }
         });
 
@@ -126,10 +126,10 @@ function DocumentAdd() {
         });
 
         let requestBody = {
-          centerId: values.center,
+          enrichmentCareId: values.enrichmentCare,
           userId: values.userId,
           days: values.days,
-          center: selectedOptionName,
+          enrichmentCare: selectedOptionName,
           classListing: selectedClassName,
           course: selectedCourseName,
           courseId: values.course,
@@ -209,11 +209,11 @@ function DocumentAdd() {
     setClassData(null);
     setUserData(null);
     setStudentData(null);
-    const center = event.target.value;
-    formik.setFieldValue("center", center);
-    fetchCourses(center);
-    fetchTeacher(center);
-    fetchStudent(center); // Fetch courses for the selected center
+    const enrichmentCare = event.target.value;
+    formik.setFieldValue("enrichmentCare", enrichmentCare);
+    fetchCourses(enrichmentCare);
+    fetchTeacher(enrichmentCare);
+    fetchStudent(enrichmentCare); // Fetch courses for the selected center
   };
 
   const handleCourseChange = (event) => {
@@ -264,10 +264,10 @@ function DocumentAdd() {
                 Centre<span class="text-danger">*</span>
               </lable>
               <select
-                {...formik.getFieldProps("center")}
-                name="center"
+                {...formik.getFieldProps("enrichmentCare")}
+                name="enrichmentCare"
                 className={`form-select  ${
-                  formik.touched.center && formik.errors.center
+                  formik.touched.enrichmentCare && formik.errors.enrichmentCare
                     ? "is-invalid"
                     : ""
                 }`}
@@ -276,14 +276,14 @@ function DocumentAdd() {
               >
                 <option disabled></option>
                 {centerData &&
-                  centerData.map((center) => (
-                    <option key={center.id} value={center.id}>
-                      {center.centerNames}
+                  centerData.map((enrichmentCare) => (
+                    <option key={enrichmentCare.id} value={enrichmentCare.id}>
+                      {enrichmentCare.enrichmentCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.center && formik.errors.center && (
-                <div className="invalid-feedback">{formik.errors.center}</div>
+              {formik.touched.enrichmentCare && formik.errors.enrichmentCare && (
+                <div className="invalid-feedback">{formik.errors.enrichmentCare}</div>
               )}
             </div>
             <div class="col-md-6 col-12 mb-4">

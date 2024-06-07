@@ -108,7 +108,8 @@ const ScheduleTeacher = () => {
       setDatas(response.data);
       initializeDataTable();
     } catch (error) {
-      console.error("Error refreshing data:", error);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
     }
     setLoading(false);
   };
@@ -150,15 +151,15 @@ const ScheduleTeacher = () => {
                   <th scope="col">Course</th>
                   <th scope="col">Class</th>
                   <th scope="col">Day</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" className="text-center">Action</th>
                 </tr>
               </thead>
               {/* Table Body */}
               <tbody>
                 {datas.map((data, index) => (
                   <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{data.enrichmentCareNames}</td>
+                    <th scope="row" className="text-center">{index + 1}</th>
+                    <td>{data.enrichmentCareName}</td>
                     <td>{data.teacher}</td>
                     <td>{data.course}</td>
                     <td>{data.className}</td>

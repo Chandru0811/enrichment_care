@@ -3,6 +3,7 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { FaEye } from "react-icons/fa";
 import api from "../../config/URL";
+import toast from "react-hot-toast";
 
 function ScheduleTeacherView({ id, onSuccess }) {
   const [show, setShow] = useState(false);
@@ -17,7 +18,8 @@ function ScheduleTeacherView({ id, onSuccess }) {
       setShow(true);
     }
     catch (error) {
-      console.error("Error fetching data:", error);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
     }
     finally{
       setShow(true);
@@ -34,11 +36,9 @@ function ScheduleTeacherView({ id, onSuccess }) {
 
   return (
     <>
-      <div className="">
-        <button className="btn btn-sm" onClick={handleShow}>
+       <button className="btn btn-sm" onClick={handleShow}>
           <FaEye />
         </button>
-      </div>
       <Modal show={show} size="lg" onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title className="headColor">View Schedule Teacher</Modal.Title>
@@ -52,7 +52,7 @@ function ScheduleTeacherView({ id, onSuccess }) {
                     <p className="fw-bold">Centre</p>
                   </div>
                   <div className="col-7">
-                    <p>:&nbsp;{data.centerName}</p>
+                    <p>:&nbsp;{data.enrichmentCareName}</p>
                   </div>
                 </div>
               </div>

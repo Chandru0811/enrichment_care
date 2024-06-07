@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
 import toast from "react-hot-toast";
-// import fetchAllCoursesWithIds from "../../List/CourseList";
+import fetchAllCoursesWithIds from "../../List/CourseList";
 import { useParams } from "react-router-dom";
 import BlockImg from "../.././../assets/images/Block_Img1.jpg";
 
@@ -99,7 +99,8 @@ const EditCourseDetail = forwardRef(
             }
           }
         } catch (error) {
-          toast.error(error);
+          const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+          toast.error(errorMessage);
         }finally {
           setLoadIndicators(false);
         }
@@ -107,12 +108,13 @@ const EditCourseDetail = forwardRef(
     });
 
     const fetchData = async () => {
-      // try {
-      //   const courseData = await fetchAllCoursesWithIds();
-      //   setCourseData(courseData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const courseData = await fetchAllCoursesWithIds();
+        setCourseData(courseData);
+      } catch (error) {
+          const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+          toast.error(errorMessage);
+      }
     };
 
     const getData = async () => {

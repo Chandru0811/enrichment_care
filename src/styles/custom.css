@@ -159,7 +159,7 @@
   font-weight: 600;
 }
 .btn-button:hover {
-  color: #fff;
+  color: #fff !important;
   background-color: #57ACC6;
   border-color: #57ACC6;
 }

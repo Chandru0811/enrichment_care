@@ -107,7 +107,7 @@ const Student = () => {
                 </th>
                 <th scope="col">Student ID</th>
                 <th scope="col" className="text-center">Student Name</th>
-                <th scope="col">Age</th>
+                <th scope="col" className="text-center">Age</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Nationality</th>
                 <th scope="col" className="text-center">Action</th>

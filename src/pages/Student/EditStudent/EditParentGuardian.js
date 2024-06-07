@@ -44,7 +44,7 @@ const EditParentGuardian = forwardRef(
               <div className="col-md-12 col-12 mt-4">
                 <h5 className="headColor mb-3">Parents / Guardian Details</h5>
                 <table className="table table-border-solid">
-                  <thead className=" table-light bg-warning">
+                  <thead className=" table-light">
                     <tr>
                       <th scope="col" className="fw-medium">
                         S.No
@@ -68,8 +68,8 @@ const EditParentGuardian = forwardRef(
                     </tr>
                   </thead>
                   <tbody>
-                    {data.studentParentsDetails &&
-                      data.studentParentsDetails.map((parent, index) => (
+                    {data.studentParentsDetailsModels &&
+                      data.studentParentsDetailsModels.map((parent, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>

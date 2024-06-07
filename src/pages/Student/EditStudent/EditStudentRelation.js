@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import api from "../../../config/URL";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
   studentRelationStudentName: Yup.string().required("*Student Name is required!"),
@@ -13,12 +13,13 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
 
   const [centerData, setCenterData] = useState(null);
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
+    }
   };
   
   useEffect(() => {
@@ -43,13 +44,15 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
           // If there are no emergency contacts, set default values or handle the case as needed
           formik.setValues({
             stdRealtionId: null,
-            studentRelationCenter: "",
+            studentRelationEnrichmentCare: "",
             studentRelation: "",
             studentRelationStudentName: "",
           });
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+          // toast.error(errorMessage);
+        console.error("Error fetching data:", errorMessage);
       }
     };
     // console.log(formik.values);
@@ -59,7 +62,7 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
 
   const formik = useFormik({
     initialValues: {
-      studentRelationCenter: formData.studentRelationCenter || "",
+      studentRelationEnrichmentCare: formData.studentRelationEnrichmentCare || "",
       studentRelation: formData.studentRelation || "",
       studentRelationStudentName: formData.studentRelationStudentName || "",
     },
@@ -101,7 +104,8 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
             }
         }
     } catch (error) {
-        toast.error(error);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
     }finally {
       setLoadIndicators(false);
     }
@@ -127,16 +131,16 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
                       </label>
                       <br />
                       <select
-                        name="studentRelationCenter"
+                        name="studentRelationEnrichmentCare"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelationCenter}
+                        value={formik.values.studentRelationEnrichmentCare}
                         className="form-select "
                       >
                         <option selected></option>
                          {centerData &&
-                          centerData.map((studentRelationCenter) => (
-                        <option key={studentRelationCenter.id} value={studentRelationCenter.id}>{studentRelationCenter.centerNames}</option>
+                          centerData.map((studentRelationEnrichmentCare) => (
+                        <option key={studentRelationEnrichmentCare.id} value={studentRelationEnrichmentCare.id}>{studentRelationEnrichmentCare.enrichmentCareNames}</option>
                       ))}
                       </select>
                     </div>

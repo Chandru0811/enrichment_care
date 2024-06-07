@@ -25,7 +25,8 @@ const Document = () => {
       const studentData = await fetchAllStudentsWithIds();
       setStudentData(studentData);
     } catch (error) {
-      toast.error(error);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
     }
   };
 
@@ -73,7 +74,8 @@ const Document = () => {
       setDatas(response.data);
       initializeDataTable(); // Reinitialize DataTable after successful data update
     } catch (error) {
-      console.error("Error refreshing data:", error);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
     }
     setLoading(false);
   };
@@ -144,15 +146,15 @@ const Document = () => {
                 </td> */}
                 <td>
                   <div className="d-flex">
-                    {storedScreens?.documentListingRead && (
+                    {/* {storedScreens?.documentListingRead && ( */}
                       <Link to={`/document/view/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEye />
                         </button>
                       </Link>
-                    )}
+                    {/* )} */}
                     <DocumentEdit onSuccess={refreshData} id={data.id} />
-                    {/* <Delete
+                    {/* <DeleteModel
                       onSuccess={refreshData}
                       path={`/deleteCourseClassListing/${data.id}`}
                     /> */}
