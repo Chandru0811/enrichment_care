@@ -79,9 +79,9 @@ const Center = () => {
       <div className="card shadow border-0 mb-2 top-header">
         <div className="container-fluid px-0">
       <div className="mb-5 mt-3 d-flex justify-content-between px-4">
-      <div className="pt-4">
+      
               <h2>Centre Listing</h2>
-            </div>
+            
 
           <Link to="/center/add">
             <button

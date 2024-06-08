@@ -111,7 +111,7 @@ function CourseView() {
                     <p className="fw-medium">Subject</p>
                   </div>
                   <div className="col-6">
-                    {/* <p className="text-muted text-sm">
+                    <p className="text-muted text-sm">
                     :{" "}
                     {subjectData &&
                       subjectData.map((subjectId) =>
@@ -119,7 +119,7 @@ function CourseView() {
                           ? subjectId.subjects || "--"
                           : ""
                       )}
-                  </p> */}
+                  </p>
                   </div>
                 </div>
               </div>
@@ -129,7 +129,7 @@ function CourseView() {
                     <p className="fw-medium">Level</p>
                   </div>
                   <div className="col-6">
-                    {/* <p className="text-muted text-sm">
+                    <p className="text-muted text-sm">
                     :{" "}
                     {levelData &&
                       levelData.map((levelId) =>
@@ -137,7 +137,7 @@ function CourseView() {
                           ? levelId.levels || "--"
                           : ""
                       )}
-                  </p> */}
+                  </p>
                   </div>
                 </div>
               </div>

@@ -212,7 +212,7 @@ export default function InvoiceAdd() {
           <div className="row align-items-center">
             <div className="col">
               <div className="d-flex align-items-center gap-4">
-                <h2 className="h2 ls-tight headingColor">Add Document Report</h2>
+                <h2 className="h2 ls-tight headingColor">Add Invoice</h2>
               </div>
             </div>
 

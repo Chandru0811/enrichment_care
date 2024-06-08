@@ -9,13 +9,13 @@ import toast from "react-hot-toast";
 import api from "../../config/URL";
 import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
-function DayTableAdd({ onSuccess, id, centerId, day }) {
+function DayTableAdd({ onSuccess, id, enrichmentCareId, day }) {
   const [show, setShow] = useState(false);
   const [studentData, setStudentData] = useState(false);
 
   const fetchData = async () => {
     try {
-      const studentData = await fetchAllStudentListByCenter(centerId);
+      const studentData = await fetchAllStudentListByCenter(enrichmentCareId);
       setStudentData(studentData);
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.message || "An error occurred";

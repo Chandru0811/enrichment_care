@@ -319,3 +319,37 @@ div.dt-container select.dt-input{
 .arrow.open {
   transform: rotate(0deg);
 }
+.radio-buttons {
+  display: flex;
+}
+
+.radio-button {
+  margin-right: 20px;
+}
+
+.radio-button input[type="radio"] {
+  display: none;
+}
+.radio-button input[type="radio"] + .radio-button-text {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  line-height: 28px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.radio-button
+  input[type="radio"]:checked[value="present"]
+  + .radio-button-text {
+  background-color: green;
+  color: white;
+}
+
+.radio-button input[type="radio"]:checked[value="absent"] + .radio-button-text {
+  background-color: red;
+  color: white;
+}
+

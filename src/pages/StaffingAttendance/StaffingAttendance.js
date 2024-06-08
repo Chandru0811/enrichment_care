@@ -4,9 +4,9 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
-// import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCentersWithIds from "../List/CenterList";
 import toast from "react-hot-toast";
 
 const StaffingAttendance = () => {
@@ -18,12 +18,12 @@ const StaffingAttendance = () => {
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -80,16 +80,22 @@ const StaffingAttendance = () => {
   };
 
   return (
+    <div className="minHeight center">
+    <div className="container-fluid my-4 center">
+    <div className="card shadow border-0 mb-2 top-header">
     <div className="container my-4">
-      <div className="my-3 d-flex align-items-end justify-content-end">
-        {storedScreens?.staffAttendanceCreate && (
+      <div className="my-3 d-flex justify-content-between mb-5 px-4">
+        {/* {storedScreens?.staffAttendanceCreate && ( */}
+        <h2>Attendance</h2>
           <Link to="/staffing/attendance/add">
             <button type="button" className="btn btn-button btn-sm">
               Add <i className="bx bx-plus"></i>
             </button>
           </Link>
-        )}
+        {/* )} */}
       </div>
+      
+          <hr/>
 
       {loading ? (
         <div className="loader-container">
@@ -122,8 +128,8 @@ const StaffingAttendance = () => {
                 <td>
                   {centerData &&
                     centerData.map((center) =>
-                      parseInt(data.centerId) === center.id
-                        ? center.centerNames || "--"
+                      parseInt(data.enrichmentCareId) === center.id
+                        ? center.enrichmentCareNames || "--"
                         : ""
                     )}
                 </td>
@@ -138,7 +144,7 @@ const StaffingAttendance = () => {
                 </td>
                 <td>
                   <div className="d-flex justify-content-center align-items-center ">
-                    {storedScreens?.staffAttendanceRead && (
+                    {/* {storedScreens?.staffAttendanceRead && ( */}
                       <Link
                         to={`/staffing/attendance/view/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -147,8 +153,8 @@ const StaffingAttendance = () => {
                           <FaEye />
                         </button>
                       </Link>
-                    )}
-                    {storedScreens?.staffAttendanceUpdate && (
+                    {/* )} */}
+                    {/* {storedScreens?.staffAttendanceUpdate && ( */}
                       <Link
                         to={`/staffing/attendance/edit/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -157,14 +163,14 @@ const StaffingAttendance = () => {
                           <FaEdit />
                         </button>
                       </Link>
-                    )}
-                    {/* {storedScreens?.staffAttendanceDelete && (
+                    {/* )} */}
+                    {/* {storedScreens?.staffAttendanceDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteUserAttendance/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
-                    )} */}
+                    {/* )} */}
                   </div>
                 </td>
               </tr>
@@ -172,6 +178,9 @@ const StaffingAttendance = () => {
           </tbody>
         </table>
       )}
+    </div>
+    </div>
+    </div>
     </div>
   );
 };

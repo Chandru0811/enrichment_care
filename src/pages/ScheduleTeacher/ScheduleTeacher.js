@@ -125,7 +125,7 @@ const ScheduleTeacher = () => {
               <h2>Schedule</h2>
           
                 
-         <ScheduleTeacherAdd/>
+         <ScheduleTeacherAdd onSuccess={refreshData}/>
       </div>
       <hr />
       {loading ? (

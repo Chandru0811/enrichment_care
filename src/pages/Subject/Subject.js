@@ -86,7 +86,7 @@ const Subject = () => {
               Add <i class="bx bx-plus"></i>
             </button>
           </Link> */}
-              <SubjectAdd />
+              <SubjectAdd onSuccess={refreshData}/>
 
             </div>
             <hr />

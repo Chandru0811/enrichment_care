@@ -40,8 +40,9 @@ function SubjectEdit({ id, onSuccess }) {
         });
         if (response.status === 200) {
           toast.success(response.data.message);
-          onSuccess();
+         
           handleClose();
+          onSuccess();
           navigate("/level");
         } else {
           toast.error(response.data.message);

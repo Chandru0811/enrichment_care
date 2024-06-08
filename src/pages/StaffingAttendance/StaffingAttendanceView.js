@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import api from "../../config/URL";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllTeachersWithIds from "../List/TeacherList";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllTeachersWithIds from "../List/TeacherList";
 import toast from "react-hot-toast";
 
 
@@ -15,14 +15,14 @@ function StaffingAttendanceView() {
   const [teacherData, setTeacherData] = useState(null);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   const teacherData = await fetchAllTeachersWithIds();
-    //   setCenterData(centerData);
-    //   setTeacherData(teacherData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      const teacherData = await fetchAllTeachersWithIds();
+      setCenterData(centerData);
+      setTeacherData(teacherData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -39,6 +39,9 @@ function StaffingAttendanceView() {
   }, []);
 
   return (
+    <div className="container-fluid my-4 center">
+    <div className="card shadow border-0 mb-2 top-header">
+    <div class="container-fluid minHeight mb-5">
     <div className="container ">
       <div className="row  mt-3">
         <div className="col-12 text-end">
@@ -58,9 +61,9 @@ function StaffingAttendanceView() {
                 <div className="col-6">
                   <p className="text-muted text-sm">
                     : {centerData &&
-                      centerData.map((centerId) =>
-                        parseInt(data.centerId) === centerId.id
-                          ? centerId.centerNames || "--"
+                      centerData.map((enrichmentCareId) =>
+                        parseInt(data.enrichmentCareId) === enrichmentCareId.id
+                          ? enrichmentCareId.enrichmentCareNames || "--"
                           : ""
                       )}</p>
                 </div>
@@ -179,6 +182,9 @@ function StaffingAttendanceView() {
           </div>
         </div>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
   );
 }

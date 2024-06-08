@@ -30,7 +30,7 @@ function LeaveAdminEdit() {
   const formik = useFormik({
     initialValues: {
       enrichmentCareId: "",
-      centerName: "",
+      enrichmentCareName: "",
       userId: "",
       leaveType: "",
       noOfDays: "",
@@ -55,7 +55,7 @@ function LeaveAdminEdit() {
 
       centerData.forEach((center) => {
         if (parseInt(values.enrichmentCareId) === center.id) {
-          selectedCenterName = center.centerNames || "--";
+          selectedCenterName = center.enrichmentCareNames || "--";
         }
       });
 
@@ -67,7 +67,7 @@ function LeaveAdminEdit() {
 
       const payload = {
         enrichmentCareId: values.enrichmentCareId,
-        centerName: selectedCenterName,
+        enrichmentCareName: selectedCenterName,
         userId: values.userId,
         employeeName: selectedTeacherName,
         leaveType: values.leaveType,
@@ -101,7 +101,7 @@ function LeaveAdminEdit() {
           toast.error(response.data.message);
         }
       } catch (error) {
-        toast.error(error);
+        toast.error(error.message);
       }finally {
         setLoadIndicator(false);
       }
@@ -113,7 +113,7 @@ function LeaveAdminEdit() {
       const centers = await fetchAllCentersWithIds();
       setCenterData(centers);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message);
     }
   };
 
@@ -122,7 +122,7 @@ function LeaveAdminEdit() {
       const teacher = await fetchAllEmployeeListByCenter(enrichmentCareId);
       setTeacherData(teacher);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message);
     }
   };
 

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCentersWithIds from "../List/CenterList";
 import toast from "react-hot-toast";
-// import fetchAllTeacherListByCenter from "../List/TeacherListByCenter";
-// import fetchAllEmployeeListByCenter from "../List/EmployeeList";
+import fetchAllTeacherListByCenter from "../List/TeacherListByCenter";
+import fetchAllEmployeeListByCenter from "../List/EmployeeList";
 import api from "../../config/URL";
 
 
 const validationSchema = Yup.object({
-  centerId: Yup.string().required("*Centre name is required"),
+  enrichmentCareId: Yup.string().required("*Centre name is required"),
   userId: Yup.string().required("*Employee name is required"),
   date: Yup.string().required("*Date is required"),
   attendanceStatus: Yup.string().required("*Attendance status is required"),
@@ -31,7 +31,7 @@ function StaffingAttendanceEdit() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       userId: "",
       date: "",
       attendanceStatus: "",
@@ -51,7 +51,7 @@ function StaffingAttendanceEdit() {
       let selectedEmployeeName = "";
 
       centerData.forEach((center) => {
-        if (parseInt(values.centerId) === center.id) {
+        if (parseInt(values.enrichmentCareId) === center.id) {
           selectedCenterName = center.centerNames || "--";
         }
       });
@@ -63,7 +63,7 @@ function StaffingAttendanceEdit() {
       });
 
       let payload = {
-        centerId: values.centerId,
+        enrichmentCareId: values.enrichmentCareId,
         centerName: selectedCenterName,
         userId: values.userId,
         employeeName: selectedEmployeeName,
@@ -100,31 +100,31 @@ function StaffingAttendanceEdit() {
   });
   const handleCenterChange = async (event) => {
     setUserNameData(null);
-    const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
+    const enrichmentCareId = event.target.value;
+    formik.setFieldValue("enrichmentCareId", enrichmentCareId);
     try {
-      await fetchUserName(centerId);
+      await fetchUserName(enrichmentCareId);
     } catch (error) {
       toast.error(error);
     }
   };
 
   const fetchData = async () => {
-    // try {
-    //   const centers = await fetchAllCentersWithIds();
-    //   setCenterData(centers);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centers = await fetchAllCentersWithIds();
+      setCenterData(centers);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  const fetchUserName = async (centerId) => {
-    // try {
-    //   const userNames = await fetchAllEmployeeListByCenter(centerId);
-    //   setUserNameData(userNames);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchUserName = async (enrichmentCareId) => {
+    try {
+      const userNames = await fetchAllEmployeeListByCenter(enrichmentCareId);
+      setUserNameData(userNames);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -136,7 +136,7 @@ function StaffingAttendanceEdit() {
           date: response.data.date.substring(0, 10),
         };
         formik.setValues(formattedResponseData);
-        fetchUserName(response.data.centerId);
+        fetchUserName(response.data.enrichmentCareId);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -151,6 +151,8 @@ function StaffingAttendanceEdit() {
       <div className="container-fluid">
         <div className="container">
           <form onSubmit={formik.handleSubmit}>
+          <div className="card shadow border-0 mb-2 top-header">
+          <div className="container-fluid py-4">
             <div className="row">
               <div className="col-12 text-end">
                 <Link to="/staffing/attendance">
@@ -168,14 +170,18 @@ function StaffingAttendanceEdit() {
               </button>
               </div>
             </div>
+            </div>
+            </div>
+            <div className="card shadow border-0 mb-2 top-header">
+            <div className="container p-5">
             <div className="row mt-3">
               <div className="col-md-6 col-12 mb-3 ">
                 <lable className="">Centre Name</lable>
                 <span className="text-danger">*</span>
                 <select
-                  {...formik.getFieldProps("centerId")}
+                  {...formik.getFieldProps("enrichmentCareId")}
                   className={`form-select ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -186,13 +192,13 @@ function StaffingAttendanceEdit() {
                   {centerData &&
                     centerData.map((center) => (
                       <option key={center.id} value={center.id}>
-                        {center.centerNames}
+                        {center.enrichmentCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.enrichmentCareId}
                   </div>
                 )}
               </div>
@@ -422,6 +428,8 @@ function StaffingAttendanceEdit() {
                     )}
                 </div>
               </div>
+            </div>
+            </div>
             </div>
           </form>
         </div>

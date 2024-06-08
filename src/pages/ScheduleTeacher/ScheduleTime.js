@@ -19,7 +19,7 @@ export default function ScheduleTime() {
   // const [selectedDay, setSelectedDay] = useState(null);
   // const [selectedClass, setSelectedClass] = useState(null);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
-  // console.log(teacherSchedules);
+  console.log(enrichmentCareId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,7 +115,7 @@ export default function ScheduleTime() {
                                       : null;
                                   let backgroundColor = "transparent";
                                   let content = null;
-
+                                  console.log("maxStudents",data)
                                   if (student && student.name) {
                                     content = (
                                       <>

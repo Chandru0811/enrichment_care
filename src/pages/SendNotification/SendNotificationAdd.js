@@ -47,7 +47,7 @@ function SendNotificationAdd({ onSuccess }) {
         });
         if (response.status === 201) {
       
-          onSuccess();
+          // onSuccess();
           handleClose();
           toast.success(response.data.message);
         

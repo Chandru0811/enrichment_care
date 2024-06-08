@@ -330,12 +330,12 @@ const [loadIndicator, setLoadIndicator] = useState(false);
                     <input
                       type="color"
                       {...formik.getFieldProps("colorCode")}
-                      className="form-control-color circle"
+                      className="circle"
                     />
                   </div>
                   <input
                     type="text"
-                    className={`form-control iconInput `}
+                    className={`form-control form-control-sm iconInput `}
                     value={formik.values.colorCode}
                   />
                 </div>

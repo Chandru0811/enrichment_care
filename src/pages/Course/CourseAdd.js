@@ -137,7 +137,7 @@ function CourseAdd({ onSuccess }) {
         if (response.status === 201) {
           toast.success(response.data.message);
           navigate("/course");
-          onSuccess();
+          // onSuccess();
         } else {
           toast.error(response.data.message);
         }
@@ -382,12 +382,12 @@ function CourseAdd({ onSuccess }) {
                     <input
                       type="color"
                       {...formik.getFieldProps("colorCode")}
-                      className="form-control-color circle"
+                      className="circle"
                     />
                   </div>
                   <input
                     type="text"
-                    className={`form-control iconInput `}
+                    className={`form-control form-control-sm iconInput `}
                     value={formik.values.colorCode}
                   />
                 </div>
@@ -429,6 +429,7 @@ function CourseAdd({ onSuccess }) {
                 )}
               </div>
             </div>
+            
             <div className="row">
               <div className="col-md-6 col-12 mb-2">
                 <lable className="form-lable">Duration(Hr)</lable>

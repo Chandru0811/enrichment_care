@@ -11,8 +11,8 @@ const api = axios.create({
 // Add a request interceptor
 api.interceptors.request.use(
   function (config) {
-    // const token = sessionStorage.getItem("token");
-    const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKYWNrMTIzIiwiaWF0IjoxNzE3Mzk1OTUyLCJleHAiOjE3MjI1Nzk5NTJ9.Emy9155gHqO7wER-SvQ8oAk_TLAO-d3M3rA1oyDFnIFVXpjEiLFETF4wPpgzVujFSavClWt6Us0deJqBfuELZA";
+    const token = sessionStorage.getItem("token");
+    // const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKYWNrMTIzIiwiaWF0IjoxNzE3Mzk1OTUyLCJleHAiOjE3MjI1Nzk5NTJ9.Emy9155gHqO7wER-SvQ8oAk_TLAO-d3M3rA1oyDFnIFVXpjEiLFETF4wPpgzVujFSavClWt6Us0deJqBfuELZA";
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

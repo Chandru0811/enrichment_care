@@ -3594,7 +3594,7 @@ textarea.form-control-lg {
 }
 .form-check-input[type="checkbox"] {
   border-radius: 0.25em;
-  margin-top: inherit
+  /* margin-top: inherit */
 }
 .form-check-input[type="radio"] {
   border-radius: 50%;
@@ -4867,6 +4867,7 @@ fieldset:disabled .btn {
   color: #000;
   background-color: #cfd6df;
   border-color: #cfd6df;
+  padding: 0.5rem 1rem;
 }
 .btn-secondary:hover {
   color: #000;
@@ -5062,6 +5063,7 @@ fieldset:disabled .btn {
   color: #fff;
   background-color: #f36;
   border-color: #f36;
+  padding: 0.5rem 1rem;
 }
 .btn-danger:hover {
   color: #fff;

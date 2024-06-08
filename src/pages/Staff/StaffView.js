@@ -33,7 +33,7 @@ function StaffView() {
       <div class="container-fluid py-4">
         <div class="row align-items-center">
           <div class="col">
-            <div class="d-flex align-items-center gap-4"></div>
+            <div class="d-flex align-items-center gap-4"><h2>View Staff</h2></div>
           </div>
           <div class="col-auto">
             <div class="hstack gap-2 justify-content-end">

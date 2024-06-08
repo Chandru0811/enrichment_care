@@ -5,8 +5,8 @@ import "datatables.net-dt";
 import "datatables.net-responsive-dt";
 import $ from "jquery";
 import toast from "react-hot-toast";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
 import api from "../../config/URL";
 
 const Attendance = () => {
@@ -58,14 +58,14 @@ const Attendance = () => {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       courseId: "",
       attendanceStatus: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const payload = {
-        centerId: values.centerId,
+        enrichmentCareId: values.enrichmentCareId,
         attendanceDate: selectedDate,
       };
       if (values.courseId !== undefined && values.courseId !== null) {
@@ -80,7 +80,7 @@ const Attendance = () => {
 
       try {
         const response = await api.post(
-          "getAttendanceByCenterIdAndDate",
+          "getAttendanceByenrichmentCareIdAndDate",
           payload
         );
         if (response.status === 200) {
@@ -97,31 +97,31 @@ const Attendance = () => {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centers = await fetchAllCentersWithIds();
-    //   formik.setValues({ centerId: centers[0].id });
-    //   setCenterData(centers);
-    //   setLoading(false); // Set loading to false after fetching data
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centers = await fetchAllCentersWithIds();
+      formik.setValues({ enrichmentCareId: centers[0].id });
+      setCenterData(centers);
+      setLoading(false); // Set loading to false after fetching data
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  const fetchCourses = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllCoursesWithIdsC(centerId);
-    //   setCourseData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchCourses = async (enrichmentCareId) => {
+    try {
+      const courses = await fetchAllCoursesWithIdsC(enrichmentCareId);
+      setCourseData(courses);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const handleCenterChange = (event) => {
     setCourseData(null);
     formik.setFieldValue("courseId", null);
-    const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
-    fetchCourses(centerId);
+    const enrichmentCareId = event.target.value;
+    formik.setFieldValue("enrichmentCareId", enrichmentCareId);
+    fetchCourses(enrichmentCareId);
   };
 
   return (
@@ -147,9 +147,9 @@ const Attendance = () => {
           <div className="col-md-4 col-12 mb-2">
             <label className="form-label">Centre</label>
             <select
-              {...formik.getFieldProps("centerId")}
+              {...formik.getFieldProps("enrichmentCareId")}
               className={`form-select ${
-                formik.touched.centerId && formik.errors.centerId
+                formik.touched.enrichmentCareId && formik.errors.enrichmentCareId
                   ? "is-invalid"
                   : ""
               }`}
@@ -159,12 +159,12 @@ const Attendance = () => {
               {centerData &&
                 centerData.map((center) => (
                   <option key={center.id} value={center.id}>
-                    {center.centerNames}
+                    {center.enrichmentCareNames}
                   </option>
                 ))}
             </select>
-            {formik.touched.centerId && formik.errors.centerId && (
-              <div className="invalid-feedback">{formik.errors.centerId}</div>
+            {formik.touched.enrichmentCareId && formik.errors.enrichmentCareId && (
+              <div className="invalid-feedback">{formik.errors.enrichmentCareId}</div>
             )}
           </div>
           <div className="col-md-4 col-12 mb-2">

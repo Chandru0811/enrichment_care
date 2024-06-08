@@ -120,17 +120,18 @@ import ScheduleTime from "../pages/ScheduleTeacher/ScheduleTime";
 import { Toaster } from "react-hot-toast";
 import Curriculum from "../pages/Curriculum/Curriculum";
 import StudentRegisterCourse from "../pages/Student/StudentRegisterCourse";
+import { color } from "chart.js/helpers";
 
 function Admin({ handleLogout }) {
   return (
     <BrowserRouter>
-    <Toaster></Toaster>
+      <Toaster />
       <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <Sidebar onLogout={handleLogout} />
         <div className="h-screen flex-grow-1 overflow-y-lg-auto">
           <main className="py-6 bg-surface-secondary">
             <Routes>
-            <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home />} />
 
               <Route path="/center" element={<Center />} />
               <Route path="/center/add" element={<CenterAdd />} />
@@ -200,7 +201,7 @@ function Admin({ handleLogout }) {
               <Route path="/staff/leave" element={<StaffLeave />} />
               <Route path="/staff/leave/view" element={<StaffLeaveView />} />
               <Route path="/staff/payslip" element={<StaffPayslip />} />
-              
+
               <Route path="/teacher" element={<Teacher />} />
               <Route path="/teacher/add" element={<TeacherAdd />} />
               <Route path="/teacher/edit/:staff_id" element={<TeacherEdit />} />
@@ -262,7 +263,7 @@ function Admin({ handleLogout }) {
               <Route path="/payment" element={<Payment />} />
 
               <Route path="/report/attendance" element={<Attendance />} />
-              <Route path="/report/enrolment" element={<Enrolment/>} />
+              <Route path="/report/enrolment" element={<Enrolment />} />
               <Route path="/report/fee" element={<Fee />} />
               <Route path="/report/package" element={<Package />} />
               <Route path="/report/sales" element={<Sales />} />
@@ -273,7 +274,7 @@ function Admin({ handleLogout }) {
                 path="/report/document/view"
                 element={<DocumentReportView />}
               />
-              <Route path="/report/assessment" element={<AssessmentReport/>} />
+              <Route path="/report/assessment" element={<AssessmentReport />} />
 
               <Route path="/sendNotification" element={<SendNotification />} />
               <Route path="/sendNotification/add" element={<SendNotificationAdd />} />
