@@ -47,53 +47,6 @@ const AddParentDetailModel = forwardRef(({ formData }) => {
       : 1
   );
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     parentDetailId: "",
-  //     parentName: "",
-  //     parentDateOfBirth: "",
-  //     email: "",
-  //     relation: "",
-  //     occupation: "",
-  //     file: null || "",
-  //     mobileNumber: "",
-  //     postalCode: "",
-  //     address: "",
-  //   },
-  //   validationSchema: validationSchema,
-  //   onSubmit: async (data) => {
-  //     console.log("Api Data:", data);
-  //     try {
-  //       const payload = [{
-  //         parentName: data.parentName,
-  //         parentDateOfBirth:data.parentDateOfBirth,
-  //         email: data.email,
-  //         relation: data.relation,
-  //         occupation: data.occupation,
-  //         mobileNumber: data.mobileNumber,
-  //         postalCode: data.postalCode,
-  //         address: data.address,
-  //       }];
-  //       const response = await api.post(
-  //         `/createMultipleStudentParentsDetailsWithProfileImages/${formData.student_id}`,
-  //         payload,
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-  //       if (response.status === 201) {
-  //         toast.success(response.data.message);
-  //       } else {
-  //         toast.error(response.data.message);
-  //       }
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     }
-  //   },
-  // });
-
   const formik = useFormik({
     initialValues: {
       parentInformation:
@@ -170,7 +123,7 @@ const AddParentDetailModel = forwardRef(({ formData }) => {
 
   return (
     <div className="container-fluid">
-      <div className="row">
+      <div className="row my-2">
         <button
           onClick={handleShow}
           type="button"

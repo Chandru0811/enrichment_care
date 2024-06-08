@@ -10,6 +10,18 @@ import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
 import fetchAllTeacherListByCenter from "../List/TeacherListByCenter";
 import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
+const validationSchema = Yup.object({
+  enrichmentCare: Yup.string().required("*Centre is required"),
+  course: Yup.string().required("*Course is required"),
+  userId: Yup.string().required("*Teacher is required"),
+  days: Yup.string().required("*Days is required"),
+  classListing: Yup.string().required("*Class Listing is required"),
+  date: Yup.string().required("*Date is required"),
+  folderCategoryListing: Yup.string().required("*FolderCategory is required"),
+  batchId: Yup.string().required("*Batch Time is required"),
+  expiredDate: Yup.string().required("*Expired Date is required"),
+});
+
 function DocumentAdd() {
   const navigate = useNavigate();
   const [folderCategory, setFolderCategory] = useState("group");
@@ -70,18 +82,6 @@ function DocumentAdd() {
     }
   };
 
-  const validationSchema = Yup.object({
-    enrichmentCare: Yup.string().required("*Centre is required"),
-    course: Yup.string().required("*Course is required"),
-    userId: Yup.string().required("*Teacher is required"),
-    days: Yup.string().required("*Days is required"),
-    classListing: Yup.string().required("*Class Listing is required"),
-    date: Yup.string().required("*Date is required"),
-    folderCategoryListing: Yup.string().required("*FolderCategory is required"),
-    batchId: Yup.string().required("*Batch Time is required"),
-    expiredDate: Yup.string().required("*Expired Date is required"),
-  });
-
   const formik = useFormik({
     initialValues: {
       enrichmentCare: "",
@@ -100,14 +100,14 @@ function DocumentAdd() {
     onSubmit: async (values) => {
       setLoadIndicator(true);
       try {
-        const selectedValue = formik.values.enrichmentCare;// Assuming formik is in scope
+        const selectedValue = formik.values.enrichmentCare; // Assuming formik is in scope
         let selectedOptionName = "";
         let selectedClassName = "";
         let selectedCourseName = "";
 
         centerData.forEach((enrichmentCare) => {
           if (parseInt(selectedValue) === enrichmentCare.id) {
-            selectedOptionName = enrichmentCare.centerNames || "--";
+            selectedOptionName = enrichmentCare.enrichmentCareNames || "--";
           }
         });
 
@@ -151,7 +151,7 @@ function DocumentAdd() {
               ? "7:00 pm"
               : "",
           date: values.date,
-          expiredDate: values.expiredDate // Calculating expiry date
+          expiredDate: values.expiredDate, // Calculating expiry date
         };
 
         if (folderCategory === "group") {
@@ -163,7 +163,7 @@ function DocumentAdd() {
         // console.log(requestBody);
 
         const response = await api.post(
-          "/uploadStudentFilesWithSingleOrGroup",
+          "/createIndividualStudentFolder",
           requestBody
         );
 
@@ -175,7 +175,7 @@ function DocumentAdd() {
         }
       } catch (error) {
         toast.error("Error submitting form data:", error.message);
-      }finally {
+      } finally {
         setLoadIndicator(false);
       }
     },
@@ -225,322 +225,334 @@ function DocumentAdd() {
 
   return (
     <div className="container-fluid center">
-       <form onSubmit={formik.handleSubmit}>
-    <div className="card shadow border-0 mb-2 top-header">
-    <div className="container-fluid py-4">
-          <div className="row align-items-center">
-            <div className="col">
-              <div className="d-flex align-items-center gap-4">
-                <h2 className="h2 ls-tight headingColor">Add Document</h2>
+      <form onSubmit={formik.handleSubmit}>
+        <div className="card shadow border-0 mb-2 top-header">
+          <div className="container-fluid py-4">
+            <div className="row align-items-center">
+              <div className="col">
+                <div className="d-flex align-items-center gap-4">
+                  <h2 className="h2 ls-tight headingColor">Add Document</h2>
+                </div>
+              </div>
+              <div className="col-auto">
+                <div className="hstack gap-2 justify-content-end">
+                  <Link to="/document">
+                    <button type="button " className="btn btn-sm btn-border   ">
+                      Back
+                    </button>
+                  </Link>
+                  &nbsp;&nbsp;
+                  <button
+                    type="submit"
+                    className="btn btn-button btn-sm"
+                    disabled={loadIndicator}
+                  >
+                    {loadIndicator && (
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        aria-hidden="true"
+                      ></span>
+                    )}
+                    Save
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="col-auto">
-              <div className="hstack gap-2 justify-content-end">
-          <Link to="/document">
-            <button type="button " className="btn btn-sm btn-border   ">
-              Back
-            </button>
-          </Link>
-          &nbsp;&nbsp;
-          <button type="submit" className="btn btn-button btn-sm" disabled={loadIndicator}>
-                {loadIndicator && (
-                    <span
-                      className="spinner-border spinner-border-sm me-2"
-                      aria-hidden="true"
-                    ></span>
-                  )}
-                Save
-              </button>
-              </div>
-              </div>
-              </div>
-              </div>
+          </div>
         </div>
         <div className="card shadow border-0 mb-2 top-header">
-        <div className="container p-5">
-          <div className="row py-4">
-            <div class="col-md-6 col-12 mb-4">
-              <lable class="">
-                Centre<span class="text-danger">*</span>
-              </lable>
-              <select
-                {...formik.getFieldProps("enrichmentCare")}
-                name="enrichmentCare"
-                className={`form-select  ${
-                  formik.touched.enrichmentCare && formik.errors.enrichmentCare
-                    ? "is-invalid"
-                    : ""
-                }`}
-                aria-label="Default select example"
-                onChange={handleCenterChange}
-              >
-                <option disabled></option>
-                {centerData &&
-                  centerData.map((enrichmentCare) => (
-                    <option key={enrichmentCare.id} value={enrichmentCare.id}>
-                      {enrichmentCare.enrichmentCareNames}
-                    </option>
-                  ))}
-              </select>
-              {formik.touched.enrichmentCare && formik.errors.enrichmentCare && (
-                <div className="invalid-feedback">{formik.errors.enrichmentCare}</div>
-              )}
-            </div>
-            <div class="col-md-6 col-12 mb-4">
-              <lable class="">
-                Course<span class="text-danger">*</span>
-              </lable>
-              <select
-                {...formik.getFieldProps("course")}
-                name="course"
-                className={`form-select    ${
-                  formik.touched.course && formik.errors.course
-                    ? "is-invalid"
-                    : ""
-                }`}
-                aria-label="Default select example"
-                onChange={handleCourseChange}
-              >
-                <option disabled></option>
-                {courseData &&
-                  courseData.map((courses) => (
-                    <option key={courses.id} value={courses.id}>
-                      {courses.courseNames}
-                    </option>
-                  ))}
-              </select>
-              {formik.touched.course && formik.errors.course && (
-                <div className="invalid-feedback">{formik.errors.course}</div>
-              )}
-            </div>
-
-            <div class="col-md-6 col-12 mb-4 d-flex flex-column justify-content-end">
-              <lable class="">
-                Class Listing<span class="text-danger">*</span>
-              </lable>
-              <select
-                {...formik.getFieldProps("classListing")}
-                name="classListing"
-                className={`form-select    ${
-                  formik.touched.classListing && formik.errors.classListing
-                    ? "is-invalid"
-                    : ""
-                }`}
-                aria-label="Default select example"
-              >
-                <option disabled></option>
-                {classData &&
-                  classData.map((classes) => (
-                    <option key={classes.id} value={classes.id}>
-                      {classes.classNames}
-                    </option>
-                  ))}
-              </select>
-              {formik.touched.classListing && formik.errors.classListing && (
-                <div className="invalid-feedback">
-                  {formik.errors.classListing}
-                </div>
-              )}
-            </div>
-
-            <div class="col-md-6 col-12 mb-4">
-              <lable class="">
-                Teacher<span class="text-danger">*</span>
-              </lable>
-              <select
-                {...formik.getFieldProps("userId")}
-                name="userId"
-                className={`form-select  ${
-                  formik.touched.userId && formik.errors.userId
-                    ? "is-invalid"
-                    : ""
-                }`}
-                aria-label="Default select example"
-              >
-                <option disabled></option>
-                {userData &&
-                  userData.map((userId) => (
-                    <option key={userId.id} value={userId.id}>
-                      {userId.teacherNames}
-                    </option>
-                  ))}
-              </select>
-              {formik.touched.userId && formik.errors.userId && (
-                <div className="invalid-feedback">{formik.errors.userId}</div>
-              )}
-            </div>
-
-            <div className="col-md-6 col-12 mb-4">
-              <label className="">
-                Days<span className="text-danger">*</span>
-              </label>
-              <select
-                {...formik.getFieldProps("days")}
-                className={`form-select ${
-                  formik.touched.days && formik.errors.days ? "is-invalid" : ""
-                }`}
-              >
-                <option value=""></option>
-                <option value="SUNDAY">Sunday</option>
-                <option value="MONDAY">Monday</option>
-                <option value="TUESDAY">Tuesday</option>
-                <option value="WEDNESDAY">Wednesday</option>
-                <option value="THURSDAY">Thursday</option>
-                <option value="FRIDAY">Friday</option>
-                <option value="SATURDAY">Saturday</option>
-              </select>
-              {formik.touched.days && formik.errors.days && (
-                <div className="invalid-feedback">{formik.errors.days}</div>
-              )}
-            </div>
-
-            <div className="col-md-6 col-12 mb-4">
-              <label className="">
-                Batch Time<span className="text-danger">*</span>
-              </label>
-              <select
-                {...formik.getFieldProps("batchId")}
-                className={`form-select ${
-                  formik.touched.batchId && formik.errors.batchId
-                    ? "is-invalid"
-                    : ""
-                }`}
-              >
-                <option value=""></option>
-                <option value="5">12:00 pm</option>
-                <option value="6">1:00 pm</option>
-                <option value="1">2:30 pm</option>
-                <option value="2">3:30 pm</option>
-                <option value="3">5:00 pm</option>
-                <option value="4">7:00 pm</option>
-              </select>
-              {formik.touched.batchId && formik.errors.batchId && (
-                <div className="invalid-feedback">{formik.errors.batchId}</div>
-              )}
-            </div>
-
-            {/* Radio buttons for selecting folder category */}
-            <div className="col-md-6 col-12 mb-4">
-              <label className="form-label">
-                Folder Category<span className="text-danger">*</span>
-              </label>
-              <div className="d-flex">
-                <div>
-                  <input
-                    className="form-check-input "
-                    type="radio"
-                    id="group"
-                    name="folderCategoryListing"
-                    value="group"
-                    checked={folderCategory === "group"}
-                    onChange={() => setFolderCategory("group")}
-                  />{" "}
-                  &nbsp;
-                  <label htmlFor="group">Group</label>
-                </div>
-                &nbsp;&nbsp;&nbsp;
-                <div>
-                  <input
-                    className="form-check-input "
-                    type="radio"
-                    id="individual"
-                    name="folderCategoryListing"
-                    value="individual"
-                    checked={folderCategory === "individual"}
-                    onChange={() => setFolderCategory("individual")}
-                  />
-                  &nbsp;
-                  <label htmlFor="individual">Individual</label>
-                </div>
-              </div>
-              {formik.touched.folderCategoryListing &&
-                formik.errors.folderCategoryListing && (
-                  <div className="invalid-feedback">
-                    {formik.errors.folderCategoryListing}
-                  </div>
-                )}
-            </div>
-
-            <div class="col-md-6 col-12 mb-3">
-              {folderCategory === "group" ? (
-                <></>
-              ) : (
-                <div className="">
-                  <label className="form-label">Student Name</label>
-                  <select
-                    {...formik.getFieldProps("studentSelect")}
-                    className={`form-select   ${
-                      formik.touched.studentSelect &&
-                      formik.errors.studentSelect
-                        ? "is-invalid"
-                        : ""
-                    }`}
-                  >
-                    <option disabled></option>
-                    {studentData &&
-                      studentData.map((student) => (
-                        <option key={student.id} value={student.id}>
-                          {student.studentNames}
-                        </option>
-                      ))}
-                  </select>
-                  {formik.touched.studentSelect &&
-                    formik.errors.studentSelect && (
-                      <div className="invalid-feedback">
-                        {formik.errors.studentSelect}
-                      </div>
-                    )}
-                </div>
-              )}
-            </div>
-
-            <div className="col-md-6 col-12 mb-4">
-              <label className="form-label">
-                Date<span className="text-danger">*</span>
-              </label>
-              <div className="input-group mb-3">
-                <input
-                  name="date"
-                  type="date"
-                  className={`form-control  ${
-                    formik.touched.date && formik.errors.date
+          <div className="container p-5">
+            <div className="row py-4">
+              <div class="col-md-6 col-12 mb-4">
+                <lable class="">
+                  Centre<span class="text-danger">*</span>
+                </lable>
+                <select
+                  {...formik.getFieldProps("enrichmentCare")}
+                  name="enrichmentCare"
+                  className={`form-select  ${
+                    formik.touched.enrichmentCare &&
+                    formik.errors.enrichmentCare
                       ? "is-invalid"
                       : ""
                   }`}
-                  {...formik.getFieldProps("date")}
+                  aria-label="Default select example"
+                  onChange={handleCenterChange}
+                >
+                  <option disabled></option>
+                  {centerData &&
+                    centerData.map((enrichmentCare) => (
+                      <option key={enrichmentCare.id} value={enrichmentCare.id}>
+                        {enrichmentCare.enrichmentCareNames}
+                      </option>
+                    ))}
+                </select>
+                {formik.touched.enrichmentCare &&
+                  formik.errors.enrichmentCare && (
+                    <div className="invalid-feedback">
+                      {formik.errors.enrichmentCare}
+                    </div>
+                  )}
+              </div>
+              <div class="col-md-6 col-12 mb-4">
+                <lable class="">
+                  Course<span class="text-danger">*</span>
+                </lable>
+                <select
+                  {...formik.getFieldProps("course")}
+                  name="course"
+                  className={`form-select    ${
+                    formik.touched.course && formik.errors.course
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  aria-label="Default select example"
+                  onChange={handleCourseChange}
+                >
+                  <option disabled></option>
+                  {courseData &&
+                    courseData.map((courses) => (
+                      <option key={courses.id} value={courses.id}>
+                        {courses.courseNames}
+                      </option>
+                    ))}
+                </select>
+                {formik.touched.course && formik.errors.course && (
+                  <div className="invalid-feedback">{formik.errors.course}</div>
+                )}
+              </div>
+
+              <div class="col-md-6 col-12 mb-4 d-flex flex-column justify-content-end">
+                <lable class="">
+                  Class Listing<span class="text-danger">*</span>
+                </lable>
+                <select
+                  {...formik.getFieldProps("classListing")}
+                  name="classListing"
+                  className={`form-select    ${
+                    formik.touched.classListing && formik.errors.classListing
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  aria-label="Default select example"
+                >
+                  <option disabled></option>
+                  {classData &&
+                    classData.map((classes) => (
+                      <option key={classes.id} value={classes.id}>
+                        {classes.classNames}
+                      </option>
+                    ))}
+                </select>
+                {formik.touched.classListing && formik.errors.classListing && (
+                  <div className="invalid-feedback">
+                    {formik.errors.classListing}
+                  </div>
+                )}
+              </div>
+
+              <div class="col-md-6 col-12 mb-4">
+                <lable class="">
+                  Teacher<span class="text-danger">*</span>
+                </lable>
+                <select
+                  {...formik.getFieldProps("userId")}
+                  name="userId"
+                  className={`form-select  ${
+                    formik.touched.userId && formik.errors.userId
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  aria-label="Default select example"
+                >
+                  <option disabled></option>
+                  {userData &&
+                    userData.map((userId) => (
+                      <option key={userId.id} value={userId.id}>
+                        {userId.teacherNames}
+                      </option>
+                    ))}
+                </select>
+                {formik.touched.userId && formik.errors.userId && (
+                  <div className="invalid-feedback">{formik.errors.userId}</div>
+                )}
+              </div>
+
+              <div className="col-md-6 col-12 mb-4">
+                <label className="">
+                  Days<span className="text-danger">*</span>
+                </label>
+                <select
+                  {...formik.getFieldProps("days")}
+                  className={`form-select ${
+                    formik.touched.days && formik.errors.days
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                >
+                  <option value=""></option>
+                  <option value="SUNDAY">Sunday</option>
+                  <option value="MONDAY">Monday</option>
+                  <option value="TUESDAY">Tuesday</option>
+                  <option value="WEDNESDAY">Wednesday</option>
+                  <option value="THURSDAY">Thursday</option>
+                  <option value="FRIDAY">Friday</option>
+                  <option value="SATURDAY">Saturday</option>
+                </select>
+                {formik.touched.days && formik.errors.days && (
+                  <div className="invalid-feedback">{formik.errors.days}</div>
+                )}
+              </div>
+
+              <div className="col-md-6 col-12 mb-4">
+                <label className="">
+                  Batch Time<span className="text-danger">*</span>
+                </label>
+                <select
+                  {...formik.getFieldProps("batchId")}
+                  className={`form-select ${
+                    formik.touched.batchId && formik.errors.batchId
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                >
+                  <option value=""></option>
+                  <option value="5">12:00 pm</option>
+                  <option value="6">1:00 pm</option>
+                  <option value="1">2:30 pm</option>
+                  <option value="2">3:30 pm</option>
+                  <option value="3">5:00 pm</option>
+                  <option value="4">7:00 pm</option>
+                </select>
+                {formik.touched.batchId && formik.errors.batchId && (
+                  <div className="invalid-feedback">
+                    {formik.errors.batchId}
+                  </div>
+                )}
+              </div>
+
+              {/* Radio buttons for selecting folder category */}
+              <div className="col-md-6 col-12 mb-4">
+                <label className="form-label">
+                  Folder Category<span className="text-danger">*</span>
+                </label>
+                <div className="d-flex">
+                  <div>
+                    <input
+                      className="form-check-input "
+                      type="radio"
+                      id="group"
+                      name="folderCategoryListing"
+                      value="group"
+                      checked={folderCategory === "group"}
+                      onChange={() => setFolderCategory("group")}
+                    />{" "}
+                    &nbsp;
+                    <label htmlFor="group">Group</label>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;
+                  <div>
+                    <input
+                      className="form-check-input "
+                      type="radio"
+                      id="individual"
+                      name="folderCategoryListing"
+                      value="individual"
+                      checked={folderCategory === "individual"}
+                      onChange={() => setFolderCategory("individual")}
+                    />
+                    &nbsp;
+                    <label htmlFor="individual">Individual</label>
+                  </div>
+                </div>
+                {formik.touched.folderCategoryListing &&
+                  formik.errors.folderCategoryListing && (
+                    <div className="invalid-feedback">
+                      {formik.errors.folderCategoryListing}
+                    </div>
+                  )}
+              </div>
+
+              <div class="col-md-6 col-12 mb-3">
+                {folderCategory === "group" ? (
+                  <></>
+                ) : (
+                  <div className="">
+                    <label className="form-label">Student Name</label>
+                    <select
+                      {...formik.getFieldProps("studentSelect")}
+                      className={`form-select   ${
+                        formik.touched.studentSelect &&
+                        formik.errors.studentSelect
+                          ? "is-invalid"
+                          : ""
+                      }`}
+                    >
+                      <option disabled></option>
+                      {studentData &&
+                        studentData.map((student) => (
+                          <option key={student.id} value={student.id}>
+                            {student.studentNames}
+                          </option>
+                        ))}
+                    </select>
+                    {formik.touched.studentSelect &&
+                      formik.errors.studentSelect && (
+                        <div className="invalid-feedback">
+                          {formik.errors.studentSelect}
+                        </div>
+                      )}
+                  </div>
+                )}
+              </div>
+
+              <div className="col-md-6 col-12 mb-4">
+                <label className="form-label">
+                  Date<span className="text-danger">*</span>
+                </label>
+                <div className="input-group mb-3">
+                  <input
+                    name="date"
+                    type="date"
+                    className={`form-control  ${
+                      formik.touched.date && formik.errors.date
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    {...formik.getFieldProps("date")}
+                  />
+                  {formik.touched.date && formik.errors.date && (
+                    <div className="invalid-feedback">{formik.errors.date}</div>
+                  )}
+                </div>
+              </div>
+
+              <div className="col-md-6 col-12 mb-4">
+                <label className="form-label">
+                  Expired Date<span className="text-danger">*</span>
+                </label>
+                <input
+                  name="expiredDate"
+                  type="text"
+                  className={`form-control  ${
+                    formik.touched.expiredDate && formik.errors.expiredDate
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  {...formik.getFieldProps("expiredDate")}
+                  value={calculateExpiryDate(formik.values.date)}
                 />
-                {formik.touched.date && formik.errors.date && (
-                  <div className="invalid-feedback">{formik.errors.date}</div>
+                {formik.touched.expiredDate && formik.errors.expiredDate && (
+                  <div className="invalid-feedback">
+                    {formik.errors.expiredDate}
+                  </div>
                 )}
               </div>
             </div>
-
-            <div className="col-md-6 col-12 mb-4">
-              <label className="form-label">
-                Expired Date<span className="text-danger">*</span>
-              </label>
-              <input
-                name="expiredDate"
-                type="text"
-                className={`form-control  ${
-                  formik.touched.expiredDate && formik.errors.expiredDate
-                    ? "is-invalid"
-                    : ""
-                }`}
-                {...formik.getFieldProps("expiredDate")}
-                value={calculateExpiryDate(formik.values.date)}
-              />
-               {formik.touched.expiredDate && formik.errors.expiredDate && (
-                  <div className="invalid-feedback">{formik.errors.expiredDate}</div>
-                )}
-            </div>
           </div>
-          </div>
-          
         </div>
       </form>
     </div>
-    
   );
 }
 

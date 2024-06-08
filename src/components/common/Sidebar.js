@@ -330,7 +330,7 @@ function Sidebar({ onLogout }) {
         </button>
         <NavLink
           style={{ background: "#1A516B" }}
-          className={`navbar-brand logo_ats py-lg-2 px-lg-6 m-0 d-flex align-items-center justify-content-center header-logo ${leadMenuOpen || activeSubmenu ? "active" : ""
+          className={`navbar-brand  logo_ats py-lg-2 px-lg-6 m-0 d-flex align-items-center justify-content-center header-logo ${leadMenuOpen || activeSubmenu ? "active" : ""
             }`}
           to="/"
         >
@@ -340,7 +340,7 @@ function Sidebar({ onLogout }) {
             style={{ width: "50px", height: "50px" }}
           />
           <span
-            className="text-white fs-4 fw-bolder mx-3"
+            className="text-white fs-4 fw-bolder ms-2 me-1"
             style={{ textShadow: "1px 1px 2px black" }}
           >
             Enrichement Care

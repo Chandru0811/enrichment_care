@@ -7,19 +7,20 @@ import Modal from "react-bootstrap/Modal";
 import { FaPlusCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import api from "../../config/URL";
-// import fetchAllStudentListByCenter from "../List/StudentListByCenter";
+import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
 function DayTableAdd({ onSuccess, id, centerId, day }) {
   const [show, setShow] = useState(false);
   const [studentData, setStudentData] = useState(false);
 
   const fetchData = async () => {
-    // try {
-    //   const studentData = await fetchAllStudentListByCenter(centerId);
-    //   setStudentData(studentData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const studentData = await fetchAllStudentListByCenter(centerId);
+      setStudentData(studentData);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
+    }
   };
 
   useEffect(() => {

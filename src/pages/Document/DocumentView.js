@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import api from "../../config/URL";
-// import Delete from "../../components/common/Delete";
 import { IoMdDownload } from "react-icons/io";
 import BlockImg from "../.././assets/images/Block_Img1.jpg";
+import DeleteModel from "../../components/common/DeleteModel";
 // import { SCREENS } from "../../config/ScreenFilter";
 
 function DocumentView() {
@@ -11,22 +11,22 @@ function DocumentView() {
   console.log(id)
   const [data, setData] = useState([]);
 
-  const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
+  // const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
   // console.log("Screens : ", SCREENS);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await api.get(`getAllDocumentFilesByDocumentId/${id}`);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`getAllDocumentFilesByDocumentId/${id}`);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const refreshData = async () => {
     const response = await api.get(`getAllDocumentFilesByDocumentId/${id}`);
@@ -83,7 +83,7 @@ function DocumentView() {
                     {item.fileExtension === "mp4" ? (
                       <video
                         controls
-                        style={{ width: "200px", height: "auto" }}
+                        style={{ width: "30%", height: "auto" }}
                         onError={(e) => {
                           e.target.src = BlockImg;
                         }}
@@ -99,7 +99,7 @@ function DocumentView() {
                             onError={(e) => {
                               e.target.src = BlockImg;
                             }}
-                            width="200"
+                            width="30%"
                             height="auto"
                             alt="img"
                           />
@@ -107,7 +107,7 @@ function DocumentView() {
                           <img
                             src={BlockImg}
                             alt="img"
-                            width="200"
+                            width="30%"
                             height="auto"
                           />
                         )}
@@ -118,12 +118,12 @@ function DocumentView() {
                   <td className="p-4">Teacher Admin</td>
                   <td className="p-4">Pending</td>
                   <td className="p-4">
-                    {/* {storedScreens?.documentListingDelete && (
-                      <Delete
+                    {/* {storedScreens?.documentListingDelete && ( */}
+                      <DeleteModel
                         onSuccess={refreshData}
                         path={`/deleteDocumentFiles/${item.id}`}
                       />
-                    )} */}
+                    {/* )} */}
 
                     <button
                       className="btn"

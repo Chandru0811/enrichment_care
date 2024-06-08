@@ -59,7 +59,8 @@ const ScheduleTeacher = () => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      toast.error("Error deleting data:", error);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
     }
   };
 

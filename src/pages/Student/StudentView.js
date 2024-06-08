@@ -45,7 +45,7 @@ function StudentView() {
   return (
     <>
       <section className="p-3 mt-2">
-        <div className="container-fluid my-4 center">
+        <div className="container-fluid center">
           <div className="card shadow border-0 mb-2 top-header">
             
             <div className="accordion" id="accordionPanelsStayOpenExample">
@@ -113,7 +113,7 @@ function StudentView() {
                   className="accordion-collapse collapse show"
                 >
                   <div clasclassName="accordion-body row">
-                    <div className="container p-3">
+                    <div className="container ps-5 py-3">
                       <div className="row pb-3">
                         <div className="col-md-6 col-12">
                           <div className="row mt-3  mb-2">
@@ -335,7 +335,7 @@ function StudentView() {
                         </div>
                         <div className="col-md-6 col-12">
                           <div className="row  mb-2">
-                            <div className="col-6  ">
+                            <div className="col-6">
                               <p className="fw-medium">Profile Image</p>
                             </div>
                             <div className="col-6">
@@ -420,7 +420,7 @@ function StudentView() {
                   class="accordion-collapse collapse"
                 >
                   <div clasclassName="accordion-body row">
-                    <div className="container p-3">
+                    <div className="container ps-5 py-3">
                       <div className="row pb-3 ">
                         <div className="col-md-6 col-12">
                           <div className="row  mb-2">
@@ -855,7 +855,7 @@ function StudentView() {
                   <div class="accordion-body">
                     <div className="table-responsive">
                       <table className="table">
-                        <thead>
+                        <thead className="bg-light">
                           <tr>
                             <th scope="col" className="fw-medium">
                               S.No
@@ -872,21 +872,18 @@ function StudentView() {
                           </tr>
                         </thead>
                         <tbody>
-                          {data.studentRelationModels &&
-                            data.studentRelationModels.map((std, index) => (
-                              <tr key={std.id}>
+                          { data.studentRelationModels?.map((std, index) => (
+                              <tr>
                                 <td>{index + 1}</td>
                                 <td>
                                   {centerData &&
-                                    centerData.map((center) =>
-                                      parseInt(data.center) === center.id
-                                        ? center.centerNames || "--"
+                                    centerData.map((enrichmentCare) =>
+                                      parseInt(data.enrichmentCare) === enrichmentCare.id
+                                        ? enrichmentCare.enrichmentCareNames || "--"
                                         : ""
                                     )}
                                 </td>
-                                <td>
-                                  {std.studentRelationStudentName || "--"}
-                                </td>
+                                <td>{std.studentRelationStudentName || "--"}</td>
                                 <td>{std.studentRelation || "--"}</td>
                               </tr>
                             ))}
@@ -918,7 +915,7 @@ function StudentView() {
                   <div class="accordion-body">
                     <div className="table-responsive">
                       <table className="table">
-                        <thead>
+                        <thead className="bg-light">
                           <tr>
                             <th scope="col" className="fw-medium">
                               S.No
@@ -940,6 +937,9 @@ function StudentView() {
                             </th>
                             <th scope="col" className="fw-medium">
                               End Time
+                            </th>
+                            <th scope="col" className="fw-medium">
+                              Signature Date
                             </th>
                           </tr>
                         </thead>

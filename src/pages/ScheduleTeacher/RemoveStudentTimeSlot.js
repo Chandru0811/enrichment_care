@@ -27,7 +27,8 @@ function RemoveStudentTimeSlot({ onSuccess, id }) {
         toast.error(response.data.message);
       }
     } catch (error) {
-      toast.error(error);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
     }
   };
   return (

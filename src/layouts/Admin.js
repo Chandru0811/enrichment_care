@@ -119,6 +119,7 @@ import ScheduleTime from "../pages/ScheduleTeacher/ScheduleTime";
 
 import { Toaster } from "react-hot-toast";
 import Curriculum from "../pages/Curriculum/Curriculum";
+import StudentRegisterCourse from "../pages/Student/StudentRegisterCourse";
 
 function Admin({ handleLogout }) {
   return (
@@ -236,11 +237,11 @@ function Admin({ handleLogout }) {
                 path="/student/view/deposit"
                 element={<StudentDeposit />}
               />
-              {/* <Route path="/student/withdraw" element={<WithdrawAdd />} />
+              {/* <Route path="/student/withdraw" element={<WithdrawAdd />} /> */}
               <Route
                 path="/student/register/course/:id"
                 element={<StudentRegisterCourse />}
-              /> */}
+              />
 
               {/* <Route path="/attendance/list" element={<AttendancesCourse />} /> */}
               <Route path="/attendance" element={<Attendances />} />

@@ -3,10 +3,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import api from "../../config/URL";
-// import fetchAllCentersWithIds from "../List/CenterList";
 import { Link, useNavigate } from "react-router-dom";
-// import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
-// import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
+import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
 
 function DocumentFile() {
   const [centerData, setCenterData] = useState(null);
@@ -17,41 +17,41 @@ function DocumentFile() {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
+    try {
+      const centerData = await fetchAllCentersWithIds();
 
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchCourses = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllCoursesWithIdsC(centerId);
-    //   setCourseData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+  const fetchCourses = async (enrichmentCareId) => {
+    try {
+      const courses = await fetchAllCoursesWithIdsC(enrichmentCareId);
+      setCourseData(courses);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchClasses = async (courseId) => {
-    // try {
-    //   const classes = await fetchAllClassesWithIdsC(courseId);
-    //   setClassListtingData(classes);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const classes = await fetchAllClassesWithIdsC(courseId);
+      setClassListtingData(classes);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  const fetchFolders = async (centerId, courseId, classId) => {
+  const fetchFolders = async (enrichmentCareId, courseId, classId) => {
     try {
       const formData = new FormData();
-      formData.append("centerId", centerId);
+      formData.append("enrichmentCareId", enrichmentCareId);
       formData.append("courseId", courseId);
       formData.append("classId", classId);
 
@@ -66,7 +66,7 @@ function DocumentFile() {
   };
 
   const validationSchema = Yup.object().shape({
-    centerName: Yup.string().required("Centre is required"),
+    enrichmentCare: Yup.string().required("Centre is required"),
     course: Yup.string().required("Course is required"),
     classListing: Yup.string().required("Class is required"),
     folder: Yup.string().required("Folder Name is required"),
@@ -77,7 +77,7 @@ function DocumentFile() {
 
   const formik = useFormik({
     initialValues: {
-      centerName: "",
+      enrichmentCare: "",
       course: "",
       classListing: "",
       folder: "",
@@ -121,9 +121,9 @@ function DocumentFile() {
     setCourseData(null);
     setClassListtingData(null);
     setDocumentData(null);
-    const centerName = event.target.value;
-    formik.setFieldValue("centerName", centerName);
-    fetchCourses(centerName); // Fetch courses for the selected center
+    const enrichmentCare = event.target.value;
+    formik.setFieldValue("enrichmentCare", enrichmentCare);
+    fetchCourses(enrichmentCare); // Fetch courses for the selected center
   };
 
   const handleCourseChange = (event) => {
@@ -138,7 +138,7 @@ function DocumentFile() {
     setDocumentData(null);
     const classId = event.target.value;
     formik.setFieldValue("classListing", classId);
-    fetchFolders(formik.values.centerName, formik.values.course, classId); // Fetch folders for the selected center, course, and class
+    fetchFolders(formik.values.enrichmentCare, formik.values.course, classId); // Fetch folders for the selected center, course, and class
   };
 
   return (
@@ -157,21 +157,21 @@ function DocumentFile() {
               <div className="input-group">
                 <select
                   className="form-select"
-                  name="centerName"
-                  {...formik.getFieldProps("centerName")}
+                  name="enrichmentCare"
+                  {...formik.getFieldProps("enrichmentCare")}
                   onChange={handleCenterChange}
                 >
                   <option></option>
                   {centerData &&
-                    centerData.map((center) => (
-                      <option key={center.id} value={center.id}>
-                        {center.centerNames}
+                    centerData.map((enrichmentCare) => (
+                      <option key={enrichmentCare.id} value={enrichmentCare.id}>
+                        {enrichmentCare.enrichmentCareNames}
                       </option>
                     ))}
                 </select>
               </div>
-              {formik.touched.centerName && formik.errors.centerName && (
-                <div className="text-danger">{formik.errors.centerName}</div>
+              {formik.touched.enrichmentCare && formik.errors.enrichmentCare && (
+                <div className="text-danger">{formik.errors.enrichmentCare}</div>
               )}
             </div>
 

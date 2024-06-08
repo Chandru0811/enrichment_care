@@ -3,8 +3,8 @@ import { Stomp } from "@stomp/stompjs";
 
 class WebSocketService {
   constructor() {
-    // this.socket = new SockJS("http://13.213.208.92:7080/ecssms/ws");
-    this.socket = new SockJS("https://hrisasia.com/ecssms/ws");
+    this.socket = new SockJS("http://13.213.208.92:8084/ecsenrich/ws");
+    // this.socket = new SockJS("https://hrisasia.com/ecssms/ws");
     // this.socket = new SockJS("https://artylearning.com/artylearning/ws");
     this.stompClient = Stomp.over(this.socket);
     // this.stompClient.debug = false; // Disable debug logging

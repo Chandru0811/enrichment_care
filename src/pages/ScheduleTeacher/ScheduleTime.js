@@ -27,7 +27,7 @@ export default function ScheduleTime() {
         const response = await api.get(`getTeacherSchedulesByTeacherId/${id}`);
         setTeacherSchedules(response.data);
       } catch (error) {
-        console.error("Error fetching teacher schedules:", error);
+        console.error("Error fetching teacher schedules:", error.message);
       } finally {
         setLoading(false);
       }
@@ -42,7 +42,7 @@ export default function ScheduleTime() {
       const response = await api.get(`getTeacherSchedulesByTeacherId/${id}`);
       setTeacherSchedules(response.data);
     } catch (error) {
-      toast.error("Error Fetching Data ", error);
+      toast.error("Error Fetching Data ", error.message);
     }
   };
 
@@ -78,35 +78,8 @@ export default function ScheduleTime() {
               </button>
             </Link>
           </div>
-          {/* <div className="d-flex justify-content-center">
-          <div className="col-md-6 col-12 mb-2 " style={{ width: "40%" }}>
-            <label className="form-label ">
-              Days <span className="text-danger">*</span>
-            </label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>All Days</option>
-              <option value="Arty Learning">Monday</option>
-              <option value="Arty Belivers">Tuesday</option>
-              <option value="Arty Belivers">Wednesday</option>
-              <option value="Arty Belivers">Thursday</option>
-              <option value="Arty Belivers">Friday</option>
-              <option value="Arty Belivers">Saturday</option>
-              <option value="Arty Belivers">Sunday</option>
-            </select>
-          </div>
-          <div className="col-md-6 col-12 mb-2 mx-4 " style={{ width: "40%" }}>
-            <label className="form-label ">
-              Class <span className="text-danger">*</span>
-            </label>
-            <select class={"form-select"} aria-label="Default select example">
-              <option selected></option>
-              <option value="Arty Learning">Arty Learning</option>
-              <option value="Arty Belivers">Arty Believers</option>
-            </select>
-          </div>
-        </div> */}
-          <div className="container">
-            <div className="row">
+          <div className="container-fluid p-0">
+           
               <div className="offset-md-1 col-md-10 col-12">
                 {teacherSchedules.map((data, index) => {
                   // Default to showing four batch columns and four student columns
@@ -119,8 +92,8 @@ export default function ScheduleTime() {
                         <caption className="d-flex justify-content-center p-3 bg-danger text-white">
                           {data.day}-{data.teacher}
                         </caption>
-                        <table className="table bg-light caption-top table-bordered">
-                          <thead className="bg-light">
+                        <table className="table bg-white caption-top table-bordered">
+                          <thead style={{backgroundColor:"#f7f7bf"}}>
                             <tr className="table-warning">
                               {batchTimes.map((time, timeIndex) => (
                                 <th key={timeIndex} className="p-4">
@@ -258,7 +231,7 @@ export default function ScheduleTime() {
                   );
                 })}
               </div>
-            </div>
+       
           </div>
         </div>
       )}

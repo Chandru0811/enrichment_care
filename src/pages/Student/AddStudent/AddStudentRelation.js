@@ -27,7 +27,7 @@ const Addrelation = forwardRef(({ formData,setLoadIndicators, setFormData, handl
 
   const formik = useFormik({
     initialValues: {
-      studentRelationCenter: formData.studentRelationCenter || "",
+      studentRelationEnrichmentCare: formData.studentRelationEnrichmentCare || "",
       studentRelation: formData.studentRelation || "",
       studentRelationStudentName: formData.studentRelationStudentName || "",
     },
@@ -80,16 +80,16 @@ const Addrelation = forwardRef(({ formData,setLoadIndicators, setFormData, handl
                       </label>
                       <br />
                       <select
-                        name="studentRelationCenter"
+                        name="studentRelationEnrichmentCare"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelationCenter}
-                        className="form-select "
+                        value={formik.values.studentRelationEnrichmentCare}
+                        className="form-select"
                       >
                         <option selected></option>
                          {centerData &&
-                          centerData.map((studentRelationCenter) => (
-                        <option key={studentRelationCenter.id} value={studentRelationCenter.id}>{studentRelationCenter.centerNames}</option>
+                          centerData.map((studentRelationEnrichmentCare) => (
+                        <option key={studentRelationEnrichmentCare.id} value={studentRelationEnrichmentCare.id}>{studentRelationEnrichmentCare.enrichmentCareNames}</option>
                       ))}
                       </select>
                     </div>
