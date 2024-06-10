@@ -110,14 +110,14 @@ const Center = () => {
         <table ref={tableRef} className="display">
           <thead>
             <tr>
-              <th scope="col" style={{ whiteSpace: "nowrap" }}>
+              <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>
                 S No
               </th>
-              <th scope="col">Centre Name</th>
-              <th scope="col">Centre Manager</th>
-              <th scope="col">Code</th>
-              <th scope="col">UEN Number</th>
-              <th scope="col">Mobile</th>
+              <th scope="col" className="text-center">Centre Name</th>
+              <th scope="col" className="text-center">Centre Manager</th>
+              <th scope="col" className="text-center">Code</th>
+              <th scope="col" className="text-center">UEN Number</th>
+              <th scope="col" className="text-center">Mobile</th>
               <th className="text-center">
                 Action
               </th>
