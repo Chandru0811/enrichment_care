@@ -126,12 +126,12 @@ const Center = () => {
           <tbody>
             {datas.map((data, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>{data.enrichmentCareName}</td>
-                <td>{data.enrichmentCareManager}</td>
-                <td>{data.code}</td>
-                <td>{data.uenNumber}</td>
-                <td>{data.mobile}</td>
+                <th scope="row" className="text-center">{index + 1}</th>
+                <td className="text-center">{data.enrichmentCareName}</td>
+                <td className="text-center">{data.enrichmentCareManager}</td>
+                <td className="text-center">{data.code}</td>
+                <td className="text-center">{data.uenNumber}</td>
+                <td className="text-center">{data.mobile}</td>
                 <td>
                   <div className="d-flex justify-content-center align-items-center ">
                     {/* {storedScreens?.centerListingCreate && ( */}
@@ -183,7 +183,7 @@ const Center = () => {
                     {/* {storedScreens?.centerListingDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
-                        path={`/deleteCenter/${data.id}`}
+                        path={`/deleteEnrichmentCare/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
                     {/* )} */}

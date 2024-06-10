@@ -146,12 +146,12 @@ const ScheduleTeacher = () => {
               {/* Table Header */}
               <thead>
                 <tr>
-                  <th scope="col">S No</th>
-                  <th scope="col">Centre</th>
-                  <th scope="col">Teacher</th>
-                  <th scope="col">Course</th>
-                  <th scope="col">Class</th>
-                  <th scope="col">Day</th>
+                  <th scope="col" className="text-center">S No</th>
+                  <th scope="col" className="text-center">Centre</th>
+                  <th scope="col" className="text-center">Teacher</th>
+                  <th scope="col" className="text-center">Course</th>
+                  <th scope="col" className="text-center">Class</th>
+                  <th scope="col" className="text-center">Day</th>
                   <th scope="col" className="text-center">Action</th>
                 </tr>
               </thead>
@@ -160,12 +160,12 @@ const ScheduleTeacher = () => {
                 {datas.map((data, index) => (
                   <tr key={index}>
                     <th scope="row" className="text-center">{index + 1}</th>
-                    <td>{data.enrichmentCareName}</td>
-                    <td>{data.teacher}</td>
-                    <td>{data.course}</td>
-                    <td>{data.className}</td>
-                    <td>{data.days}</td>
-                    <td>
+                    <td className="text-center">{data.enrichmentCareName}</td>
+                    <td className="text-center">{data.teacher}</td>
+                    <td className="text-center">{data.course}</td>
+                    <td className="text-center">{data.className}</td>
+                    <td className="text-center">{data.days}</td>
+                    <td className="text-center">
                       <div className="d-flex justify-content-center align-item-center">
                         {/* {storedScreens?.scheduleTeacherRead && ( */}
                           <ScheduleTeacherView id={data.id} />

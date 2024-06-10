@@ -101,22 +101,22 @@ const Class = () => {
               <table ref={tableRef} className="display">
                 <thead>
                   <tr>
-                    <th scope="col">S No</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type </th>
-                    <th scope="col">Remark </th>
+                    <th scope="col" className="text-center">S No</th>
+                    <th scope="col" className="text-center">Class Name</th>
+                    <th scope="col" className="text-center">Class Type </th>
+                    <th scope="col" className="text-center">Remark </th>
 
-                    <th scope="col">Action</th>
+                    <th scope="col" className="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {datas.map((data, index) => (
                     <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{data.className}</td>
-                      <td>{data.classType}</td>
-                      <td>{data.remark}</td>
-                      <td>
+                      <th scope="row" className="text-center">{index + 1}</th>
+                      <td className="text-center">{data.className}</td>
+                      <td className="text-center">{data.classType}</td>
+                      <td className="text-center">{data.remark}</td>
+                      <td className="text-center">
                         {/* {storedScreens?.classRead && ( */}
                           <Link to={`/class/view/${data.id}`}>
                             <button className="btn btn-sm">

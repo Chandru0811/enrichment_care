@@ -108,21 +108,21 @@ const SendNotification = () => {
               <table ref={tableRef} className="display ">
                 <thead>
                   <tr>
-                    <th scope="col">S No</th>
-                    <th scope="col">Event Name</th>
-                    <th scope="col">Message</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" className="text-center">S No</th>
+                    <th scope="col" className="text-center">Event Name</th>
+                    <th scope="col" className="text-center">Message</th>
+                    <th scope="col" className="text-center">Created At</th>
+                    <th scope="col" className="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {datas.map((data, index) => (
                     <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{data.messageTitle}</td>
-                      <td>{data.messageDescription}</td>
-                      <td>{data.datePosted}</td>
-                      <td>
+                      <th scope="row" className="text-center">{index + 1}</th>
+                      <td className="text-center">{data.messageTitle}</td>
+                      <td className="text-center">{data.messageDescription}</td>
+                      <td className="text-center">{data.datePosted}</td>
+                      <td className="text-center">
                         {/* {storedScreens?.sendNotificationUpdate && ( */}
                           <SendNotificationEdit
                             id={data.id}

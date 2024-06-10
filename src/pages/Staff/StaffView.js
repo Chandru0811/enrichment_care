@@ -38,7 +38,7 @@ function StaffView() {
           <div class="col-auto">
             <div class="hstack gap-2 justify-content-end">
               <Link to="/staff">
-                <button type="button" class="btn btn-border">
+                <button type="button" class="btn btn-sm btn-border">
                   <span>Back</span>
                 </button>
               </Link>

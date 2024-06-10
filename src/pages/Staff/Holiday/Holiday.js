@@ -112,20 +112,20 @@ const Holiday = () => {
         <table ref={tableRef} className="display">
           <thead>
             <tr>
-              <th scope="col" style={{ whiteSpace: "nowrap" }}>
+              <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>
                 S No
               </th>
-              <th scope="col">Centre Name</th>
-              <th scope="col">Holiday Name</th>
-              <th scope="col">Start Data</th>
+              <th scope="col" className="text-center">Centre Name</th>
+              <th scope="col" className="text-center">Holiday Name</th>
+              <th scope="col" className="text-center">Start Data</th>
               <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             {datas.map((data, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>
+                <th scope="row" className="text-center">{index + 1}</th>
+                <td className="text-center">
                   {centerData &&
                     centerData.map((enrichmentCareId) =>
                       parseInt(data.enrichmentCareId) === enrichmentCareId.id
@@ -133,9 +133,9 @@ const Holiday = () => {
                         : ""
                     )}
                 </td>
-                <td>{data.holidayName}</td>
-                <td>{data.startDate.substring(0, 10)}</td>
-                <td>
+                <td className="text-center">{data.holidayName}</td>
+                <td className="text-center">{data.startDate.substring(0, 10)}</td>
+                <td className="text-center">
                   <div className="d-flex justify-content-center align-items-center ">
                     {/* {storedScreens?.holidayRead && ( */}
                       <Link

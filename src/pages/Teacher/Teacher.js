@@ -102,36 +102,36 @@ const Teacher = () => {
           <table ref={tableRef} className="display">
             <thead>
               <tr>
-                <th scope="col" style={{ whiteSpace: "nowrap" }}>
+                <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>
                   S No
                 </th>
-                <th scope="col">Teacher Id</th>
-                <th scope="col">Teacher Name</th>
-                <th scope="col">Teacher Type</th>
-                <th scope="col">Mobile</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
+                <th scope="col" className="text-center">Teacher Id</th>
+                <th scope="col" className="text-center">Teacher Name</th>
+                <th scope="col" className="text-center">Teacher Type</th>
+                <th scope="col" className="text-center">Mobile</th>
+                <th scope="col" className="text-center">Status</th>
+                <th scope="col" className="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {datas.map((data, index) => (
                 <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>
+                  <th scope="row" className="text-center">{index + 1}</th>
+                  <td className="text-center">
                     {data.userAccountInfoModels?.length > 0 &&
                       data.userAccountInfoModels[0].teacherId}
                   </td>
                   {/* <td>{data.teacherId}</td> */}
-                  <td>{data.teacherName}</td>
-                  <td>
+                  <td className="text-center">{data.teacherName}</td>
+                  <td className="text-center">
                     {data.userAccountInfoModels?.length > 0 &&
                       data.userAccountInfoModels[0].teacherType}
                   </td>
-                  <td>
+                  <td className="text-center">
                     {data.userContactInfoModels?.length > 0 &&
                       data.userContactInfoModels[0].contactNumber}
                   </td>
-                  <td>
+                  <td className="text-center">
                     {data.userAccountInfoModels?.length > 0 &&
                     data.userAccountInfoModels[0].status === "Active" ? (
                       <span className="badge badges-Green">Active</span>
@@ -139,8 +139,8 @@ const Teacher = () => {
                       <span className="badge badges-Red ">Resigned</span>
                     )}
                   </td>
-                  <td>
-                    <div className="d-flex">
+                  <td className="text-center">
+                    <div >
                     {/* {storedScreens?.teacherRead && ( */}
                       <Link to={`/teacher/view/${data.id}`}>
                         <button className="btn btn-sm">

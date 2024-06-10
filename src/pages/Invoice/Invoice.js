@@ -125,21 +125,21 @@ const Invoice = () => {
         <table ref={tableRef} className="display">
           <thead>
             <tr>
-              <th scope="col" style={{ whiteSpace: "nowrap" }}>
+              <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>
                 S No
               </th>
-              <th scope="col">Course</th>
-              <th scope="col">Centre</th>
-              <th scope="col">Student</th>
-              <th scope="col">Package</th>
-              <th scope="col">Action</th>
+              <th scope="col" className="text-center">Course</th>
+              <th scope="col" className="text-center">Centre</th>
+              <th scope="col" className="text-center">Student</th>
+              <th scope="col" className="text-center">Package</th>
+              <th scope="col" className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             {datas.map((data, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>
+                <th scope="row" className="text-center">{index + 1}</th>
+                <td className="text-center">
                   {courseData &&
                     courseData.map((course) =>
                       parseInt(data.courseId) === course.id
@@ -147,7 +147,7 @@ const Invoice = () => {
                         : ""
                     )}
                 </td>
-                <td>
+                <td className="text-center">
                   {centerData &&
                     centerData.map((center) =>
                       parseInt(data.enrichmentCareId) === center.id
@@ -155,7 +155,7 @@ const Invoice = () => {
                         : ""
                     )}
                 </td>
-                <td>
+                <td className="text-center"> 
                   {studentData &&
                     studentData.map((student) =>
                       parseInt(data.studentId) === student.id
@@ -163,7 +163,7 @@ const Invoice = () => {
                         : ""
                     )}
                 </td>
-                <td>
+                <td className="text-center">
                   {packageData &&
                     packageData.map((packages) =>
                       parseInt(data.packageId) === packages.id
@@ -171,8 +171,8 @@ const Invoice = () => {
                         : ""
                     )}
                 </td>
-                <td>
-                  <div className="d-flex">
+                <td className="text-center">
+                  <div className="">
                     {/* {storedScreens?.invoiceRead && ( */}
                       <Link to={`/invoice/view/${data.id}`}>
                         <button className="btn btn-sm">

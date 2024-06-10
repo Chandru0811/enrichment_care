@@ -91,21 +91,21 @@ const LeaveAdmin = () => {
         <table ref={tableRef} className="display">
           <thead>
             <tr>
-              <th scope="col" style={{ whiteSpace: "nowrap" }}>
+              <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>
                 S No
               </th>
-              <th scope="col">Centre Name</th>
-              <th scope="col">Employee Name</th>
-              <th scope="col">Leave Type</th>
-              <th scope="col">Leave Status</th>
+              <th scope="col" className="text-center">Centre Name</th>
+              <th scope="col" className="text-center">Employee Name</th>
+              <th scope="col" className="text-center">Leave Type</th>
+              <th scope="col" className="text-center">Leave Status</th>
               <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             {datas.map((data, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>
+                <th scope="row" className="text-center">{index + 1}</th>
+                <td className="text-center">
                   {centerData &&
                     centerData.map((enrichmentCareId) =>
                       parseInt(data.enrichmentCareId) === enrichmentCareId.id
@@ -113,9 +113,9 @@ const LeaveAdmin = () => {
                         : ""
                     )}
                 </td>
-                <td>{data.employeeName}</td>
-                <td>{data.leaveType}</td>
-                <td>
+                <td className="text-center">{data.employeeName}</td>
+                <td className="text-center">{data.leaveType}</td>
+                <td className="text-center">
                   {data.leaveStatus === "APPROVED" ? (
                     <span className="badge badges-Green">Approved</span>
                   ) : data.leaveStatus === "REJECTED" ? (
@@ -124,7 +124,7 @@ const LeaveAdmin = () => {
                     <span className="badge badges-Yellow">Pending</span>
                   )}
                 </td>
-                <td>
+                <td className="text-center">
                   <div className="d-flex justify-content-center align-items-center ">
                     {/* {storedScreens?.leaveAdminRead && ( */}
                       <Link

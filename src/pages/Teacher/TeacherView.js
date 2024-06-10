@@ -35,7 +35,7 @@ function TeacherView() {
           <div class="col-auto">
             <div class="hstack gap-2 justify-content-end">
               <Link to="/teacher">
-                <button type="submit" class="btn btn-border">
+                <button type="submit" class="btn btn-sm btn-border">
                   <span>Back</span>
                 </button>
               </Link>

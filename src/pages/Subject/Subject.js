@@ -105,23 +105,23 @@ const Subject = () => {
                 <table ref={tableRef} className="display">
                   <thead>
                     <tr>
-                      <th scope="col" style={{ whiteSpace: "nowrap" }}>
+                      <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>
                         S No
                       </th>
-                      <th scope="col">Subject</th>
-                      <th scope="col">Subject Code</th>
-                      <th scope="col">Status</th>
+                      <th scope="col" className="text-center">Subject</th>
+                      <th scope="col" className="text-center">Subject Code</th>
+                      <th scope="col" className="text-center">Status</th>
 
-                      <th scope="col">Action</th>
+                      <th scope="col" className="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {datas.map((data, index) => (
                       <tr key={index}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{data.subject}</td>
-                        <td>{data.code}</td>
-                        <td>
+                        <th scope="row" className="text-center">{index + 1}</th>
+                        <td className="text-center">{data.subject}</td>
+                        <td className="text-center">{data.code}</td>
+                        <td className="text-center">
                           {" "}
                           {data.status === "Active" ? (
                             <span className="badge badges-Green">Active</span>
@@ -129,7 +129,7 @@ const Subject = () => {
                             <span className="badge badges-Red">Inactive</span>
                           )}
                         </td>
-                        <td>
+                        <td className="text-center">
                           {/* <div className="d-flex"> */}
                             {/* {storedScreens?.subjectRead && ( */}
                               <Link to={`/subject/view/${data.id}`}>

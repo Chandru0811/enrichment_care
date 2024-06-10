@@ -122,6 +122,11 @@ import Curriculum from "../pages/Curriculum/Curriculum";
 import StudentRegisterCourse from "../pages/Student/StudentRegisterCourse";
 import { color } from "chart.js/helpers";
 
+import Payroll from "../pages/PayrollAdmin/Payroll";
+import AddPayroll from "../pages/PayrollAdmin/AddPayroll";
+import EditPayroll from "../pages/PayrollAdmin/EditPayroll";
+import Viewpayroll from "../pages/PayrollAdmin/ViewPayroll";
+
 function Admin({ handleLogout }) {
   return (
     <BrowserRouter>
@@ -193,6 +198,12 @@ function Admin({ handleLogout }) {
               <Route path="/leave" element={<Leave />} />
               <Route path="/leave/add" element={<LeaveAdd />} />
               <Route path="/leave/view/:id" element={<LeaveView />} />
+
+              <Route path="/payrolladmin" element={<Payroll />} />
+              <Route path="/payrolladmin/add" element={<AddPayroll />} />
+              <Route path="/payrolladmin/edit/:id" element={<EditPayroll />} />
+              <Route path="/payrolladmin/view/:id" element={<Viewpayroll />} />
+
 
               <Route path="/staff" element={<Staff />} />
               <Route path="/staff/add" element={<StaffAdd />} />

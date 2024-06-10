@@ -102,27 +102,27 @@ const Level = () => {
               <table ref={tableRef} className="display">
                 <thead>
                   <tr>
-                    <th scope="col">S No</th>
-                    <th scope="col">Level</th>
-                    <th scope="col">Code</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>S No</th>
+                    <th scope="col" className="text-center">Level</th>
+                    <th scope="col" className="text-center">Code</th>
+                    <th scope="col" className="text-center">Status</th>
+                    <th scope="col" className="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {datas.map((data, index) => (
                     <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{data.level}</td>
-                      <td>{data.levelCode}</td>
-                      <td>
+                      <th scope="row" className="text-center">{index + 1}</th>
+                      <td className="text-center">{data.level}</td>
+                      <td className="text-center">{data.levelCode}</td>
+                      <td className="text-center">
                         {data.status === "Active" ? (
                           <span className="badge badges-Green">Active</span>
                         ) : (
                           <span className="badge badges-Red">Inactive</span>
                         )} 
                       </td>
-                      <td>
+                      <td className="text-center">
                         {/* {storedScreens?.levelRead && ( */}
                           <Link to={`/level/view/${data.id}`}>
                             <button className="btn btn-sm">

@@ -72,9 +72,9 @@ function LeaveView() {
             <div className="col-6">
               <p className="text-muted text-sm">
                 : {centerData &&
-                      centerData.map((centerId) =>
-                        parseInt(data.centerId) === centerId.id
-                          ? centerId.centerNames || "--"
+                      centerData.map((enrichmentCareId) =>
+                        parseInt(data.enrichmentCareId) === enrichmentCareId.id
+                          ? enrichmentCareId.enrichmentCareNames || "--"
                           : ""
                       )}</p>
             </div>

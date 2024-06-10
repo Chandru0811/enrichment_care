@@ -20,7 +20,7 @@ function LeaveAdd() {
   const [centerData, setCenterData] = useState(null);
   const [datas, setDatas] = useState([]);
   const userId = sessionStorage.getItem("userId");
-  const centerId = sessionStorage.getItem("centerId");
+  const enrichmentCareId = sessionStorage.getItem("enrichmentCareId");
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
@@ -52,7 +52,7 @@ function LeaveAdd() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      enrichmentCareId: "",
       centerName: "",
       employeeName: "",
       userId: "",
@@ -74,14 +74,14 @@ function LeaveAdd() {
 
       if (centerData) {
         centerData.forEach((center) => {
-          if (parseInt(centerId) === center.id) {
-            selectedCenterName = center.centerNames || "--";
+          if (parseInt(enrichmentCareId) === center.id) {
+            selectedCenterName = center.enrichmentCareNames || "--";
           }
         });
       }
       const payload = {
         userId: userId,
-        centerId: centerId,
+        enrichmentCareId: enrichmentCareId,
         centerName: selectedCenterName,
         employeeName: datas.employeeName,
         leaveType: values.leaveType,

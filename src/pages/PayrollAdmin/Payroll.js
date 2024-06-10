@@ -6,22 +6,30 @@ import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
 import Delete from "../../components/common/DeleteModel";
 import api from "../../config/URL";
-import { FaFileInvoice } from "react-icons/fa";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { SCREENS } from "../../config/ScreenFilter";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import fetchAllCentersWithIds from "../List/CenterList";
 
-const Course = () => {
-  console.log("Screens : ", SCREENS);
-  // const { id } = useParams();
+const Payroll = () => {
   const tableRef = useRef(null);
+  const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
   const [datas, setDatas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
+  const [centerData, setCenterData] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get("/getAllCourses");
+        const response = await api.get("getAllUserPayroll");
         setDatas(response.data);
         setLoading(false);
       } catch (error) {
@@ -29,6 +37,7 @@ const Course = () => {
       }
     };
     getData();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -61,9 +70,9 @@ const Course = () => {
     destroyDataTable();
     setLoading(true);
     try {
-      const response = await api.get("/getAllCourses");
+      const response = await api.get("getAllUserPayroll");
       setDatas(response.data);
-      initializeDataTable(); // Reinitialize DataTable after successful data update
+      // initializeDataTable(); // Reinitialize DataTable after successful data update
     } catch (error) {
       console.error("Error refreshing data:", error);
     }
@@ -72,23 +81,19 @@ const Course = () => {
 
   return (
     <div className="minHeight center">
-    <div className="container-fluid my-4 center">
+    <div className="container-fluid my-4 center ">
       <div className="card shadow border-0 mb-2 top-header">
-    <div className="container-fluid px-0">
-    
-      <div className="my-3 d-flex justify-content-between mb-5 px-4" >
-    
-              <h2>Course</h2>
-          
-          <Link to="/course/add">
+    <div className="container px-0">
+      <div className="my-3 d-flex justify-content-between mb-5 px-4">
+      <h2>Payroll</h2>
+        {/* {storedScreens?.payrollCreate && ( */}
+          <Link to={`/payrolladmin/add`}>
             <button type="button" className="btn btn-button btn-sm">
               Add <i class="bx bx-plus"></i>
             </button>
           </Link>
-    
+        {/* )} */}
       </div>
-      <hr />
-
       {loading ? (
         <div className="loader-container">
           <div class="loading">
@@ -100,67 +105,68 @@ const Course = () => {
           </div>
         </div>
       ) : (
-        <div className="table-responsive px-4">
+        <div className="px-4">
         <table ref={tableRef} className="display">
           <thead>
             <tr>
-              <th scope="col" className="text-center">S No</th>
-              {/* <th scope="col">Centre Name</th> */}
-              <th scope="col" className="text-center">Course Name</th>
-              <th scope="col" className="text-center">Course Code</th>
-              <th scope="col" className="text-center">Course Type</th>
-              <th scope="col" className="text-center">Status</th>
-              <th scope="col" className="text-center">Action</th>
+              <th scope="col">S No</th>
+              <th scope="col">Centre Name</th>
+              <th scope="col">Emplopee Name</th>
+              <th scope="col">Bonus</th>
+              {/* <th scope="col">Gross Pay</th> */}
+              {/* <th scope="col">Deduction</th> */}
+              <th scope="col">Net Pay</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             {datas.map((data, index) => (
               <tr key={index}>
-                <th scope="row" className="text-center">{index + 1}</th>
-                {/* <td>{data.centerName}</td> */}
-                <td className="text-center">{data.courseName}</td>
-                <td className="text-center">{data.courseCode}</td>
-                <td className="text-center">{data.courseType}</td>
-                <td className="text-center">
-                  {data.status === "Active" ? (
-                    <span className="badge badges-Green">Active</span>
+                <th scope="row">{index + 1}</th>
+                <td>
+                  {centerData &&
+                    centerData.map((center) =>
+                      parseInt(data.enrichmentCareId) === center.id
+                        ? center.enrichmentCareNames || "--"
+                        : ""
+                    )}
+                </td>
+                <td>{data.employeeName}</td>
+                <td>{data.bonus}</td>
+                {/* <td>{data.grossPay}</td> */}
+                {/* <td>{data.deduction}</td> */}
+                <td>{data.netPay}</td>
+                <td>
+                  {data.status === "APPROVED" ? (
+                    <span className="badge badges-Green">Approved</span>
+                  ) : data.status === "PENDING" ? (
+                    <span className="badge badges-Yellow">Pending</span>
                   ) : (
-                    <span className="badge badges-Red">Inactive</span>
+                    <span className="badge badges-Red">Rejected</span>
                   )}
                 </td>
-                <td className="text-center">
-                  {/* {storedScreens?.courseRead && ( */}
-                    <Link to={`/course/view/${data.id}`}>
+                <td>
+                  {/* {storedScreens?.payrollRead && ( */}
+                    <Link to={`/payrolladmin/view/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEye />
                       </button>
                     </Link>
                   {/* )} */}
-                  {/* {storedScreens?.courseUpdate && ( */}
-                    <Link to={`/course/edit/${data.id}`}>
+                 {/* / {storedScreens?.payrollUpdate && ( */}
+                    <Link to={`/payrolladmin/edit/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEdit />
                       </button>
                     </Link>
                   {/* )} */}
-                  {/* {storedScreens?.courseDelete && ( */}
+                  {/* {storedScreens?.payrollDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
-                      path={`/deleteCourse/${data.id}`}
+                      path={`/deleteUserPayroll/${data.id}`}
+                      style={{ display: "inline-block" }}
                     />
-                  {/* )} */}
-
-                  {/* {storedScreens?.curriculumIndex && ( */}
-                    <OverlayTrigger
-                      placement="top"
-                      overlay={<Tooltip id="tooltip-top">Curriculum</Tooltip>}
-                    >
-                      <Link to={`/course/curriculum/${data.id}`}>
-                        <button className="btn btn-sm">
-                          <FaFileInvoice />
-                        </button>
-                      </Link>
-                    </OverlayTrigger>
                   {/* )} */}
                 </td>
               </tr>
@@ -176,4 +182,4 @@ const Course = () => {
   );
 };
 
-export default Course;
+export default Payroll;

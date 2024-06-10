@@ -13,7 +13,7 @@ const StaffingAttendance = () => {
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
   console.log("Leave Data:", datas);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [centerData, setCenterData] = useState(null);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
@@ -111,21 +111,21 @@ const StaffingAttendance = () => {
         <table ref={tableRef} className="display">
           <thead>
             <tr>
-              <th scope="col" style={{ whiteSpace: "nowrap" }}>
+              <th scope="col" className="text-center" style={{ whiteSpace: "nowrap" }}>
                 S No
               </th>
-              <th scope="col">Centre Name</th>
-              <th scope="col">Employee Name</th>
-              <th scope="col">Date</th>
-              <th scope="col">Status</th>
+              <th scope="col" className="text-center">Centre Name</th>
+              <th scope="col" className="text-center">Employee Name</th>
+              <th scope="col" className="text-center">Date</th>
+              <th scope="col" className="text-center">Status</th>
               <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             {datas.map((data, index) => (
               <tr key={index}>
-                <td>{index + 1}</td>
-                <td>
+                <td className="text-center">{index + 1}</td>
+                <td className="text-center">
                   {centerData &&
                     centerData.map((center) =>
                       parseInt(data.enrichmentCareId) === center.id
@@ -133,16 +133,16 @@ const StaffingAttendance = () => {
                         : ""
                     )}
                 </td>
-                <td>{data.employeeName}</td>
-                <td>{data.date}</td>
-                <td>
+                <td className="text-center">{data.employeeName}</td>
+                <td className="text-center">{data.date}</td>
+                <td className="text-center">
                   {data.attendanceStatus === "Present" ? (
                     <span className="badge badges-Green">Present</span>
                   ) : (
                     <span className="badge badges-Red">Absent</span>
                   )}
                 </td>
-                <td>
+                <td className="text-center">
                   <div className="d-flex justify-content-center align-items-center ">
                     {/* {storedScreens?.staffAttendanceRead && ( */}
                       <Link
