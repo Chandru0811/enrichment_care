@@ -86,8 +86,8 @@ const Center = () => {
           <Link to="/center/add">
             <button
               type="button"
-              className="btn btn-button "
-              style={{ fontWeight: "600px !important" }}
+              className="btn btn-button btn-sm "
+              // style={{ fontWeight: "600px !important" }}
             >
               Add <i className="bx bx-plus"></i>
             </button>
