@@ -129,10 +129,10 @@ const SendNotification = () => {
                             onSuccess={refreshData}
                           />
                         )}
-                         {storedScreens?.subjectDelete && (
+                         {storedScreens?.sendNotificationDelete && (
                       <Delete
                         onSuccess={refreshData}
-                        path={`/deleteCourseSubject/${data.id}`}
+                        path={`/deleteEnrichmentCarePushNotifications/${data.id}`}
                       />
                     )}
                       </td>

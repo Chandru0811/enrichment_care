@@ -134,7 +134,7 @@ const Center = () => {
                 <td className="text-center">{data.mobile}</td>
                 <td>
                   <div className="d-flex justify-content-center align-items-center ">
-                    {storedScreens?.centerListingCreate && (
+                    {storedScreens?.enrichmentCareListingCreate && (
                       <div class="dropdown" style={{ display: "inline-block" }}>
                         <button
                           class="btn dropdown-toggle"

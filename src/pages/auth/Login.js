@@ -72,7 +72,7 @@ function Login({ onLogin }) {
   return (
     <div
       className="d-flex flex-column justify-content-center align-items-center"
-      style={{ minHeight: "100vh", backgroundColor: "#a5e5e5" }}
+      style={{ minHeight: "100vh", backgroundColor: "#57ACC6" }}
     >
       <div className="d-flex justify-content-center  align-items-center my-3">
         <img
