@@ -87,14 +87,14 @@ function Dashboard() {
                     Lead Count
                   </p>
                   <h5
-                    style={{
-                      backgroundColor: "#e0dcfe",
+                     style={{
+                      backgroundColor: "#0091B3",
                       color: "#624bff",
                       padding: "10px",
                       borderRadius: "5px",
                     }}
                   >
-                    <MdOutlineLeaderboard />
+                    <MdOutlineLeaderboard  />
                   </h5>
                 </span>
                 <h2 className="card-text">
@@ -116,7 +116,7 @@ function Dashboard() {
                   </p>
                   <h5
                     style={{
-                      backgroundColor: "#e0dcfe",
+                      backgroundColor: "#0091B3",
                       color: "#624bff",
                       padding: "10px",
                       borderRadius: "5px",
@@ -144,7 +144,7 @@ function Dashboard() {
                   </p>
                   <h5
                     style={{
-                      backgroundColor: "#e0dcfe",
+                      backgroundColor: "#0091B3",
                       color: "#624bff",
                       padding: "10px",
                       borderRadius: "5px",
@@ -172,7 +172,7 @@ function Dashboard() {
                   </p>
                   <h5
                     style={{
-                      backgroundColor: "#e0dcfe",
+                      backgroundColor: "#0091B3",
                       color: "#624bff",
                       padding: "10px",
                       borderRadius: "5px",
@@ -183,7 +183,7 @@ function Dashboard() {
                 </span>
                 <h2 className="card-text">
                   <strong>
-                    <span style={{ color: "#624bff" }}>$</span> 25,300
+                    <span style={{ color: "#0091B3 !important" }}>$</span> 25,300
                   </strong>
                 </h2>
                 <h6 className="card-text text-secondary">Sales Increse 6%</h6>

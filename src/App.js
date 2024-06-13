@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Admin from "./layouts/Admin";
 import "./styles/admin.css";
 import "./styles/custom.css";
@@ -16,26 +16,29 @@ function App() {
 
 
   const handleLogin = async (id) => {
-    // setIsLoading(true);
+    setIsLoading(true);
     setIsAuthenticated(true);
     sessionStorage.setItem("isAuthenticated", true);
-    // try {
-    //   if (id) {
-    //     const response = await api.get(`/getAllRoleInfoById/${id}`);
-    //     const rolePermissions = response.data;
-    //     sessionStorage.setItem("screens", rolePermissions);
-    //     setIsAuthenticated(true);
-    //     sessionStorage.setItem("isAuthenticated", true);
-    //   } else {
-    //     setIsLoading(false);
-    //     toast.error("Invalid email or password");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during login:", error);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    try {
+      if (id) {
+        const response = await api.get(`/getAllRoleInfoById/${id}`);
+        const rolePermissions = response.data;
+        sessionStorage.setItem("screens", JSON.stringify(rolePermissions));
+
+        // Delay the execution by 2 seconds
+        sessionStorage.setItem("isAuthenticated", true);
+        setIsAuthenticated(true);
+      } else {
+        setIsLoading(false);
+        toast.error("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -50,9 +53,9 @@ function App() {
   };
 
   useEffect(() => {
-    
+
     const isAdminFromStorage = sessionStorage.getItem("isAuthenticated");
-   
+
     const isAdminBoolean = isAdminFromStorage === "true";
     if (isAuthenticated !== isAdminBoolean) {
       setIsAuthenticated(isAdminBoolean);
@@ -65,7 +68,7 @@ function App() {
         console.log("Error is", error.response);
         if (error.response?.status === 401) {
           toast("Session Experied!! Please Login", {
-            icon: <FiAlertTriangle className="text-warning"/>,  
+            icon: <FiAlertTriangle className="text-warning" />,
           });
           handleLogout();
         }
@@ -84,11 +87,21 @@ function App() {
   return (
     <div>
       <div>
-      {isAuthenticated ? (
-        <Admin handleLogout={handleLogout} />
-      ) : (
-        <Auth handleLogin={handleLogin} />
-      )}
+        {isLoading ? (
+          <div className="loader-container">
+            <div class="loading">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        ) : isAuthenticated ? (
+          <Admin handleLogout={handleLogout} />
+        ) : (
+          <Auth handleLogin={handleLogin} />
+        )}
       </div>
     </div>
   );

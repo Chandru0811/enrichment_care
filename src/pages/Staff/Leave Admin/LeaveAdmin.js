@@ -126,7 +126,7 @@ const LeaveAdmin = () => {
                 </td>
                 <td className="text-center">
                   <div className="d-flex justify-content-center align-items-center ">
-                    {/* {storedScreens?.leaveAdminRead && ( */}
+                    {storedScreens?.leaveAdminRead && (
                       <Link
                         to={`/leaveadmin/view/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -135,8 +135,8 @@ const LeaveAdmin = () => {
                           <FaEye />
                         </button>
                       </Link>
-                    {/* )} */}
-                    {/* {storedScreens?.leaveAdminUpdate && ( */}
+                    )}
+                    {storedScreens?.leaveAdminUpdate && (
                       <Link
                         to={`/leaveadmin/edit/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -145,7 +145,7 @@ const LeaveAdmin = () => {
                           <FaEdit />
                         </button>
                       </Link>
-                    {/* )} */}
+                    )}
                   </div>
                 </td>
               </tr>

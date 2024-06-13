@@ -84,7 +84,7 @@ const Level = () => {
                 Add <i class="bx bx-plus"></i>
               </button>
             </Link> */}
-<LevelAdd />
+ {storedScreens?.levelCreate && (<LevelAdd /> )}
           </div>
           <hr />
           {loading ? (
@@ -123,22 +123,22 @@ const Level = () => {
                         )} 
                       </td>
                       <td className="text-center">
-                        {/* {storedScreens?.levelRead && ( */}
+                        {storedScreens?.levelRead && (
                           <Link to={`/level/view/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEye />
                             </button>
                           </Link>
-                        {/* )} */}
-                        {/* {storedScreens?.levelUpdate && ( */}
+                        )}
+                        {storedScreens?.levelUpdate && (
                           <LevelEdit id={data.id} onSuccess={refreshData} />
-                        {/* )} */}
-                        {/* {storedScreens?.levelDelete && ( */}
+                        )}
+                        {storedScreens?.levelDelete && (
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourseLevel/${data.id}`}
                     />
-                  {/* )} */}
+                  )}
                       </td>
                     </tr>
                   ))}

@@ -106,12 +106,13 @@ const Lead = () => {
         <div className="container-fluid px-0">
           <div className="my-3 d-flex justify-content-between mb-5 px-4">
           <h2>Lead Listing</h2>
+          {storedScreens?.leadListingCreate && (
               <Link to="/lead/lead/add">
                 <button type="button" className="btn btn-button btn-sm">
                   Add <i class="bx bx-plus"></i>
                 </button>
               </Link>
-            
+          )}
           </div>
           <hr/>
           <div className="px-4">
@@ -169,40 +170,29 @@ const Lead = () => {
 
                   <td>
                     <div className="d-flex justify-content-between">
-                      {/* {storedScreens?.leadListingRead && (
-                        <Link to={`/lead/lead/view/${data.id}`}>
-                          <button className="btn btn-sm">
-                            <FaEye />
-                          </button>
-                        </Link>
-                      )} */}
+                     
+                      {storedScreens?.leadListingRead && (
                       <Link to={`/lead/lead/view/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEye />
                           </button>
                         </Link>
-                      {/* {storedScreens?.leadListingUpdate && (
-                        <Link to={`/lead/lead/edit/${data.id}`}>
-                          <button className="btn btn-sm">
-                            <FaEdit />
-                          </button>
-                        </Link>
-                      )} */}
+                      )}
+                     
+                      {storedScreens?.leadListingUpdate && (
                       <Link to={`/lead/lead/edit/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEdit />
                           </button>
                         </Link>
-                      {/* {storedScreens?.leadListingDelete && (
-                        <DeleteModel
-                          onSuccess={refreshData}
-                          path={`/deleteLeadInfo/${data.id}`}
-                        />
-                      )} */}
+                      )}
+                    
+                      {storedScreens?.leadListingDelete && (
                        <DeleteModel
                           onSuccess={refreshData}
                           path={`/deleteLeadInfo/${data.id}`}
                         />
+                      )}
                     </div>
                   </td>
                 </tr>

@@ -101,13 +101,13 @@ const Invoice = () => {
     <div className="container px-0">
       <div className="my-3 d-flex justify-content-between mb-5 px-4">
         <h2>Invoice</h2>
-        {/* {storedScreens?.invoiceCreate && ( */}
+        {storedScreens?.invoiceCreate && (
           <Link to="/invoice/add">
             <button type="button" className="btn btn-button btn-sm">
               Add <i class="bx bx-plus"></i>
             </button>
           </Link>
-        {/* )} */}
+        )}
       </div>
       <hr/>
       {loading ? (
@@ -173,26 +173,26 @@ const Invoice = () => {
                 </td>
                 <td className="text-center">
                   <div className="">
-                    {/* {storedScreens?.invoiceRead && ( */}
+                    {storedScreens?.invoiceRead && (
                       <Link to={`/invoice/view/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEye />
                         </button>
                       </Link>
-                    {/* )} */}
-                    {/* {storedScreens?.invoiceUpdate && ( */}
+                    )}
+                    {storedScreens?.invoiceUpdate && (
                       <Link to={`/invoice/edit/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEdit />
                         </button>
                       </Link>
-                    {/* )} */}
-                    {/* {storedScreens?.invoiceDelete && ( */}
+                    )}
+                    {storedScreens?.invoiceDelete && (
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteGenerateInvoice/${data.id}`}
                       />
-                    {/* )} */}
+                    )}
                   </div>
                 </td>
               </tr>

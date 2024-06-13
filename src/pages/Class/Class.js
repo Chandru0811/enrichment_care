@@ -77,13 +77,13 @@ const Class = () => {
         
           <div className="my-3 d-flex justify-content-between mb-5 px-4">
           <h2>Class</h2>
-
+          {storedScreens?.classCreate && (
             <Link to="/class/add">
               <button type="button" className="btn btn-button btn-sm">
                 Add <i class="bx bx-plus"></i>
               </button>
             </Link>
-
+          )} 
           </div>
           <hr />
           {loading ? (
@@ -117,26 +117,26 @@ const Class = () => {
                       <td className="text-center">{data.classType}</td>
                       <td className="text-center">{data.remark}</td>
                       <td className="text-center">
-                        {/* {storedScreens?.classRead && ( */}
+                        {storedScreens?.classRead && (
                           <Link to={`/class/view/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEye />
                             </button>
                           </Link>
-                        {/* )} */}
-                        {/* {storedScreens?.classUpdate && ( */}
+                         )} 
+                        {storedScreens?.classUpdate && (
                           <Link to={`/class/edit/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEdit />
                             </button>
                           </Link>
-                        {/* )} */}
-                        {/* {storedScreens?.classDelete && ( */}
+                        )} 
+                        {storedScreens?.classDelete && (
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourseClassListing/${data.id}`}
                     />
-                  {/* )} */}
+                   )} 
                       </td>
                     </tr>
                   ))}

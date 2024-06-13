@@ -89,13 +89,13 @@ const Student = () => {
         <div className="container-fluid px-0">
           <div className="my-3 d-flex justify-content-between px-4">
             <h2>Student Listing</h2>
-            {/* {storedScreens?.studentListingCreate && ( */}
+            {storedScreens?.enrichmentCareListingCreate && (
               <Link to="/student/add">
                 <button type="button" className="btn btn-button btn-sm">
                   Add <i class="bx bx-plus"></i>
                 </button>
               </Link>
-            {/* )} */}
+            )}
           </div>
           <hr/>
           <div className="px-4">
@@ -124,40 +124,29 @@ const Student = () => {
                   <td>{data.nationality}</td>
                   <td>
                     <div className="d-flex justify-content-between">
-                      {/* {storedScreens?.studentListingRead && (
-                        <Link to={`/student/view/${data.id}`}>
-                          <button className="btn btn-sm">
-                            <FaEye />
-                          </button>
-                        </Link>
-                      )} */}
+                    
+                      {storedScreens?.enrichmentCareListingRead && (
                       <Link to={`/student/view/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEye />
                           </button>
                         </Link>
-                      {/* {storedScreens?.studentListingUpdate && (
-                        <Link to={`/student/edit/${data.id}`}>
-                          <button className="btn btn-sm">
-                            <FaEdit />
-                          </button>
-                        </Link>
-                      )} */}
+                      )}
+                    
+                      {storedScreens?.enrichmentCareListingUpdate && (
                       <Link to={`/student/edit/${data.id}`}>
                           <button className="btn btn-sm">
                             <FaEdit />
                           </button>
                         </Link>
-                      {/* {storedScreens?.studentListingDelete && (
-                        <Delete
-                          onSuccess={refreshData}
-                          path={`/deleteStudentDetail/${data.id}`}
-                        />
-                      )} */}
+                      )}
+                     
+                      {storedScreens?.enrichmentCareListingDelete && (
                       <DeleteModel
                           onSuccess={refreshData}
                           path={`/deleteStudentDetail/${data.id}`}
                         />
+                      )}
                     </div>
                   </td>
                 </tr>

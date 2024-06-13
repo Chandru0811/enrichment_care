@@ -79,14 +79,16 @@ const Leave = () => {
     <div className="card shadow border-0 mb-2 top-header">
     <div className="container-fluid px-0">
       <div className="my-5 d-flex justify-content-between px-4">
-        {/* {storedScreens?.leaveCreate && ( */}
+       
         <h2>Leave Request</h2>
+
+        {storedScreens?.leaveCreate && (
           <Link to="/leave/add">
             <button type="button" className="btn btn-button btn-sm">
               Add <i class="bx bx-plus"></i>
             </button>
           </Link>
-        {/* )} */}
+        )}
       </div>
       <hr />
       {loading ? (

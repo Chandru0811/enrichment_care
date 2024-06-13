@@ -420,7 +420,7 @@ function Attendances() {
                             </table>
                           </div>
                           <div>
-                            {/* {storedScreens?.attendanceUpdate && ( */}
+                            {storedScreens?.attendanceUpdate && (
                               <button
                                 className="btn btn-button"
                                 onClick={() =>
@@ -429,7 +429,7 @@ function Attendances() {
                               >
                                 Submit
                               </button>
-                            {/* )} */}
+                            )}
                           </div>
                         </div>
                       </div>

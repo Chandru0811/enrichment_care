@@ -125,7 +125,7 @@ const ScheduleTeacher = () => {
               <h2>Schedule</h2>
           
                 
-         <ScheduleTeacherAdd onSuccess={refreshData}/>
+              {storedScreens?.scheduleTeacherCreate && ( <ScheduleTeacherAdd onSuccess={refreshData}/> )}
       </div>
       <hr />
       {loading ? (
@@ -167,24 +167,24 @@ const ScheduleTeacher = () => {
                     <td className="text-center">{data.days}</td>
                     <td className="text-center">
                       <div className="d-flex justify-content-center align-item-center">
-                        {/* {storedScreens?.scheduleTeacherRead && ( */}
+                        {storedScreens?.scheduleTeacherRead && (
                           <ScheduleTeacherView id={data.id} />
-                        {/* )} */}
+                        )}
                         {/* {storedScreens?.scheduleTeacherUpdate && (
                         <ScheduleTeacherEdit
                           id={data.id}
                           onSuccess={refreshData}
                         />
                       )} */}
-                        {/* {storedScreens?.scheduleTeacherDelete && ( */}
+                        {storedScreens?.scheduleTeacherDelete && (
                           <button
                             className="btn btn-sm"
                             onClick={() => handleShow(data)}
                           >
                             <FaTrash />
                           </button>
-                        {/* )} */}
-                        {/* {storedScreens?.timeScheduleIndex && ( */}
+                        )}
+                        {storedScreens?.timeScheduleIndex && (
                           <Link
                             to={`/scheduleteacher/scheduletime/${data.userId}?enrichmentCareId=${data.enrichmentCareId}`}
                           >
@@ -192,7 +192,7 @@ const ScheduleTeacher = () => {
                               <BsTable className="text-dark" />
                             </button>
                           </Link>
-                        {/* )} */}
+                        )}
                       </div>
                     </td>
                   </tr>

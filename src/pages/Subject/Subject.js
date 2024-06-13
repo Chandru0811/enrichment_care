@@ -86,8 +86,9 @@ const Subject = () => {
               Add <i class="bx bx-plus"></i>
             </button>
           </Link> */}
+           {storedScreens?.subjectCreate && (
               <SubjectAdd onSuccess={refreshData}/>
-
+           )}
             </div>
             <hr />
             {loading ? (
@@ -131,24 +132,24 @@ const Subject = () => {
                         </td>
                         <td className="text-center">
                           {/* <div className="d-flex"> */}
-                            {/* {storedScreens?.subjectRead && ( */}
+                            {storedScreens?.subjectRead && (
                               <Link to={`/subject/view/${data.id}`}>
                                 <button className="btn btn-sm">
                                   <FaEye />
                                 </button>
                               </Link>
-                            {/* )} */}
+                            )}
 
-                            {/* {storedScreens?.subjectUpdate && ( */}
+                            {storedScreens?.subjectUpdate && (
                               <SubjectEdit id={data.id} onSuccess={refreshData} />
-                            {/* )} */}
+                            )}
 
-                            {/* {storedScreens?.subjectDelete && ( */}
+                            {storedScreens?.subjectDelete && (
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteCourseSubject/${data.id}`}
                       />
-                    {/* )} */}
+                    )}
                           {/* </div> */}
                         </td>
                       </tr>

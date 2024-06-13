@@ -12,42 +12,8 @@ function Sidebar({ onLogout }) {
   const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {
-    // const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
-    const storedScreens = {
-      centerListingIndex: true,
-      levelIndex: true,
-      subjectIndex: true,
-      courseIndex: true,
-      classIndex: true,
-      leadListingIndex: true,
-      enrollmentIndex: true,
-      staffIndex: true,
-      teacherIndex: true,
-      staffAttendanceIndex: true,
-      leaveAdminIndex: true,
-      leaveIndex: true,
-      holidayIndex: true,
-      deductionIndex: true,
-      payrollIndex: true,
-      payslipIndex: true,
-      rolesMatrixIndex: true,
-      studentListingIndex: true,
-      attendanceIndex: true,
-      scheduleTeacherIndex: true,
-      documentListingIndex: true,
-      documentFileIndex: true,
-      invoiceIndex: true,
-      paymentIndex: false,
-      documentReportIndex: true,
-      attendanceReportIndex: true,
-      studentReportIndex: false,
-      assessmentReportIndex: true,
-      enrollmentReportIndex: true,
-      feeCollectionReportIndex: true,
-      packageBalanceReportIndex: true,
-      salesRevenueReportindex: true,
-      replaceClassLessonListindex: false
-    };
+    const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
+   
     const updatedMenuItems = [
       {
         title: "Centre Management",
@@ -57,7 +23,7 @@ function Sidebar({ onLogout }) {
           {
             title: "Centre Listing",
             path: "/center",
-            access: storedScreens.centerListingIndex,
+            access: storedScreens.enrichmentCareListingIndex,
           },
         ],
       },
@@ -162,7 +128,7 @@ function Sidebar({ onLogout }) {
           {
             title: "Student Listing",
             path: "/student",
-            access: storedScreens.studentListingIndex,
+            access: storedScreens.enrichmentCareListingIndex,
           },
           {
             title: "Attendance",
@@ -221,7 +187,6 @@ function Sidebar({ onLogout }) {
           // Add more submenus as needed
         ],
       },
-
       {
         title: "Report Management",
         icon: "bx bx-food-menu",
@@ -280,9 +245,6 @@ function Sidebar({ onLogout }) {
   }, []);
 
   const [leadMenuOpen] = useState(false);
-  // const [reportMenuOpen, setReportMenuOpen] = useState(false);
-  // const [studentMenuOpen, setStudentMenuOpen] = useState(false);
-  // const [referMenuOpen, setReferMenuOpen] = useState(false);
   const [activeSubmenu] = useState(null);
 
   const handleMenuClick = (index) => {

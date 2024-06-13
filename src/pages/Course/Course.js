@@ -79,13 +79,13 @@ const Course = () => {
       <div className="my-3 d-flex justify-content-between mb-5 px-4" >
     
               <h2>Course</h2>
-          
+              {storedScreens?.classCourse && (
           <Link to="/course/add">
             <button type="button" className="btn btn-button btn-sm">
               Add <i class="bx bx-plus"></i>
             </button>
           </Link>
-    
+              )}
       </div>
       <hr />
 
@@ -129,28 +129,28 @@ const Course = () => {
                   )}
                 </td>
                 <td className="text-center">
-                  {/* {storedScreens?.courseRead && ( */}
+                  {storedScreens?.courseRead && (
                     <Link to={`/course/view/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEye />
                       </button>
                     </Link>
-                  {/* )} */}
-                  {/* {storedScreens?.courseUpdate && ( */}
+                  )}
+                  {storedScreens?.courseUpdate && (
                     <Link to={`/course/edit/${data.id}`}>
                       <button className="btn btn-sm">
                         <FaEdit />
                       </button>
                     </Link>
-                  {/* )} */}
-                  {/* {storedScreens?.courseDelete && ( */}
+                  )}
+                  {storedScreens?.courseDelete && (
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourse/${data.id}`}
                     />
-                  {/* )} */}
+                  )}
 
-                  {/* {storedScreens?.curriculumIndex && ( */}
+                  {storedScreens?.curriculumIndex && (
                     <OverlayTrigger
                       placement="top"
                       overlay={<Tooltip id="tooltip-top">Curriculum</Tooltip>}
@@ -161,7 +161,7 @@ const Course = () => {
                         </button>
                       </Link>
                     </OverlayTrigger>
-                  {/* )} */}
+                  )}
                 </td>
               </tr>
             ))}

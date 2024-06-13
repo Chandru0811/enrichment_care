@@ -121,12 +121,12 @@ export default function ScheduleTime() {
                                       <>
                                         <span>{student.name}</span>
                                         <br />
-                                        {/* {storedScreens?.timeScheduleDelete && ( */}
+                                        {storedScreens?.timeScheduleDelete && (
                                           <RemoveStudentTimeSlot
                                             id={student.id}
                                             onSuccess={refreshData}
                                           />
-                                        {/* )} */}
+                                        )}
                                       </>
                                     );
                                     if (student.blocked) {
@@ -145,18 +145,18 @@ export default function ScheduleTime() {
                                         <div>
                                           <span>{student.name}</span>
                                           <br />
-                                          {/* {storedScreens?.timeScheduleApproved && ( */}
+                                          {storedScreens?.timeScheduleApproved && (
                                             <ApproveStudentTimeSlot
                                               id={student.id}
                                               onSuccess={refreshData}
                                             />
-                                          {/* )} */}
-                                          {/* {storedScreens?.timeScheduleDelete && ( */}
+                                          )}
+                                          {storedScreens?.timeScheduleDelete && (
                                             <RemoveStudentTimeSlot
                                               id={student.id}
                                               onSuccess={refreshData}
                                             />
-                                          {/* )} */}
+                                          )}
                                         </div>
                                       );
                                     }
@@ -164,47 +164,47 @@ export default function ScheduleTime() {
                                     backgroundColor = "lightgrey";
                                     content = (
                                       <>
-                                        {/* {storedScreens?.timeScheduleUnBlock && ( */}
+                                        {storedScreens?.timeScheduleUnBlock && (
                                           <UnBlockTimeSlot
                                             id={student.id}
                                             onSuccess={refreshData}
                                           />
-                                        {/* )} */}
+                                        )}
                                       </>
                                     );
                                   } else {
                                     content =
                                       student && student.id ? (
                                         <>
-                                          {/* {storedScreens?.timeScheduleAdd && ( */}
+                                          {storedScreens?.timeScheduleAdd && (
                                             <DayTableAdd
                                               id={student.id}
                                               onSuccess={refreshData}
                                               enrichmentCareId={enrichmentCareId}
                                               day={data.day}
                                             />
-                                          {/* )} */}
-                                          {/* {storedScreens?.timeScheduleBlock && ( */}
+                                          )}
+                                          {storedScreens?.timeScheduleBlock && (
                                             <BlockTimeSlot
                                               id={student.id}
                                               onSuccess={refreshData}
                                             />
-                                          {/* )} */}
+                                          )}
                                         </>
                                       ) : (
                                         <>
-                                          {/* {storedScreens?.timeScheduleAdd && ( */}
+                                          {storedScreens?.timeScheduleAdd && (
                                             <DayTableAdd
                                               onSuccess={refreshData}
                                               enrichmentCareId={enrichmentCareId}
                                               day={data.day}
                                             />
-                                          {/* )} */}
-                                          {/* {storedScreens?.timeScheduleBlock && ( */}
+                                          )}
+                                          {storedScreens?.timeScheduleBlock && (
                                             <BlockTimeSlot
                                               onSuccess={refreshData}
                                             />
-                                          {/* )} */}
+                                          )}
                                         </>
                                       );
                                   }

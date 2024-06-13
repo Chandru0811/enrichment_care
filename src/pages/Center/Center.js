@@ -82,7 +82,7 @@ const Center = () => {
       
               <h2>Centre Listing</h2>
             
-
+              {storedScreens?.enrichmentCareListingCreate && (
           <Link to="/center/add">
             <button
               type="button"
@@ -92,7 +92,7 @@ const Center = () => {
               Add <i className="bx bx-plus"></i>
             </button>
           </Link>
-        
+              )}
       </div>
       <hr />
       {loading ? (
@@ -134,7 +134,7 @@ const Center = () => {
                 <td className="text-center">{data.mobile}</td>
                 <td>
                   <div className="d-flex justify-content-center align-items-center ">
-                    {/* {storedScreens?.centerListingCreate && ( */}
+                    {storedScreens?.centerListingCreate && (
                       <div class="dropdown" style={{ display: "inline-block" }}>
                         <button
                           class="btn dropdown-toggle"
@@ -159,8 +159,8 @@ const Center = () => {
                           </li>
                         </ul>
                       </div>
-                    {/* )} */}
-                    {/* {storedScreens?.centerListingRead && ( */}
+                   )} 
+                    {storedScreens?.enrichmentCareListingRead && (
                       <Link
                         to={`/center/view/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -169,8 +169,8 @@ const Center = () => {
                           <FaEye />
                         </button>
                       </Link>
-                    {/* )} */}
-                    {/* {storedScreens?.centerListingUpdate && ( */}
+                     )}
+                    {storedScreens?.enrichmentCareListingUpdate && (
                       <Link
                         to={`/center/edit/${data.id}`}
                         style={{ display: "inline-block" }}
@@ -179,14 +179,14 @@ const Center = () => {
                           <FaEdit />
                         </button>
                       </Link>
-                    {/* )} */}
-                    {/* {storedScreens?.centerListingDelete && ( */}
+                    )} 
+                    {storedScreens?.enrichmentCareListingDelete && (
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteEnrichmentCare/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
-                    {/* )} */}
+                     )} 
                   </div>
                 </td>
               </tr>

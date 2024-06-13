@@ -87,13 +87,13 @@ const Document = () => {
     <div className="container-fluid px-0">
       <div className="mb-5 mt-3 d-flex justify-content-between px-4">
         <h2>Document Folder</h2>
-        {/* {storedScreens?.documentListingCreate && ( */}
+        {storedScreens?.documentListingCreate && (
           <Link to="/document/add">
             <button type="button" className="btn btn-button btn-sm">
               Add <i className="bx bx-plus"></i>
             </button>
           </Link>
-        {/* )} */}
+        )}
       </div>
       <hr/>
       {loading ? (
@@ -146,13 +146,13 @@ const Document = () => {
                 </td> */}
                 <td>
                   <div className="d-flex">
-                    {/* {storedScreens?.documentListingRead && ( */}
+                    {storedScreens?.documentListingRead && (
                       <Link to={`/document/view/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEye />
                         </button>
                       </Link>
-                    {/* )} */}
+                    )}
                     <DocumentEdit onSuccess={refreshData} id={data.id} />
                     {/* <DeleteModel
                       onSuccess={refreshData}
