@@ -89,12 +89,12 @@ function Dashboard() {
                   <h5
                      style={{
                       backgroundColor: "#0091B3",
-                      color: "#624bff",
+                      
                       padding: "10px",
                       borderRadius: "5px",
                     }}
                   >
-                    <MdOutlineLeaderboard  />
+                    <MdOutlineLeaderboard  style={{color: "#fff"}}/>
                   </h5>
                 </span>
                 <h2 className="card-text">
@@ -117,12 +117,12 @@ function Dashboard() {
                   <h5
                     style={{
                       backgroundColor: "#0091B3",
-                      color: "#624bff",
+                    
                       padding: "10px",
                       borderRadius: "5px",
                     }}
                   >
-                    <MdOutlineAccountBalance />
+                    <MdOutlineAccountBalance  style={{color: "#fff"}}/>
                   </h5>
                 </span>
                 <h2 className="card-text">
@@ -145,12 +145,12 @@ function Dashboard() {
                   <h5
                     style={{
                       backgroundColor: "#0091B3",
-                      color: "#624bff",
+                    
                       padding: "10px",
                       borderRadius: "5px",
                     }}
                   >
-                    <MdOutlineShoppingCart />
+                    <MdOutlineShoppingCart  style={{color: "#fff"}}/>
                   </h5>
                 </span>
                 <h2 className="card-text">
@@ -173,12 +173,12 @@ function Dashboard() {
                   <h5
                     style={{
                       backgroundColor: "#0091B3",
-                      color: "#624bff",
+                      
                       padding: "10px",
                       borderRadius: "5px",
                     }}
                   >
-                    <TbPigMoney />
+                    <TbPigMoney  style={{color: "#fff"}}/>
                   </h5>
                 </span>
                 <h2 className="card-text">
